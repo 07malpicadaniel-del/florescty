@@ -26,42 +26,39 @@ export default function HeroQuincena() {
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-garden-amethyst/15 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-80 h-80 bg-garden-olive/15 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Dark green decorative roots & branches in empty spaces */}
-      <RootsTopRight className="right-0 top-0 opacity-40" />
-      <RootsBottomLeft className="left-0 bottom-0 opacity-40" />
+      {/* Dark green decorative roots & branches in empty spaces - Highly visible and prominent */}
+      <RootsTopRight className="right-0 top-0 opacity-80" />
+      <RootsBottomLeft className="left-0 bottom-0 opacity-80" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Welcome Tagline */}
-        <div className="flex items-center justify-between gap-4 mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-garden-calPoly/80 border border-garden-olive/40 text-xs font-semibold text-garden-thistle">
-            <Flower2 className="w-3.5 h-3.5 text-garden-amethyst" />
-            <span>Blog Botánico & Flores del Hogar</span>
-          </div>
-
-          <button
-            onClick={openEditor}
-            className="inline-flex items-center gap-1.5 text-xs text-garden-thistle/80 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg border border-white/10 transition-colors"
-            title="Cuaderno del Blog"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-garden-amethyst" />
-            <span>Cuaderno</span>
-          </button>
-        </div>
-
         {/* Main Grid: Left is Warm Welcome, Right is Interactive 3D Orchid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Left Column: Blog Welcome (7 Cols) */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="space-y-3">
-              {/* Main Title in Luxury Avonia Script */}
-              <h1 className="font-script text-6xl sm:text-7xl lg:text-8xl text-white font-normal tracking-wide leading-tight drop-shadow-md">
-                El Jardín Secreto
-              </h1>
-              
-              <p className="font-serif text-xl sm:text-2xl text-garden-thistle/90 italic font-light leading-relaxed max-w-2xl">
-                Un refugio botánico dedicado al arte de observar, aprender y cuidar las flores y plantas que llenan de vida nuestro hogar.
-              </p>
+            {/* Very Large Prominent Logo + Avonia Script Title */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6">
+              <div className="relative w-24 h-28 sm:w-32 sm:h-36 rounded-3xl overflow-hidden shadow-2xl border-2 border-garden-thistle/80 dark:border-garden-darkBorder shrink-0 bg-white hover:scale-105 transition-transform duration-300">
+                <img
+                  src="/logo.png"
+                  alt="Logo El Jardín Secreto"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-garden-calPoly/90 border border-garden-olive/50 text-xs font-semibold text-garden-thistle">
+                  <Flower2 className="w-3.5 h-3.5 text-garden-amethyst" />
+                  <span>Blog Botánico & Flores del Hogar</span>
+                </div>
+                <h1 className="font-script text-6xl sm:text-7xl lg:text-8xl text-white font-normal tracking-wide leading-tight drop-shadow-md">
+                  El Jardín Secreto
+                </h1>
+              </div>
             </div>
+            
+            <p className="font-serif text-xl sm:text-2xl text-garden-thistle/90 italic font-light leading-relaxed max-w-2xl">
+              Un refugio botánico dedicado al arte de observar, aprender y cuidar las flores y plantas que llenan de vida nuestro hogar.
+            </p>
 
             {/* Botanical Values list (clean, no dates or editions) */}
             <div className="bg-garden-darkPurple/80 dark:bg-garden-darkCard/80 border border-garden-darkBorder rounded-2xl p-4 sm:p-5 space-y-3 shadow-inner">

@@ -16,12 +16,21 @@ const PLANT_TOPICS = [
 ];
 
 const BOTANICAL_IMAGES = [
-  'https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?auto=format&fit=crop&w=1000&q=80',
-  'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=1000&q=80',
-  'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=1000&q=80',
-  'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1000&q=80',
-  'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80',
-  'https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=1000&q=80',
+  '/flowers/orquidea-phalaenopsis.jpg',
+  '/flowers/orquidea-cattleya.jpg',
+  '/flowers/violeta-africana.jpg',
+  '/flowers/ave-del-paraiso.jpg',
+  '/flowers/hibisco.jpg',
+  '/flowers/anturio-rojo.jpg',
+  '/flowers/lirio-paz.jpg',
+  '/flowers/hortensia.jpg',
+  '/flowers/peonia.jpg',
+  '/flowers/camelia.jpg',
+  '/flowers/gardenia.jpg',
+  '/flowers/magnolia-blanca.jpg',
+  '/flowers/loto-sagrado.jpg',
+  '/flowers/dalia.jpg',
+  '/flowers/amarilis.jpg',
   '/wix-assets/acerca_1.jpg',
   '/wix-assets/acerca_2.jpg'
 ];

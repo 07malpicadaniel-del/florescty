@@ -3,75 +3,106 @@
 import React from 'react';
 
 // Dark green decorative branches and roots to fill empty spaces in the blog layout
+// Enhanced with rich Cal Poly Green (#374126) and Olive (#6C6D11) leaves, vines and tendrils
 export function RootsTopRight({ className = '' }: { className?: string }) {
   return (
     <div className={`pointer-events-none select-none absolute top-0 right-0 overflow-hidden ${className}`}>
       <svg
-        viewBox="0 0 320 320"
+        viewBox="0 0 360 360"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-56 sm:w-80 h-56 sm:h-80 opacity-30 dark:opacity-25 text-garden-calPoly"
+        className="w-72 sm:w-96 h-72 sm:h-96 opacity-70 dark:opacity-65 text-garden-calPoly"
       >
-        {/* Main winding root branch */}
+        {/* Main winding root branch - Thicker and prominent */}
         <path
-          d="M320 0 C280 40, 240 70, 210 110 C180 150, 160 210, 120 260 C90 295, 40 310, 0 320"
+          d="M360 0 C300 45, 250 80, 220 130 C190 180, 165 240, 120 290 C85 330, 35 345, 0 360"
           stroke="currentColor"
-          strokeWidth="4"
+          strokeWidth="6"
           strokeLinecap="round"
         />
         {/* Secondary branches */}
         <path
-          d="M250 60 C230 110, 190 130, 150 140 C110 150, 80 180, 60 220"
+          d="M280 65 C250 120, 200 145, 155 155 C110 165, 75 200, 50 250"
           stroke="currentColor"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
+        <path
+          d="M190 165 C175 210, 140 245, 105 270 C70 295, 40 305, 10 315"
+          stroke="currentColor"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M320 25 C275 60, 235 95, 210 140"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        <path
+          d="M150 160 C135 190, 100 205, 70 215"
+          stroke="#6C6D11"
           strokeWidth="2.5"
           strokeLinecap="round"
         />
         <path
-          d="M180 150 C170 190, 140 220, 110 240 C80 260, 50 270, 20 280"
-          stroke="currentColor"
-          strokeWidth="2"
+          d="M110 260 C90 295, 60 315, 25 325"
+          stroke="#6C6D11"
+          strokeWidth="2.5"
           strokeLinecap="round"
         />
+
+        {/* Large Botanical Leaves along the branches - Vibrant and visible */}
+        {/* Leaf 1 */}
         <path
-          d="M290 20 C250 50, 220 80, 200 120"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        {/* Delicate root tendrils */}
-        <path
-          d="M140 145 C130 170, 100 185, 75 190"
-          stroke="currentColor"
+          d="M255 100 C240 80, 215 90, 225 110 C235 130, 265 120, 255 100 Z"
+          fill="#4A5D32"
+          stroke="#2B341E"
           strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeDasharray="3 3"
         />
+        {/* Leaf 2 */}
         <path
-          d="M100 240 C85 270, 60 285, 30 295"
-          stroke="currentColor"
+          d="M185 150 C165 140, 145 155, 155 175 C165 195, 195 170, 185 150 Z"
+          fill="#6C6D11"
+          stroke="#374126"
           strokeWidth="1.5"
+        />
+        {/* Leaf 3 */}
+        <path
+          d="M125 225 C105 215, 90 230, 100 248 C110 265, 135 245, 125 225 Z"
+          fill="#374126"
+          stroke="#202717"
+          strokeWidth="1.5"
+        />
+        {/* Leaf 4 */}
+        <path
+          d="M75 280 C60 270, 45 285, 52 302 C60 318, 85 295, 75 280 Z"
+          fill="#4A5D32"
+          stroke="#2B341E"
+          strokeWidth="1.5"
+        />
+        {/* Leaf 5 */}
+        <path
+          d="M295 45 C285 30, 265 40, 275 55 C285 70, 305 60, 295 45 Z"
+          fill="#6C6D11"
+          stroke="#374126"
+          strokeWidth="1.5"
+        />
+        {/* Leaf 6 */}
+        <path
+          d="M210 190 C195 180, 180 195, 190 210 C200 225, 220 205, 210 190 Z"
+          fill="#374126"
+          stroke="#202717"
+          strokeWidth="1.5"
+        />
+
+        {/* Curling root tendrils */}
+        <path
+          d="M50 250 Q20 280 40 310 T20 340"
+          stroke="#6C6D11"
+          strokeWidth="2"
+          fill="none"
           strokeLinecap="round"
-        />
-        {/* Botanical leaves along the roots */}
-        <path
-          d="M225 90 C220 80, 205 85, 210 95 C215 105, 230 100, 225 90 Z"
-          fill="currentColor"
-          opacity="0.8"
-        />
-        <path
-          d="M165 140 C155 135, 145 145, 150 155 C155 165, 170 150, 165 140 Z"
-          fill="currentColor"
-          opacity="0.8"
-        />
-        <path
-          d="M115 210 C105 205, 95 215, 100 225 C105 235, 120 220, 115 210 Z"
-          fill="currentColor"
-          opacity="0.8"
-        />
-        <path
-          d="M70 260 C60 255, 50 265, 55 275 C60 285, 75 270, 70 260 Z"
-          fill="currentColor"
-          opacity="0.8"
         />
       </svg>
     </div>
@@ -82,58 +113,82 @@ export function RootsBottomLeft({ className = '' }: { className?: string }) {
   return (
     <div className={`pointer-events-none select-none absolute bottom-0 left-0 overflow-hidden ${className}`}>
       <svg
-        viewBox="0 0 320 320"
+        viewBox="0 0 360 360"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-56 sm:w-80 h-56 sm:h-80 opacity-30 dark:opacity-25 text-garden-calPoly"
+        className="w-72 sm:w-96 h-72 sm:h-96 opacity-70 dark:opacity-65 text-garden-calPoly"
       >
+        {/* Main winding root rising from bottom corner */}
         <path
-          d="M0 320 C40 280, 80 250, 110 210 C140 170, 160 110, 200 60 C230 25, 280 10, 320 0"
+          d="M0 360 C45 310, 95 275, 130 225 C165 175, 185 115, 230 65 C265 25, 315 10, 360 0"
+          stroke="currentColor"
+          strokeWidth="6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M80 290 C105 235, 150 210, 195 200 C240 190, 275 155, 300 105"
           stroke="currentColor"
           strokeWidth="4"
           strokeLinecap="round"
         />
         <path
-          d="M70 260 C90 210, 130 190, 170 180 C210 170, 240 140, 260 100"
+          d="M160 190 C175 145, 210 110, 245 85 C280 60, 315 50, 345 40"
           stroke="currentColor"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M205 195 C220 165, 255 150, 285 140"
+          stroke="#6C6D11"
           strokeWidth="2.5"
           strokeLinecap="round"
         />
         <path
-          d="M140 170 C150 130, 180 100, 210 80 C240 60, 270 50, 300 40"
-          stroke="currentColor"
+          d="M245 95 C265 60, 295 40, 330 30"
+          stroke="#6C6D11"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+
+        {/* Distinctive botanical leaves */}
+        <path
+          d="M105 260 C115 240, 140 250, 130 270 C120 290, 95 280, 105 260 Z"
+          fill="#4A5D32"
+          stroke="#2B341E"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M175 205 C185 185, 210 195, 200 215 C190 235, 165 225, 175 205 Z"
+          fill="#6C6D11"
+          stroke="#374126"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M235 125 C245 105, 270 115, 260 135 C250 155, 225 145, 235 125 Z"
+          fill="#374126"
+          stroke="#202717"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M285 75 C295 55, 320 65, 310 85 C300 105, 275 95, 285 75 Z"
+          fill="#4A5D32"
+          stroke="#2B341E"
+          strokeWidth="1.5"
+        />
+        <path
+          d="M60 310 C70 290, 95 300, 85 320 C75 340, 50 330, 60 310 Z"
+          fill="#6C6D11"
+          stroke="#374126"
+          strokeWidth="1.5"
+        />
+
+        {/* Sprouting curly tendrils */}
+        <path
+          d="M300 105 Q330 80 320 50 T340 20"
+          stroke="#6C6D11"
           strokeWidth="2"
+          fill="none"
           strokeLinecap="round"
-        />
-        {/* Curled root tips */}
-        <path
-          d="M180 175 C190 150, 220 135, 245 130"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeDasharray="4 4"
-        />
-        <path
-          d="M220 80 C235 50, 260 35, 290 25"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        {/* Leaves */}
-        <path
-          d="M95 230 C100 240, 115 235, 110 225 C105 215, 90 220, 95 230 Z"
-          fill="currentColor"
-          opacity="0.8"
-        />
-        <path
-          d="M155 180 C165 185, 175 175, 170 165 C165 155, 150 170, 155 180 Z"
-          fill="currentColor"
-          opacity="0.8"
-        />
-        <path
-          d="M205 110 C215 115, 225 105, 220 95 C215 85, 200 100, 205 110 Z"
-          fill="currentColor"
-          opacity="0.8"
         />
       </svg>
     </div>
@@ -147,44 +202,42 @@ export function RootsDivider({ className = '' }: { className?: string }) {
         viewBox="0 0 600 60"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full max-w-lg h-10 opacity-35 text-garden-calPoly"
+        className="w-full max-w-lg h-12 opacity-65 text-garden-calPoly"
       >
-        {/* Horizontal organic vine */}
         <path
           d="M0 30 Q150 10 300 30 T600 30"
           stroke="currentColor"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M100 25 Q180 48 250 28"
+          stroke="#6C6D11"
           strokeWidth="2.5"
           strokeLinecap="round"
         />
         <path
-          d="M100 25 Q180 45 250 28"
-          stroke="currentColor"
-          strokeWidth="1.5"
+          d="M350 32 Q420 12 500 30"
+          stroke="#6C6D11"
+          strokeWidth="2.5"
           strokeLinecap="round"
         />
+        {/* Leaves along divider */}
         <path
-          d="M350 32 Q420 15 500 30"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        {/* Tendrils and leaf buds */}
-        <circle cx="300" cy="30" r="4" fill="currentColor" />
-        <path
-          d="M290 25 C285 15, 275 20, 280 28 Z"
-          fill="currentColor"
+          d="M290 25 C280 12, 268 18, 275 28 Z"
+          fill="#4A5D32"
         />
         <path
-          d="M310 35 C315 45, 325 40, 320 32 Z"
-          fill="currentColor"
+          d="M310 35 C320 48, 332 42, 325 32 Z"
+          fill="#6C6D11"
         />
         <path
-          d="M180 32 C175 42, 165 38, 170 30 Z"
-          fill="currentColor"
+          d="M175 35 C168 47, 156 42, 163 32 Z"
+          fill="#374126"
         />
         <path
-          d="M430 22 C435 12, 445 16, 440 24 Z"
-          fill="currentColor"
+          d="M435 20 C442 8, 454 13, 447 23 Z"
+          fill="#4A5D32"
         />
       </svg>
     </div>

@@ -34,8 +34,9 @@ export default function PlantGuidesSection() {
 
   return (
     <section className="relative py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
-      {/* Decorative dark green roots in empty margin space */}
-      <RootsTopRight className="opacity-25" />
+      {/* Decorative dark green roots in empty margin space - Prominent */}
+      <RootsTopRight className="opacity-80" />
+      <RootsBottomLeft className="opacity-80" />
 
       {/* Section Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-garden-thistle/80 dark:border-garden-darkBorder relative z-10">

@@ -70,7 +70,7 @@ export default function Navbar() {
           onClick={() => setActiveTab('inicio')}
           className="flex items-center gap-3.5 sm:gap-4 text-left group shrink-0"
         >
-          <div className="relative w-14 h-16 sm:w-16 sm:h-20 rounded-2xl overflow-hidden shadow-md group-hover:scale-105 transition-transform duration-200 border-2 border-garden-thistle dark:border-garden-darkBorder shrink-0 bg-white">
+          <div className="relative w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-200 border-2 border-garden-thistle dark:border-garden-darkBorder shrink-0 bg-white">
             <img
               src="/logo.png"
               alt="Logo El Jardín Secreto"
@@ -79,12 +79,12 @@ export default function Navbar() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-script text-3xl sm:text-5xl font-normal tracking-wide text-garden-darkPurple dark:text-garden-thistle group-hover:text-garden-amethyst transition-colors">
+              <span className="font-script text-4xl sm:text-6xl font-normal tracking-wide text-garden-darkPurple dark:text-garden-thistle group-hover:text-garden-amethyst transition-colors">
                 {content.siteSettings.siteName}
               </span>
               <span className="w-2.5 h-2.5 rounded-full bg-garden-olive animate-pulse hidden sm:inline-block" />
             </div>
-            <span className="font-serif text-[11px] sm:text-xs text-garden-olive dark:text-garden-thistle/80 uppercase tracking-widest block font-medium">
+            <span className="font-serif text-xs sm:text-sm text-garden-olive dark:text-garden-thistle/80 uppercase tracking-widest block font-medium">
               Flores · Plantas · Cuidados
             </span>
           </div>

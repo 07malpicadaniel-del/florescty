@@ -11,14 +11,17 @@ import {
   Camera, 
   Flower2 
 } from 'lucide-react';
-import { RootsBottomLeft } from './BotanicalRoots';
+import { RootsTopRight, RootsBottomLeft } from './BotanicalRoots';
 
 export default function AboutSection() {
   const { content, openEditor } = useContent();
   const { siteSettings } = content;
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16">
+    <section className="relative py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-16 overflow-hidden">
+      {/* Decorative dark green roots in empty spaces */}
+      <RootsTopRight className="opacity-80" />
+      <RootsBottomLeft className="opacity-80" />
       {/* Top Garden Editorial */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         {/* Left Column: Genuine Botanical Plate (5 cols) */}
