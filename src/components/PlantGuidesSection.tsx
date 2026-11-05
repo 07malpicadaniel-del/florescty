@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useContent } from '../context/ContentContext';
-import { PlantProfile } from '../types';
 import { 
   BookOpen, 
   Sun, 
@@ -35,17 +34,17 @@ export default function PlantGuidesSection() {
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-botanical-200 dark:border-botanical-800">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-garden-thistle/80 dark:border-garden-darkBorder">
         <div>
-          <div className="inline-flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-semibold text-xs uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 text-garden-amethyst font-semibold text-xs uppercase tracking-wider mb-2">
             <BookOpen className="w-4 h-4" />
-            Herbario Vivo · Colección Botánica
+            Colección del Jardín
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-botanical-950 dark:text-emerald-50 tracking-tight">
-            Guía de Especies & Cuidados
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-garden-darkPurple dark:text-garden-thistle tracking-tight">
+            Guía de Plantas & Flores
           </h2>
-          <p className="text-botanical-700 dark:text-botanical-300 mt-2 max-w-2xl text-sm sm:text-base">
-            Fichas ilustradas con los requerimientos de luz, riego, humedad ambiental y compatibilidad con mascotas de cada flor y planta de nuestra colección.
+          <p className="text-garden-darkPurple/80 dark:text-garden-thistle/80 mt-2 max-w-2xl text-sm sm:text-base">
+            Fichas sencillas sobre la luz, el riego y los cuidados que necesita cada especie en casa.
           </p>
         </div>
 
@@ -55,10 +54,10 @@ export default function PlantGuidesSection() {
             <button
               key={level}
               onClick={() => setFilterDifficulty(level)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
                 filterDifficulty === level
-                  ? 'bg-botanical-800 dark:bg-emerald-700 text-white shadow-sm'
-                  : 'bg-white dark:bg-darkGarden-900 text-botanical-800 dark:text-botanical-200 border border-botanical-200 dark:border-botanical-800 hover:bg-botanical-50 dark:hover:bg-darkGarden-850'
+                  ? 'bg-garden-darkPurple text-white dark:bg-garden-amethyst dark:text-white shadow-sm ring-1 ring-garden-amethyst'
+                  : 'bg-white dark:bg-garden-darkCard text-garden-darkPurple dark:text-garden-thistle border border-garden-thistle/80 dark:border-garden-darkBorder hover:bg-garden-thistle/40'
               }`}
             >
               {level}
@@ -70,13 +69,13 @@ export default function PlantGuidesSection() {
       {/* Search Bar for Encyclopedia */}
       <div className="py-6">
         <div className="relative max-w-md">
-          <Search className="w-4 h-4 text-botanical-400 absolute left-3.5 top-3 pointer-events-none" />
+          <Search className="w-4 h-4 text-garden-amethyst absolute left-3.5 top-3 pointer-events-none" />
           <input
             type="text"
-            placeholder="Buscar por nombre común o científico..."
+            placeholder="Buscar por nombre de flor o planta..."
             value={encyclopediaSearch}
             onChange={(e) => setEncyclopediaSearch(e.target.value)}
-            className="w-full bg-white dark:bg-darkGarden-900 dark:text-white text-botanical-950 text-sm pl-10 pr-4 py-2.5 rounded-2xl border border-botanical-200 dark:border-botanical-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-soft"
+            className="w-full bg-white dark:bg-garden-darkCard dark:text-white text-garden-darkPurple text-sm pl-10 pr-4 py-2.5 rounded-2xl border border-garden-thistle/80 dark:border-garden-darkBorder focus:outline-none focus:ring-2 focus:ring-garden-amethyst shadow-soft placeholder:text-garden-darkPurple/50"
           />
         </div>
       </div>
@@ -85,36 +84,36 @@ export default function PlantGuidesSection() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {plants.map((plant) => {
           const isPetSafe = 
-            plant.toxicity.toLowerCase().includes('no tóxica') ||
-            plant.toxicity.toLowerCase().includes('pet') ||
-            plant.toxicity.toLowerCase().includes('inofensiva');
+            plant.toxicity.toLowerCase().includes('segura') ||
+            plant.toxicity.toLowerCase().includes('inofensiva') ||
+            plant.toxicity.toLowerCase().includes('no tóxica');
 
           return (
             <div
               key={plant.id}
               onClick={() => setSelectedPlant(plant)}
-              className="group bg-white dark:bg-darkGarden-900 rounded-2xl border border-botanical-200/80 dark:border-botanical-800/80 overflow-hidden shadow-soft hover:shadow-lifted hover:border-emerald-400 dark:hover:border-emerald-600 transition-all duration-300 cursor-pointer flex flex-col justify-between"
+              className="group bg-white dark:bg-garden-darkCard rounded-2xl border border-garden-thistle/80 dark:border-garden-darkBorder overflow-hidden shadow-soft hover:shadow-lifted hover:border-garden-amethyst transition-all duration-300 cursor-pointer flex flex-col justify-between"
             >
               {/* Image Container */}
-              <div className="relative h-52 w-full overflow-hidden bg-botanical-100 dark:bg-darkGarden-800">
+              <div className="relative h-52 w-full overflow-hidden bg-garden-thistle/30 dark:bg-garden-darkBg">
                 <img
                   src={plant.imageUrl}
                   alt={plant.commonName}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-75 group-hover:opacity-40 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-garden-darkPurple via-transparent to-transparent opacity-75 group-hover:opacity-40 transition-opacity" />
 
                 {/* Difficulty badge */}
-                <div className="absolute top-3 right-3 bg-botanical-950/80 backdrop-blur text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full border border-white/20">
+                <div className="absolute top-3 right-3 bg-garden-darkPurple/80 backdrop-blur text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full border border-garden-amethyst/30">
                   {plant.difficulty}
                 </div>
 
                 {/* Category Pill */}
                 <div className="absolute bottom-3 left-3 text-white">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-300 block">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-garden-thistle block">
                     {plant.category}
                   </span>
-                  <h3 className="font-serif text-lg font-bold text-white drop-shadow leading-tight">
+                  <h3 className="font-serif text-xl font-bold text-white drop-shadow leading-tight">
                     {plant.commonName}
                   </h3>
                 </div>
@@ -123,42 +122,42 @@ export default function PlantGuidesSection() {
               {/* Body */}
               <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                 <div>
-                  <p className="text-xs italic text-botanical-600 dark:text-emerald-300 mb-2 font-serif">
+                  <p className="text-xs italic text-garden-darkPurple/70 dark:text-garden-thistle/70 mb-2 font-serif">
                     {plant.scientificName}
                   </p>
-                  <p className="text-xs text-botanical-800 dark:text-botanical-300 line-clamp-3 leading-relaxed">
+                  <p className="text-xs text-garden-darkPurple/80 dark:text-garden-thistle/80 line-clamp-3 leading-relaxed font-serif">
                     {plant.summary}
                   </p>
                 </div>
 
                 {/* Quick specs pill row */}
-                <div className="grid grid-cols-2 gap-2 text-[11px] pt-3 border-t border-botanical-100 dark:border-botanical-800 text-botanical-700 dark:text-botanical-300">
+                <div className="grid grid-cols-2 gap-2 text-[11px] pt-3 border-t border-garden-thistle/60 dark:border-garden-darkBorder text-garden-darkPurple/80 dark:text-garden-thistle/80">
                   <div className="flex items-center gap-1.5 truncate">
-                    <Sun className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                    <Sun className="w-3.5 h-3.5 text-garden-amethyst shrink-0" />
                     <span className="truncate">{plant.light.split(',')[0]}</span>
                   </div>
                   <div className="flex items-center gap-1.5 truncate">
-                    <Droplet className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
+                    <Droplet className="w-3.5 h-3.5 text-garden-amethyst shrink-0" />
                     <span className="truncate">{plant.watering.split('(')[0]}</span>
                   </div>
                 </div>
               </div>
 
               {/* Bottom bar */}
-              <div className="px-5 py-3 bg-botanical-50/70 dark:bg-darkGarden-950 border-t border-botanical-100 dark:border-botanical-800 flex items-center justify-between text-xs">
+              <div className="px-5 py-3 bg-garden-cream/60 dark:bg-garden-darkBg border-t border-garden-thistle/60 dark:border-garden-darkBorder flex items-center justify-between text-xs">
                 <span className={`inline-flex items-center gap-1 text-[11px] font-medium ${
-                  isPetSafe ? 'text-emerald-700 dark:text-emerald-400' : 'text-amber-700 dark:text-amber-400'
+                  isPetSafe ? 'text-garden-olive dark:text-garden-thistle' : 'text-rose-600'
                 }`}>
                   {isPetSafe ? (
-                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-garden-olive" />
                   ) : (
-                    <AlertCircle className="w-3.5 h-3.5" />
+                    <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
                   )}
-                  <span>{isPetSafe ? 'Pet Safe' : 'Precaución'}</span>
+                  <span>{isPetSafe ? 'Segura' : 'Precaución'}</span>
                 </span>
 
-                <span className="text-emerald-700 dark:text-emerald-400 font-semibold group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1">
-                  Ver ficha completa
+                <span className="text-garden-amethyst font-semibold group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1 font-serif">
+                  Ver cuidados
                   <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>

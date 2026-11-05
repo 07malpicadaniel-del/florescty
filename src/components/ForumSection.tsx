@@ -4,23 +4,22 @@ import React from 'react';
 import { useContent } from '../context/ContentContext';
 import ForumPostCard from './ForumPostCard';
 import { 
-  MessageSquare, 
+  FileText, 
   PlusCircle, 
   Sparkles, 
   Sprout, 
-  Leaf,
-  Flower2
+  Flower2,
+  RefreshCw,
+  Calendar
 } from 'lucide-react';
-import { PostCategory } from '../types';
 
-const CATEGORIES: ('Todas' | PostCategory)[] = [
+const CATEGORIES = [
   'Todas',
-  'Cuidado y Riego',
-  'Orquídeas y Flores',
-  'Suculentas y Cactus',
-  'Identificación de Especies',
-  'Plagas y Soluciones Orgánicas',
-  'Propagación y Esquejes'
+  'Flores y Cuidados',
+  'Plantas de Casa',
+  'Suculentas',
+  'Consejos de Riego',
+  'Diario de Jardín'
 ];
 
 export default function ForumSection() {
@@ -31,7 +30,9 @@ export default function ForumSection() {
     searchQuery, 
     setSearchQuery,
     setIsNewPostModalOpen,
-    openEditor 
+    openEditor,
+    isGeneratingAI,
+    generateAIPost 
   } = useContent();
 
   const filteredPosts = content.posts.filter((post) => {
@@ -43,46 +44,72 @@ export default function ForumSection() {
       !query || 
       post.title.toLowerCase().includes(query) ||
       post.content.toLowerCase().includes(query) ||
-      post.author.name.toLowerCase().includes(query) ||
       (post.plantDetails?.scientificName && post.plantDetails.scientificName.toLowerCase().includes(query));
 
     return matchesCategory && matchesQuery;
   });
 
+  const handleTestGroq = async () => {
+    await generateAIPost(true);
+  };
+
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-botanical-200 dark:border-botanical-800">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-garden-thistle/80 dark:border-garden-darkBorder">
         <div>
-          <div className="inline-flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-semibold text-xs uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 text-garden-amethyst mb-1">
             <Flower2 className="w-4 h-4" />
-            Publicaciones de Constanza Pimentel · El Jardín Secreto
+            <span className="font-script text-2xl text-garden-amethyst dark:text-garden-thistle tracking-wide">
+              Notas & Cuidados
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-botanical-950 dark:text-emerald-50 tracking-tight">
-            Cuadernos Botánicos & Entregas Quincenales
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-garden-darkPurple dark:text-garden-thistle tracking-tight">
+            Publicaciones del Jardín
           </h2>
-          <p className="text-botanical-700 dark:text-botanical-300 mt-2 max-w-2xl text-sm sm:text-base">
-            Espacio dedicado a compartir notas de cultivo, consejos de riego, cuidados de orquídeas y fichas de especies seleccionadas para enriquecer tu rincón verde cada dos semanas.
+          <p className="text-garden-darkPurple/80 dark:text-garden-thistle/80 mt-2 max-w-2xl text-sm sm:text-base">
+            Notas sencillas sobre riego, luz y cuidados para que tus plantas y flores crezcan hermosas.
           </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-3 shrink-0 flex-wrap">
+          {/* Button to test Groq AI Post generation */}
+          <button
+            onClick={handleTestGroq}
+            disabled={isGeneratingAI}
+            className="flex items-center gap-2 bg-garden-darkPurple hover:bg-garden-darkPurple/90 dark:bg-garden-amethyst dark:hover:bg-garden-amethyst/80 text-white font-medium px-4 py-2.5 rounded-xl shadow-sm transition-all disabled:opacity-50 text-xs sm:text-sm"
+            title="Conectado a Groq IA: genera publicaciones automáticas los miércoles y jueves (prueba de hoy)"
+          >
+            {isGeneratingAI ? (
+              <>
+                <RefreshCw className="w-4 h-4 animate-spin text-garden-thistle" />
+                <span>Generando con IA...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-4 h-4 text-garden-thistle" />
+                <span>Publicación con IA (Groq)</span>
+              </>
+            )}
+          </button>
+
           <button
             onClick={() => setIsNewPostModalOpen(true)}
-            className="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-medium px-4 py-2.5 rounded-xl shadow-sm transition-all"
+            className="flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white font-medium px-4 py-2.5 rounded-xl shadow-sm transition-all text-xs sm:text-sm"
           >
             <PlusCircle className="w-4 h-4" />
             <span>Nueva Publicación</span>
           </button>
+        </div>
+      </div>
 
-          <button
-            onClick={openEditor}
-            className="flex items-center gap-1.5 bg-botanical-100 dark:bg-darkGarden-800 hover:bg-botanical-200 dark:hover:bg-darkGarden-700 text-botanical-900 dark:text-botanical-100 border border-botanical-300 dark:border-botanical-700 font-medium px-3.5 py-2.5 rounded-xl text-sm transition-colors"
-            title="Cuaderno de edición quincenal"
-          >
-            <Sparkles className="w-4 h-4 text-flora-amber" />
-            <span className="hidden sm:inline">Taller Quincenal</span>
-          </button>
+      {/* Groq Automated Schedule Info Banner */}
+      <div className="my-4 bg-garden-thistle/40 dark:bg-garden-darkCard p-3 rounded-2xl border border-garden-thistle/80 dark:border-garden-darkBorder flex items-center justify-between gap-3 text-xs text-garden-darkPurple dark:text-garden-thistle">
+        <div className="flex items-center gap-2">
+          <Calendar className="w-4 h-4 text-garden-amethyst shrink-0" />
+          <span>
+            <strong>Publicaciones automáticas con IA:</strong> Cada <strong>miércoles</strong> y <strong>jueves</strong> se publica una nueva nota botánica. Puedes pulsar el botón de arriba para probar la generación del día de hoy.
+          </span>
         </div>
       </div>
 
@@ -98,8 +125,8 @@ export default function ForumSection() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
                     isSelected
-                      ? 'bg-botanical-800 dark:bg-emerald-700 text-white shadow-sm ring-1 ring-botanical-700'
-                      : 'bg-white dark:bg-darkGarden-900 text-botanical-800 dark:text-botanical-200 border border-botanical-200/80 dark:border-botanical-800 hover:bg-botanical-50 dark:hover:bg-darkGarden-850'
+                      ? 'bg-garden-darkPurple text-white dark:bg-garden-amethyst dark:text-white shadow-sm ring-1 ring-garden-amethyst'
+                      : 'bg-white dark:bg-garden-darkCard text-garden-darkPurple dark:text-garden-thistle border border-garden-thistle/80 dark:border-garden-darkBorder hover:bg-garden-thistle/40'
                   }`}
                 >
                   {cat}
@@ -108,19 +135,19 @@ export default function ForumSection() {
             })}
           </div>
 
-          <div className="text-xs text-botanical-600 dark:text-botanical-400 font-medium">
+          <div className="text-xs text-garden-darkPurple/70 dark:text-garden-thistle/70 font-medium">
             Mostrando <strong>{filteredPosts.length}</strong> {filteredPosts.length === 1 ? 'publicación' : 'publicaciones'}
           </div>
         </div>
 
         {searchQuery && (
-          <div className="bg-botanical-100/70 dark:bg-darkGarden-850 text-botanical-900 dark:text-botanical-100 text-xs px-3 py-1.5 rounded-lg flex items-center justify-between">
+          <div className="bg-garden-thistle/50 dark:bg-garden-darkCard text-garden-darkPurple dark:text-garden-thistle text-xs px-3 py-1.5 rounded-lg flex items-center justify-between">
             <span>
               Filtrando por: <strong>&ldquo;{searchQuery}&rdquo;</strong>
             </span>
             <button
               onClick={() => setSearchQuery('')}
-              className="text-emerald-700 dark:text-emerald-400 hover:underline font-semibold text-xs ml-2"
+              className="text-garden-amethyst hover:underline font-semibold text-xs ml-2"
             >
               Limpiar filtro
             </button>
@@ -136,14 +163,14 @@ export default function ForumSection() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 px-4 bg-white dark:bg-darkGarden-900 rounded-3xl border border-dashed border-botanical-300 dark:border-botanical-800">
-          <div className="w-14 h-14 bg-botanical-100 dark:bg-darkGarden-800 rounded-full flex items-center justify-center mx-auto mb-4 text-emerald-600 dark:text-emerald-400">
+        <div className="text-center py-16 px-4 bg-white dark:bg-garden-darkCard rounded-3xl border border-dashed border-garden-thistle dark:border-garden-darkBorder">
+          <div className="w-14 h-14 bg-garden-thistle/30 dark:bg-garden-darkBg rounded-full flex items-center justify-center mx-auto mb-4 text-garden-amethyst">
             <Sprout className="w-7 h-7" />
           </div>
-          <h3 className="font-serif text-xl font-bold text-botanical-950 dark:text-white mb-1">
+          <h3 className="font-serif text-xl font-bold text-garden-darkPurple dark:text-white mb-1">
             No se encontraron publicaciones
           </h3>
-          <p className="text-botanical-700 dark:text-botanical-300 text-sm max-w-md mx-auto mb-6">
+          <p className="text-garden-darkPurple/70 dark:text-garden-thistle/70 text-sm max-w-md mx-auto mb-6">
             No hay temas registrados bajo este criterio de búsqueda.
           </p>
           <button
@@ -151,9 +178,9 @@ export default function ForumSection() {
               setSelectedCategory('Todas');
               setSearchQuery('');
             }}
-            className="inline-flex items-center gap-2 bg-emerald-700 text-white text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-emerald-600 transition-colors"
+            className="inline-flex items-center gap-2 bg-garden-olive text-white text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-garden-calPoly transition-colors"
           >
-            Ver todas las publicaciones de Constanza
+            Ver todas las publicaciones
           </button>
         </div>
       )}

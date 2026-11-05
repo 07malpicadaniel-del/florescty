@@ -3,14 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --font-serif: Georgia, Cambria, 'Times New Roman', serif;
-  --bg-primary: #f7faf7;
-  --text-primary: #1e3c30;
+  --color-dark-purple: #3A1C36;
+  --color-amethyst: #9B71B2;
+  --color-thistle: #E3D0EA;
+  --color-olive: #6C6D11;
+  --color-cal-poly: #374126;
+  --bg-primary: #FAF6FB;
+  --text-primary: #3A1C36;
 }
 
 .dark {
-  --bg-primary: #08130e;
-  --text-primary: #e4efe8;
+  --bg-primary: #1E0E1B;
+  --text-primary: #FAF6FB;
 }
 
 body {
@@ -21,74 +25,66 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Custom Botanical Scrollbars */
+/* Luxury Script & Heading Classes */
+.font-script {
+  font-family: 'Great Vibes', cursive, Georgia, serif;
+}
+
+.font-serif {
+  font-family: 'Cormorant Garamond', Georgia, Cambria, serif;
+}
+
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f0f5f1;
+  background: #F4ECF6;
 }
 
 .dark ::-webkit-scrollbar-track {
-  background: #0c1b14;
+  background: #2B1428;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #9cc9b1;
+  background: #9B71B2;
   border-radius: 4px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: #1f4534;
+  background: #4E2648;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #488c6e;
+  background: #6C6D11;
 }
 
-/* Botanical patterns and glassmorphism */
+/* Glassmorphism using Thistle & Dark Purple */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(250, 246, 251, 0.90);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(156, 201, 177, 0.35);
+  border: 1px solid rgba(227, 208, 234, 0.6);
 }
 
 .dark .glass-panel {
-  background: rgba(12, 27, 20, 0.88);
+  background: rgba(43, 20, 40, 0.90);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(35, 73, 55, 0.5);
+  border: 1px solid rgba(78, 38, 72, 0.6);
 }
 
-.glass-panel-dark {
-  background: rgba(14, 32, 25, 0.92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(72, 140, 110, 0.3);
-}
-
-/* Garden texture patterns */
 .garden-card {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .garden-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 30px -8px rgba(14, 32, 25, 0.12);
+  box-shadow: 0 12px 30px -8px rgba(58, 28, 54, 0.12);
 }
 
 .dark .garden-card:hover {
-  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.5), 0 0 15px rgba(52, 113, 86, 0.2);
-}
-
-/* Delicate botanical decorative borders */
-.botanical-border {
-  border: 1px solid #c5e0d0;
-}
-
-.dark .botanical-border {
-  border: 1px solid #1f4534;
+  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.6), 0 0 15px rgba(155, 113, 178, 0.2);
 }

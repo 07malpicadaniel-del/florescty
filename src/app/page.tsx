@@ -17,7 +17,6 @@ import QuickEditFloatingButton from '../components/QuickEditFloatingButton';
 import { 
   BookOpen, 
   ArrowRight, 
-  Sparkles, 
   Sprout, 
   Calendar,
   Flower2
@@ -35,7 +34,7 @@ export default function HomePage() {
   const featuredPlants = content.plantsEncyclopedia.slice(0, 3);
 
   return (
-    <div className="flex-1 flex flex-col min-h-screen bg-[#f7faf7] dark:bg-darkGarden-950 transition-colors duration-300">
+    <div className="flex-1 flex flex-col min-h-screen bg-garden-cream dark:bg-garden-darkBg transition-colors duration-300">
       <Navbar />
 
       <main className="flex-1">
@@ -45,50 +44,50 @@ export default function HomePage() {
             {/* Magazine Hero */}
             <HeroQuincena />
 
-            {/* Mission Banner (Faithful to Constanza's real words from Wix) */}
+            {/* Welcome Banner */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="bg-gradient-to-r from-botanical-100/90 via-emerald-50 to-botanical-100/90 dark:from-darkGarden-900 dark:via-darkGarden-850 dark:to-darkGarden-900 border border-botanical-200/80 dark:border-botanical-800 rounded-3xl p-6 sm:p-10 shadow-soft">
+              <div className="bg-gradient-to-r from-garden-thistle/40 via-white to-garden-thistle/40 dark:from-garden-darkCard dark:via-garden-darkBg dark:to-garden-darkCard border border-garden-thistle/80 dark:border-garden-darkBorder rounded-3xl p-6 sm:p-10 shadow-soft">
                 <div className="max-w-3xl mx-auto text-center space-y-4">
-                  <div className="w-12 h-12 bg-white dark:bg-darkGarden-800 rounded-2xl flex items-center justify-center mx-auto shadow-sm text-emerald-700 dark:text-emerald-400 border border-botanical-200/50 dark:border-botanical-700">
+                  <div className="w-12 h-12 bg-white dark:bg-garden-darkCard rounded-2xl flex items-center justify-center mx-auto shadow-sm text-garden-amethyst border border-garden-thistle/80 dark:border-garden-darkBorder">
                     <Sprout className="w-6 h-6" />
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-serif font-bold text-botanical-950 dark:text-white">
+                  <h2 className="text-3xl sm:text-4xl font-serif font-bold text-garden-darkPurple dark:text-white">
                     Bienvenido a El Jardín Secreto
                   </h2>
-                  <p className="text-sm sm:text-base text-botanical-800 dark:text-botanical-200 leading-relaxed font-serif">
+                  <p className="text-base sm:text-lg text-garden-darkPurple/80 dark:text-garden-thistle/90 leading-relaxed font-serif">
                     {content.siteSettings.welcomeText}
                   </p>
-                  <div className="pt-2 flex items-center justify-center gap-3 text-xs text-botanical-700 dark:text-botanical-300 font-medium">
+                  <div className="pt-2 flex items-center justify-center gap-3 text-xs text-garden-darkPurple/70 dark:text-garden-thistle/70 font-medium font-serif">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-emerald-700 dark:text-emerald-400" />
+                      <Calendar className="w-3.5 h-3.5 text-garden-amethyst" />
                       Renovación cada 2 semanas
                     </span>
                     <span>•</span>
                     <span className="flex items-center gap-1">
-                      <Flower2 className="w-3.5 h-3.5 text-flora-amber" />
-                      Por {content.siteSettings.curatorName}
+                      <Flower2 className="w-3.5 h-3.5 text-garden-amethyst" />
+                      Espacio Botánico
                     </span>
                   </div>
                 </div>
               </div>
             </section>
 
-            {/* Home: Forum Snapshot */}
+            {/* Home: Publications Snapshot */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-              <div className="flex items-center justify-between border-b border-botanical-200 dark:border-botanical-800 pb-4">
+              <div className="flex items-center justify-between border-b border-garden-thistle/80 dark:border-garden-darkBorder pb-4">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 mb-1">
+                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-garden-amethyst mb-1">
                     <Flower2 className="w-4 h-4" />
-                    Publicaciones de Constanza
+                    Publicaciones Recientes
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-serif font-bold text-botanical-950 dark:text-white">
-                    Cuadernos y Notas de Cultivo
+                  <h3 className="text-3xl sm:text-4xl font-serif font-bold text-garden-darkPurple dark:text-white">
+                    Notas y Cuidados
                   </h3>
                 </div>
 
                 <button
-                  onClick={() => setActiveTab('foro')}
-                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 transition-colors"
+                  onClick={() => setActiveTab('publicaciones')}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-garden-amethyst hover:text-garden-darkPurple dark:hover:text-white transition-colors font-serif"
                 >
                   <span>Ver todas las publicaciones</span>
                   <ArrowRight className="w-4 h-4" />
@@ -104,22 +103,22 @@ export default function HomePage() {
 
             {/* Home: Featured Encyclopedia Snapshot */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 space-y-6">
-              <div className="flex items-center justify-between border-b border-botanical-200 dark:border-botanical-800 pb-4">
+              <div className="flex items-center justify-between border-b border-garden-thistle/80 dark:border-garden-darkBorder pb-4">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 mb-1">
+                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-garden-amethyst mb-1">
                     <BookOpen className="w-4 h-4" />
-                    Herbario Vivo
+                    Colección
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-serif font-bold text-botanical-950 dark:text-white">
-                    Especies Destacadas
+                  <h3 className="text-3xl sm:text-4xl font-serif font-bold text-garden-darkPurple dark:text-white">
+                    Plantas Destacadas
                   </h3>
                 </div>
 
                 <button
-                  onClick={() => setActiveTab('especies')}
-                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 transition-colors"
+                  onClick={() => setActiveTab('plantas')}
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-garden-amethyst hover:text-garden-darkPurple dark:hover:text-white transition-colors font-serif"
                 >
-                  <span>Ver enciclopedia completa</span>
+                  <span>Ver todas las plantas</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -129,28 +128,28 @@ export default function HomePage() {
                   <div
                     key={plant.id}
                     onClick={() => setSelectedPlant(plant)}
-                    className="group bg-white dark:bg-darkGarden-900 rounded-2xl border border-botanical-200 dark:border-botanical-800 overflow-hidden shadow-soft hover:shadow-lifted cursor-pointer transition-all duration-300"
+                    className="group bg-white dark:bg-garden-darkCard rounded-2xl border border-garden-thistle/80 dark:border-garden-darkBorder overflow-hidden shadow-soft hover:shadow-lifted cursor-pointer transition-all duration-300"
                   >
-                    <div className="relative h-48 w-full overflow-hidden bg-botanical-100 dark:bg-darkGarden-800">
+                    <div className="relative h-48 w-full overflow-hidden bg-garden-thistle/30 dark:bg-garden-darkBg">
                       <img
                         src={plant.imageUrl}
                         alt={plant.commonName}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-85" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-garden-darkPurple via-transparent to-transparent opacity-85" />
                       <div className="absolute bottom-3 left-3 text-white">
-                        <span className="text-[10px] font-mono text-emerald-300 uppercase block">
+                        <span className="text-[10px] font-mono text-garden-thistle uppercase block">
                           {plant.category}
                         </span>
-                        <h4 className="font-serif font-bold text-lg text-white">
+                        <h4 className="font-serif font-bold text-xl text-white">
                           {plant.commonName}
                         </h4>
                       </div>
                     </div>
-                    <div className="p-4 flex items-center justify-between text-xs text-botanical-700 dark:text-botanical-300">
-                      <span className="font-serif italic">{plant.scientificName}</span>
-                      <span className="text-emerald-700 dark:text-emerald-400 font-semibold group-hover:translate-x-0.5 transition-transform">
-                        Ver ficha →
+                    <div className="p-4 flex items-center justify-between text-xs text-garden-darkPurple/80 dark:text-garden-thistle">
+                      <span className="font-serif italic text-sm">{plant.scientificName}</span>
+                      <span className="text-garden-amethyst font-semibold group-hover:translate-x-0.5 transition-transform font-serif text-sm">
+                        Ver cuidados →
                       </span>
                     </div>
                   </div>
@@ -160,11 +159,11 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* TAB 2: FORO */}
-        {activeTab === 'foro' && <ForumSection />}
+        {/* TAB 2: PUBLICACIONES (antes Foro) */}
+        {activeTab === 'publicaciones' && <ForumSection />}
 
-        {/* TAB 3: ESPECIES & CUIDADOS */}
-        {activeTab === 'especies' && <PlantGuidesSection />}
+        {/* TAB 3: PLANTAS */}
+        {activeTab === 'plantas' && <PlantGuidesSection />}
 
         {/* TAB 4: ACERCA DE */}
         {activeTab === 'acerca-de' && <AboutSection />}
@@ -172,7 +171,7 @@ export default function HomePage() {
 
       <Footer />
 
-      {/* Global Interactive Modals */}
+      {/* Global Modals */}
       <PostDetailModal />
       <NewPostModal />
       <PlantaQuincenalModal />

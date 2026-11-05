@@ -1,13 +1,11 @@
 export type DifficultyLevel = 'Principiante' | 'Intermedio' | 'Experto';
 
 export type PostCategory = 
-  | 'Cuidado y Riego'
-  | 'Orquídeas y Flores'
-  | 'Suculentas y Cactus'
-  | 'Identificación de Especies'
-  | 'Plagas y Soluciones Orgánicas'
-  | 'Propagación y Esquejes'
-  | 'Diario Botánico';
+  | 'Flores y Cuidados'
+  | 'Plantas de Casa'
+  | 'Suculentas'
+  | 'Consejos de Riego'
+  | 'Diario de Jardín';
 
 export interface PlantProfile {
   id: string;
@@ -32,7 +30,6 @@ export interface ForumComment {
   avatar: string;
   createdAt: string;
   content: string;
-  isCurator?: boolean;
 }
 
 export interface ForumPost {
@@ -41,14 +38,14 @@ export interface ForumPost {
   content: string;
   author: {
     name: string;
-    role: string;
     avatar: string;
-    isCurator: boolean;
+    role?: string;
+    isCurator?: boolean;
   };
-  category: PostCategory;
+  category: string;
   imageUrl?: string;
   createdAt: string;
-  fortnightTag: string; // e.g. "Quincena Nov-1"
+  fortnightTag: string;
   likes: number;
   views: number;
   pinned?: boolean;
@@ -66,8 +63,8 @@ export interface BiweeklyEdition {
   editionNumber: number;
   cycleTitle: string;
   subtitle: string;
-  dateRange: string; // "1 - 15 Noviembre 2026"
-  nextEditionDate: string; // "16 Noviembre 2026"
+  dateRange: string;
+  nextEditionDate: string;
   editorialMessage: string;
   active: boolean;
   featuredPlant: PlantProfile;
@@ -76,17 +73,12 @@ export interface BiweeklyEdition {
 
 export interface SiteSettings {
   siteName: string;
-  curatorName: string;
-  curatorRole: string;
-  curatorBio: string;
-  curatorAvatar: string;
   tagline: string;
   welcomeText: string;
   aboutStory: string;
   manifesto: string[];
   contactEmail: string;
   instagram: string;
-  adminPin: string;
 }
 
 export interface AppContentState {
@@ -95,5 +87,6 @@ export interface AppContentState {
   posts: ForumPost[];
   plantsEncyclopedia: PlantProfile[];
   siteSettings: SiteSettings;
+  lastAIPostDate?: string;
   lastUpdated: string;
 }

@@ -9,57 +9,51 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // Paleta oficial solicitada:
+        garden: {
+          darkPurple: '#3A1C36', // DARK PURPLE
+          amethyst: '#9B71B2',   // AMETHYST
+          thistle: '#E3D0EA',    // THISTLE
+          olive: '#6C6D11',      // OLIVE
+          calPoly: '#374126',    // CAL POLY GREEN
+          
+          // Tonos derivados para fondos suaves y legibilidad
+          cream: '#FAF6FB',      // Fondo suave con toque thistle
+          tint: '#F4ECF6',       // Fondo alterno
+          darkBg: '#1E0E1B',     // Fondo nocturno derivado de Dark Purple
+          darkCard: '#2B1428',   // Tarjetas nocturnas
+          darkBorder: '#4E2648', // Bordes nocturnos
+        },
         botanical: {
-          50: '#f2f8f4',
-          100: '#e1efe6',
-          200: '#c5e0d0',
-          300: '#9cc9b1',
-          400: '#6eaa8d',
-          500: '#488c6e',
-          600: '#347156',
-          700: '#2a5a46',
-          800: '#234839',
-          900: '#1e3c30',
-          950: '#0e2019',
-        },
-        darkGarden: {
-          950: '#08130e',
-          900: '#0c1b14',
-          850: '#10241b',
-          800: '#152e23',
-          700: '#1c3d2e',
-          600: '#26523e',
-          border: '#1f4534',
-          card: '#0f2219',
-        },
-        earth: {
-          50: '#fbf8f4',
-          100: '#f6f0e6',
-          200: '#ecdec9',
-          300: '#dfc6a4',
-          400: '#cfaa7e',
-          500: '#ba905e',
-          600: '#aa7c4f',
-          700: '#8e6341',
-          800: '#735038',
-          900: '#5e4230',
+          50: '#f7faf5',
+          100: '#edf4e9',
+          200: '#d9e7d2',
+          300: '#bbd5b1',
+          400: '#95be87',
+          500: '#6C6D11', // OLIVE
+          600: '#54560d',
+          700: '#374126', // CAL POLY GREEN
+          800: '#2b341e',
+          900: '#202717',
+          950: '#13180e',
         },
         flora: {
-          amber: '#e69d45',
-          rose: '#e07a5f',
-          lavender: '#8d7b9d',
-          dew: '#e8f4f1'
+          purple: '#3A1C36',
+          amethyst: '#9B71B2',
+          thistle: '#E3D0EA',
+          olive: '#6C6D11',
+          green: '#374126',
         }
       },
       fontFamily: {
-        serif: ['Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
+        script: ['"Great Vibes"', 'cursive', 'Georgia'],
+        serif: ['"Cormorant Garamond"', 'Georgia', 'Cambria', 'serif'],
         sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
       },
       boxShadow: {
-        'soft': '0 4px 20px -2px rgba(14, 32, 25, 0.06)',
-        'lifted': '0 10px 30px -4px rgba(14, 32, 25, 0.1)',
-        'glow': '0 0 25px rgba(72, 140, 110, 0.25)',
-        'dark-glow': '0 0 25px rgba(52, 113, 86, 0.35)',
+        'soft': '0 4px 20px -2px rgba(58, 28, 54, 0.08)',
+        'lifted': '0 10px 30px -4px rgba(58, 28, 54, 0.14)',
+        'glow-amethyst': '0 0 25px rgba(155, 113, 178, 0.3)',
       }
     },
   },

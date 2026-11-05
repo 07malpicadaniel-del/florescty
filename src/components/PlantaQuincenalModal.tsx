@@ -20,21 +20,20 @@ export default function PlantaQuincenalModal() {
   if (!selectedPlant) return null;
 
   const isSafeForPets = 
-    selectedPlant.toxicity.toLowerCase().includes('no tóxica') || 
-    selectedPlant.toxicity.toLowerCase().includes('pet safe') ||
+    selectedPlant.toxicity.toLowerCase().includes('segura') ||
     selectedPlant.toxicity.toLowerCase().includes('inofensiva') ||
-    selectedPlant.toxicity.toLowerCase().includes('100% pet-friendly');
+    selectedPlant.toxicity.toLowerCase().includes('no tóxica');
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fadeIn">
       <div 
-        className="relative w-full max-w-3xl bg-white dark:bg-darkGarden-900 rounded-3xl shadow-2xl border border-botanical-200 dark:border-botanical-800 overflow-hidden flex flex-col max-h-[92vh] transition-colors"
+        className="relative w-full max-w-3xl bg-white dark:bg-garden-darkCard rounded-3xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder overflow-hidden flex flex-col max-h-[92vh] transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Sticky Close Button */}
         <button
           onClick={() => setSelectedPlant(null)}
-          className="absolute top-4 right-4 z-20 bg-botanical-950/80 hover:bg-black text-white p-2 rounded-full backdrop-blur transition-all border border-white/20"
+          className="absolute top-4 right-4 z-20 bg-garden-darkPurple/80 hover:bg-garden-darkPurple text-white p-2 rounded-full backdrop-blur transition-all border border-garden-amethyst/30"
         >
           <X className="w-5 h-5" />
         </button>
@@ -46,17 +45,17 @@ export default function PlantaQuincenalModal() {
             alt={selectedPlant.commonName}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-botanical-950 via-botanical-950/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-garden-darkPurple via-garden-darkPurple/40 to-transparent" />
 
           {/* Plant Name Overlay */}
           <div className="absolute bottom-5 left-6 right-6 text-white space-y-1">
-            <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-600/90 backdrop-blur text-xs font-semibold uppercase tracking-wider text-white mb-1">
+            <span className="inline-block px-2.5 py-0.5 rounded-full bg-garden-amethyst/90 backdrop-blur text-xs font-semibold uppercase tracking-wider text-white mb-1">
               {selectedPlant.category}
             </span>
-            <h2 className="font-serif text-2xl sm:text-4xl font-bold drop-shadow">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold drop-shadow">
               {selectedPlant.commonName}
             </h2>
-            <p className="font-serif italic text-botanical-200 text-sm sm:text-base">
+            <p className="font-serif italic text-garden-thistle text-sm sm:text-base">
               {selectedPlant.scientificName}
             </p>
           </div>
@@ -66,61 +65,61 @@ export default function PlantaQuincenalModal() {
         <div className="overflow-y-auto p-6 sm:p-8 space-y-6">
           {/* Summary & Origin */}
           <div className="space-y-3">
-            <p className="text-base sm:text-lg text-botanical-900 dark:text-botanical-100 leading-relaxed font-normal">
+            <p className="text-base sm:text-lg text-garden-darkPurple dark:text-garden-thistle leading-relaxed font-serif">
               {selectedPlant.summary}
             </p>
-            <div className="flex items-center gap-2 text-xs text-botanical-600 dark:text-botanical-300 font-medium bg-botanical-50 dark:bg-darkGarden-850 p-3 rounded-2xl border border-botanical-200 dark:border-botanical-800">
-              <MapPin className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-              <span><strong>Hábitat Natural & Origen:</strong> {selectedPlant.origin}</span>
+            <div className="flex items-center gap-2 text-xs text-garden-darkPurple/70 dark:text-garden-thistle/70 font-medium bg-garden-cream dark:bg-garden-darkBg p-3 rounded-2xl border border-garden-thistle/80 dark:border-garden-darkBorder">
+              <MapPin className="w-4 h-4 text-garden-amethyst shrink-0" />
+              <span><strong>Hábitat natural:</strong> {selectedPlant.origin}</span>
             </div>
           </div>
 
           {/* Specs Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-amber-50/80 dark:bg-darkGarden-850 border border-amber-200/80 dark:border-botanical-800 rounded-2xl p-4 space-y-1">
-              <div className="flex items-center gap-2 text-amber-900 dark:text-amber-300 font-semibold text-xs uppercase tracking-wide">
-                <Sun className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                <span>Requerimiento de Luz</span>
+            <div className="bg-garden-cream dark:bg-garden-darkBg border border-garden-thistle/80 dark:border-garden-darkBorder rounded-2xl p-4 space-y-1">
+              <div className="flex items-center gap-2 text-garden-darkPurple dark:text-garden-thistle font-semibold text-xs uppercase tracking-wide">
+                <Sun className="w-4 h-4 text-garden-amethyst" />
+                <span>Luz recomendada</span>
               </div>
-              <p className="text-xs sm:text-sm text-botanical-900 dark:text-botanical-200 font-medium">
+              <p className="text-xs sm:text-sm text-garden-darkPurple/90 dark:text-garden-thistle font-serif font-medium">
                 {selectedPlant.light}
               </p>
             </div>
 
-            <div className="bg-cyan-50/80 dark:bg-darkGarden-850 border border-cyan-200/80 dark:border-botanical-800 rounded-2xl p-4 space-y-1">
-              <div className="flex items-center gap-2 text-cyan-900 dark:text-cyan-300 font-semibold text-xs uppercase tracking-wide">
-                <Droplet className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-                <span>Pauta de Riego</span>
+            <div className="bg-garden-cream dark:bg-garden-darkBg border border-garden-thistle/80 dark:border-garden-darkBorder rounded-2xl p-4 space-y-1">
+              <div className="flex items-center gap-2 text-garden-darkPurple dark:text-garden-thistle font-semibold text-xs uppercase tracking-wide">
+                <Droplet className="w-4 h-4 text-garden-amethyst" />
+                <span>Riego</span>
               </div>
-              <p className="text-xs sm:text-sm text-botanical-900 dark:text-botanical-200 font-medium">
+              <p className="text-xs sm:text-sm text-garden-darkPurple/90 dark:text-garden-thistle font-serif font-medium">
                 {selectedPlant.watering}
               </p>
             </div>
 
-            <div className="bg-emerald-50/80 dark:bg-darkGarden-850 border border-emerald-200/80 dark:border-botanical-800 rounded-2xl p-4 space-y-1">
-              <div className="flex items-center gap-2 text-emerald-900 dark:text-emerald-300 font-semibold text-xs uppercase tracking-wide">
-                <Wind className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                <span>Humedad Ambiental</span>
+            <div className="bg-garden-cream dark:bg-garden-darkBg border border-garden-thistle/80 dark:border-garden-darkBorder rounded-2xl p-4 space-y-1">
+              <div className="flex items-center gap-2 text-garden-darkPurple dark:text-garden-thistle font-semibold text-xs uppercase tracking-wide">
+                <Wind className="w-4 h-4 text-garden-amethyst" />
+                <span>Humedad</span>
               </div>
-              <p className="text-xs sm:text-sm text-botanical-900 dark:text-botanical-200 font-medium">
+              <p className="text-xs sm:text-sm text-garden-darkPurple/90 dark:text-garden-thistle font-serif font-medium">
                 {selectedPlant.humidity}
               </p>
             </div>
 
             <div className={`rounded-2xl p-4 space-y-1 border ${
               isSafeForPets 
-                ? 'bg-emerald-50/80 dark:bg-darkGarden-850 border-emerald-200/80 dark:border-botanical-800 text-emerald-900 dark:text-emerald-300' 
-                : 'bg-rose-50/80 dark:bg-darkGarden-850 border-rose-200/80 dark:border-botanical-800 text-rose-900 dark:text-rose-300'
+                ? 'bg-garden-cream dark:bg-garden-darkBg border-garden-thistle/80 dark:border-garden-darkBorder text-garden-darkPurple dark:text-garden-thistle' 
+                : 'bg-rose-50/70 dark:bg-rose-950/20 border-rose-200 dark:border-rose-900/40 text-rose-900 dark:text-rose-200'
             }`}>
               <div className="flex items-center gap-2 font-semibold text-xs uppercase tracking-wide">
                 {isSafeForPets ? (
-                  <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                  <ShieldCheck className="w-4 h-4 text-garden-olive" />
                 ) : (
-                  <AlertTriangle className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+                  <AlertTriangle className="w-4 h-4 text-rose-500" />
                 )}
-                <span>Mascotas & Hogar</span>
+                <span>Hogar & Mascotas</span>
               </div>
-              <p className="text-xs sm:text-sm font-medium">
+              <p className="text-xs sm:text-sm font-serif font-medium">
                 {selectedPlant.toxicity}
               </p>
             </div>
@@ -128,12 +127,12 @@ export default function PlantaQuincenalModal() {
 
           {/* Curator's Advice */}
           {selectedPlant.curatorNotes && (
-            <div className="bg-botanical-950 dark:bg-black text-botanical-50 rounded-2xl p-5 border border-botanical-800 relative overflow-hidden space-y-2">
-              <div className="flex items-center gap-2 text-flora-amber text-xs font-semibold tracking-wider uppercase">
+            <div className="bg-garden-darkPurple text-garden-thistle rounded-2xl p-5 border border-garden-darkBorder relative overflow-hidden space-y-2">
+              <div className="flex items-center gap-2 text-garden-amethyst text-xs font-semibold tracking-wider uppercase font-serif">
                 <Sparkles className="w-4 h-4" />
-                <span>Consejo de Constanza Pimentel</span>
+                <span>Consejo para el cultivo</span>
               </div>
-              <p className="text-xs sm:text-sm text-botanical-100 italic leading-relaxed font-serif">
+              <p className="text-xs sm:text-sm text-garden-thistle/90 italic leading-relaxed font-serif text-base">
                 &ldquo;{selectedPlant.curatorNotes}&rdquo;
               </p>
             </div>
@@ -145,9 +144,9 @@ export default function PlantaQuincenalModal() {
               {selectedPlant.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-1 text-xs font-medium bg-botanical-100 dark:bg-darkGarden-800 text-botanical-800 dark:text-botanical-200 px-3 py-1 rounded-full border border-botanical-200 dark:border-botanical-700"
+                  className="inline-flex items-center gap-1 text-xs font-medium bg-garden-thistle/50 dark:bg-garden-darkBg text-garden-darkPurple dark:text-garden-thistle px-3 py-1 rounded-full border border-garden-thistle dark:border-garden-darkBorder"
                 >
-                  <Tag className="w-3 h-3 text-botanical-500" />
+                  <Tag className="w-3 h-3 text-garden-amethyst" />
                   {tag}
                 </span>
               ))}

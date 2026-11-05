@@ -6,15 +6,14 @@ import {
   BiweeklyEdition, 
   ForumPost, 
   PlantProfile, 
-  SiteSettings, 
-  PostCategory 
+  SiteSettings 
 } from '../types';
 import { INITIAL_CONTENT } from '../data/initialContent';
 
 interface ContentContextType {
   content: AppContentState;
-  activeTab: 'inicio' | 'foro' | 'especies' | 'acerca-de';
-  setActiveTab: (tab: 'inicio' | 'foro' | 'especies' | 'acerca-de') => void;
+  activeTab: 'inicio' | 'publicaciones' | 'plantas' | 'acerca-de';
+  setActiveTab: (tab: 'inicio' | 'publicaciones' | 'plantas' | 'acerca-de') => void;
   isEditorOpen: boolean;
   openEditor: () => void;
   closeEditor: () => void;
@@ -33,39 +32,39 @@ interface ContentContextType {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 
+  // AI Groq Generation
+  isGeneratingAI: boolean;
+  generateAIPost: (force?: boolean) => Promise<boolean>;
+
   // Actions
   updateCurrentEdition: (edition: BiweeklyEdition) => void;
   updateSiteSettings: (settings: SiteSettings) => void;
   createPost: (post: {
     title: string;
     content: string;
-    category: PostCategory;
+    category: string;
     imageUrl?: string;
-    authorName?: string;
-    isCurator?: boolean;
     scientificName?: string;
     watering?: string;
     light?: string;
   }) => void;
-  editPost: (id: string, updated: Partial<ForumPost>) => void;
   deletePost: (id: string) => void;
   togglePinPost: (id: string) => void;
   likePost: (id: string) => void;
-  addComment: (postId: string, text: string, authorName?: string, isCurator?: boolean) => void;
-  addPlantToEncyclopedia: (plant: Omit<PlantProfile, 'id'>) => void;
+  addComment: (postId: string, text: string, authorName?: string) => void;
   resetToDefaults: () => void;
   exportContentBackup: () => void;
   importContentBackup: (jsonData: string) => boolean;
 }
 
-const STORAGE_KEY = 'jardin_secreto_content_v2';
-const THEME_KEY = 'jardin_secreto_theme';
+const STORAGE_KEY = 'jardin_secreto_content_v3';
+const THEME_KEY = 'jardin_secreto_theme_v3';
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
 export function ContentProvider({ children }: { children: React.ReactNode }) {
   const [content, setContent] = useState<AppContentState>(INITIAL_CONTENT);
-  const [activeTab, setActiveTab] = useState<'inicio' | 'foro' | 'especies' | 'acerca-de'>('inicio');
+  const [activeTab, setActiveTab] = useState<'inicio' | 'publicaciones' | 'plantas' | 'acerca-de'>('inicio');
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<ForumPost | null>(null);
   const [selectedPlant, setSelectedPlant] = useState<PlantProfile | null>(null);
@@ -73,6 +72,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('Todas');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [isGeneratingAI, setIsGeneratingAI] = useState(false);
 
   // Load from LocalStorage
   useEffect(() => {
@@ -85,16 +85,12 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
         } else {
           document.documentElement.classList.remove('dark');
         }
-      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setTheme('dark');
-        document.documentElement.classList.add('dark');
       }
 
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed && parsed.currentEdition && parsed.posts) {
-          // Verify posts only contain Constanza or update avatar
           setContent(parsed);
         }
       }
@@ -102,6 +98,27 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       console.warn('Could not read from localStorage', e);
     }
   }, []);
+
+  // Automated Groq trigger for Wednesday / Thursday (and test for today)
+  useEffect(() => {
+    const checkAndTriggerGroq = async () => {
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const dayOfWeek = new Date().getDay(); // 3 = Miércoles, 4 = Jueves
+      const isWedOrThu = dayOfWeek === 3 || dayOfWeek === 4;
+
+      // Only run auto-generation if not generated yet today, and it's Wed/Thu (or first test if user hasn't generated)
+      const lastGenDate = content.lastAIPostDate;
+      if (isWedOrThu && lastGenDate !== todayStr) {
+        await generateAIPost(false);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      checkAndTriggerGroq();
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [content.lastAIPostDate]);
 
   const toggleTheme = () => {
     const nextTheme = theme === 'light' ? 'dark' : 'light';
@@ -117,13 +134,48 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // Save to LocalStorage whenever content changes
   const saveContent = (newContent: AppContentState) => {
     setContent(newContent);
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newContent));
     } catch (e) {
       console.warn('Could not save to localStorage', e);
+    }
+  };
+
+  // Generate publication using Groq API
+  const generateAIPost = async (force: boolean = false): Promise<boolean> => {
+    try {
+      setIsGeneratingAI(true);
+      const res = await fetch('/api/groq-post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ force })
+      });
+
+      if (!res.ok) {
+        throw new Error('No se pudo generar con Groq');
+      }
+
+      const data = await res.json();
+      if (data && data.post) {
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const updatedPosts = [data.post, ...content.posts];
+        const updated: AppContentState = {
+          ...content,
+          posts: updatedPosts,
+          lastAIPostDate: todayStr,
+          lastUpdated: new Date().toISOString()
+        };
+        saveContent(updated);
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error('Error generating AI post:', err);
+      return false;
+    } finally {
+      setIsGeneratingAI(false);
     }
   };
 
@@ -145,13 +197,12 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     saveContent(updated);
   };
 
+  // Create post anonymously
   const createPost = (data: {
     title: string;
     content: string;
-    category: PostCategory;
+    category: string;
     imageUrl?: string;
-    authorName?: string;
-    isCurator?: boolean;
     scientificName?: string;
     watering?: string;
     light?: string;
@@ -163,15 +214,13 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       category: data.category,
       imageUrl: data.imageUrl || 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1000&q=80',
       author: {
-        name: content.siteSettings.curatorName,
-        role: content.siteSettings.curatorRole,
-        avatar: content.siteSettings.curatorAvatar,
-        isCurator: true
+        name: 'Cultivador Anónimo',
+        avatar: '/logo.png'
       },
-      createdAt: 'Publicación de la Quincena',
+      createdAt: 'Publicado hoy',
       fortnightTag: `Edición #${content.currentEdition.editionNumber}`,
       likes: 1,
-      views: 10,
+      views: 12,
       pinned: false,
       plantDetails: data.scientificName ? {
         scientificName: data.scientificName,
@@ -187,24 +236,6 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       lastUpdated: new Date().toISOString()
     };
     saveContent(updated);
-  };
-
-  const editPost = (id: string, updatedFields: Partial<ForumPost>) => {
-    const updatedPosts = content.posts.map(p => {
-      if (p.id === id) {
-        return { ...p, ...updatedFields };
-      }
-      return p;
-    });
-    const updated: AppContentState = {
-      ...content,
-      posts: updatedPosts,
-      lastUpdated: new Date().toISOString()
-    };
-    saveContent(updated);
-    if (selectedPost && selectedPost.id === id) {
-      setSelectedPost({ ...selectedPost, ...updatedFields });
-    }
   };
 
   const deletePost = (id: string) => {
@@ -252,15 +283,14 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const addComment = (postId: string, text: string, authorName?: string, isCurator?: boolean) => {
+  const addComment = (postId: string, text: string, authorName?: string) => {
     if (!text.trim()) return;
     const newComment = {
       id: `c-${Date.now()}`,
-      author: authorName || content.siteSettings.curatorName,
-      avatar: isCurator ? content.siteSettings.curatorAvatar : '/wix-assets/acerca_1.jpg',
+      author: authorName || 'Lector del Jardín',
+      avatar: '/logo.png',
       createdAt: 'Hace un momento',
-      content: text.trim(),
-      isCurator: !!isCurator
+      content: text.trim()
     };
 
     const updatedPosts = content.posts.map(p => {
@@ -287,19 +317,6 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const addPlantToEncyclopedia = (plant: Omit<PlantProfile, 'id'>) => {
-    const newPlant: PlantProfile = {
-      ...plant,
-      id: `enc-${Date.now()}`
-    };
-    const updated: AppContentState = {
-      ...content,
-      plantsEncyclopedia: [newPlant, ...content.plantsEncyclopedia],
-      lastUpdated: new Date().toISOString()
-    };
-    saveContent(updated);
-  };
-
   const resetToDefaults = () => {
     saveContent(INITIAL_CONTENT);
     setSelectedPost(null);
@@ -310,7 +327,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(content, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute('href', dataStr);
-    downloadAnchor.setAttribute('download', `jardin-secreto-cuaderno-${new Date().toISOString().slice(0, 10)}.json`);
+    downloadAnchor.setAttribute('download', `jardin-secreto-${new Date().toISOString().slice(0, 10)}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -351,15 +368,15 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
         setSelectedCategory,
         theme,
         toggleTheme,
+        isGeneratingAI,
+        generateAIPost,
         updateCurrentEdition,
         updateSiteSettings,
         createPost,
-        editPost,
         deletePost,
         togglePinPost,
         likePost,
         addComment,
-        addPlantToEncyclopedia,
         resetToDefaults,
         exportContentBackup,
         importContentBackup
