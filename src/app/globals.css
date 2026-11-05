@@ -25,6 +25,11 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 /* Luxury Script & Heading Classes */
 .font-script {
   font-family: 'Great Vibes', cursive, Georgia, serif;

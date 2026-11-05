@@ -32,11 +32,16 @@ export default function Footer() {
           {/* Brand & Mission (5 cols) */}
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-3.5">
-              <div className="relative w-12 h-14 rounded-xl overflow-hidden border border-garden-thistle/40 shrink-0 bg-white shadow-md">
+              <div 
+                className="relative rounded-xl overflow-hidden border border-garden-thistle/40 shrink-0 bg-white shadow-md"
+                style={{ width: '48px', height: '56px', maxWidth: '48px', maxHeight: '56px' }}
+              >
                 <img
                   src="/logo.png"
                   alt="Logo El Jardín Secreto"
-                  className="w-full h-full object-cover"
+                  width={48}
+                  height={56}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
               <div>

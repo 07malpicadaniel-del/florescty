@@ -10,7 +10,18 @@ import {
   BookOpen,
   Sparkles
 } from 'lucide-react';
-import Orchid3DViewer from './Orchid3DViewer';
+import dynamic from 'next/dynamic';
+
+const Orchid3DViewer = dynamic(() => import('./Orchid3DViewer'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-80 sm:h-96 rounded-3xl bg-gradient-to-b from-[#2B1428] via-garden-darkPurple to-[#1E0E1B] border-2 border-garden-thistle/50 flex flex-col items-center justify-center text-garden-thistle gap-3 p-6 text-center shadow-2xl">
+      <div className="w-8 h-8 rounded-full border-2 border-garden-amethyst border-t-transparent animate-spin" />
+      <p className="font-serif text-sm text-white font-medium">Iniciando visor 3D de la Orquídea...</p>
+    </div>
+  )
+});
+
 import { RootsTopRight, RootsBottomLeft } from './BotanicalRoots';
 
 export default function HeroQuincena() {
@@ -37,11 +48,16 @@ export default function HeroQuincena() {
           <div className="lg:col-span-7 space-y-6">
             {/* Very Large Prominent Logo + Avonia Script Title */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6">
-              <div className="relative w-24 h-28 sm:w-32 sm:h-36 rounded-3xl overflow-hidden shadow-2xl border-2 border-garden-thistle/80 dark:border-garden-darkBorder shrink-0 bg-white hover:scale-105 transition-transform duration-300">
+              <div 
+                className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-garden-thistle/80 dark:border-garden-darkBorder shrink-0 bg-white hover:scale-105 transition-transform duration-300"
+                style={{ width: '120px', height: '144px', maxWidth: '120px', maxHeight: '144px' }}
+              >
                 <img
                   src="/logo.png"
                   alt="Logo El Jardín Secreto"
-                  className="w-full h-full object-cover"
+                  width={120}
+                  height={144}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
 

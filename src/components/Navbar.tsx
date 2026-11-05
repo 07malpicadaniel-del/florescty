@@ -70,11 +70,16 @@ export default function Navbar() {
           onClick={() => setActiveTab('inicio')}
           className="flex items-center gap-3.5 sm:gap-4 text-left group shrink-0"
         >
-          <div className="relative w-16 h-20 sm:w-20 sm:h-24 rounded-2xl overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-200 border-2 border-garden-thistle dark:border-garden-darkBorder shrink-0 bg-white">
+          <div 
+            className="relative rounded-2xl overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-200 border-2 border-garden-thistle dark:border-garden-darkBorder shrink-0 bg-white"
+            style={{ width: '80px', height: '96px', maxWidth: '80px', maxHeight: '96px' }}
+          >
             <img
               src="/logo.png"
               alt="Logo El Jardín Secreto"
-              className="w-full h-full object-cover"
+              width={80}
+              height={96}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
           <div>
