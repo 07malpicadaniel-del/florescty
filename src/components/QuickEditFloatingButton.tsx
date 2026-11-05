@@ -25,7 +25,7 @@ export default function QuickEditFloatingButton() {
             Editar
           </div>
           <div className="text-xs font-semibold text-white font-serif">
-            Cuaderno Quincenal
+            Cuaderno del Blog
           </div>
         </div>
       </button>

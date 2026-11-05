@@ -31,27 +31,32 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
           {/* Brand & Mission (5 cols) */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="relative w-9 h-11 rounded-lg overflow-hidden border border-garden-thistle/40 shrink-0 bg-white shadow-md">
+            <div className="flex items-center gap-3.5">
+              <div className="relative w-12 h-14 rounded-xl overflow-hidden border border-garden-thistle/40 shrink-0 bg-white shadow-md">
                 <img
                   src="/logo.png"
                   alt="Logo El Jardín Secreto"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="font-serif text-3xl font-bold tracking-tight text-white">
-                {content.siteSettings.siteName}
-              </span>
+              <div>
+                <span className="font-script text-4xl sm:text-5xl font-normal tracking-wide text-white block">
+                  {content.siteSettings.siteName}
+                </span>
+                <span className="text-[11px] font-serif text-garden-thistle/70 tracking-widest uppercase">
+                  Blog Botánico de Flores
+                </span>
+              </div>
             </div>
 
             <p className="text-xs sm:text-sm text-garden-thistle/85 leading-relaxed max-w-sm font-serif">
-              Un refugio botánico dedicado a aprender sobre nuevas especies de flores y plantas, su hábitat y consejos prácticos de cuidado cada dos semanas.
+              Un refugio botánico dedicado al arte de observar, aprender y cuidar las flores y plantas ornamentales en el hogar.
             </p>
 
-            <div className="pt-2 flex items-center gap-2 text-xs text-garden-thistle/80 font-mono">
-              <Calendar className="w-4 h-4 text-garden-amethyst" />
+            <div className="pt-1 flex items-center gap-2 text-xs text-garden-thistle/80 font-serif">
+              <Flower2 className="w-4 h-4 text-garden-amethyst" />
               <span>
-                Edición #{content.currentEdition.editionNumber}: {content.currentEdition.cycleTitle}
+                Más de 20 especies florales documentadas y publicaciones continuas.
               </span>
             </div>
           </div>

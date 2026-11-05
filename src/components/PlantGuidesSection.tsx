@@ -12,6 +12,7 @@ import {
   ArrowRight,
   Flower2
 } from 'lucide-react';
+import { RootsTopRight, RootsBottomLeft } from './BotanicalRoots';
 
 export default function PlantGuidesSection() {
   const { content, setSelectedPlant } = useContent();
@@ -32,19 +33,24 @@ export default function PlantGuidesSection() {
   });
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section className="relative py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+      {/* Decorative dark green roots in empty margin space */}
+      <RootsTopRight className="opacity-25" />
+
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-garden-thistle/80 dark:border-garden-darkBorder">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-garden-thistle/80 dark:border-garden-darkBorder relative z-10">
         <div>
-          <div className="inline-flex items-center gap-2 text-garden-amethyst font-semibold text-xs uppercase tracking-wider mb-2">
-            <BookOpen className="w-4 h-4" />
-            Colección del Jardín
+          <div className="inline-flex items-center gap-2 text-garden-amethyst mb-1">
+            <Flower2 className="w-4 h-4" />
+            <span className="font-serif text-xs font-semibold uppercase tracking-wider text-garden-olive">
+              Herbario & Fichas Botánicas
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-garden-darkPurple dark:text-garden-thistle tracking-tight">
-            Guía de Plantas & Flores
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-script font-normal text-garden-darkPurple dark:text-garden-thistle tracking-wide leading-tight">
+            Colección de Flores & Plantas
           </h2>
-          <p className="text-garden-darkPurple/80 dark:text-garden-thistle/80 mt-2 max-w-2xl text-sm sm:text-base">
-            Fichas sencillas sobre la luz, el riego y los cuidados que necesita cada especie en casa.
+          <p className="text-garden-darkPurple/80 dark:text-garden-thistle/80 mt-1 max-w-2xl text-sm sm:text-base font-serif">
+            Fichas completas de 20 especies botánicas con sus requerimientos de iluminación, hidratación y secretos de floración.
           </p>
         </div>
 

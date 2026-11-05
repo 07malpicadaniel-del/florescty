@@ -78,7 +78,7 @@ export default function NewPostModal() {
         <div className="px-6 py-4 bg-garden-darkPurple text-white flex items-center justify-between border-b border-garden-darkBorder">
           <div className="flex items-center gap-2.5">
             <Flower2 className="w-5 h-5 text-garden-amethyst" />
-            <h3 className="font-serif text-2xl font-bold">
+            <h3 className="font-script text-3xl sm:text-4xl font-normal text-white tracking-wide">
               Nueva Publicación
             </h3>
           </div>

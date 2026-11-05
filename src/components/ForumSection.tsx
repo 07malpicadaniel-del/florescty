@@ -13,6 +13,8 @@ import {
   Calendar
 } from 'lucide-react';
 
+import { RootsTopRight, RootsDivider } from './BotanicalRoots';
+
 const CATEGORIES = [
   'Todas',
   'Flores y Cuidados',
@@ -54,41 +56,44 @@ export default function ForumSection() {
   };
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section className="relative py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden">
+      {/* Decorative dark green roots in the background */}
+      <RootsTopRight className="opacity-25" />
+
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-garden-thistle/80 dark:border-garden-darkBorder">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-garden-thistle/80 dark:border-garden-darkBorder relative z-10">
         <div>
           <div className="inline-flex items-center gap-2 text-garden-amethyst mb-1">
             <Flower2 className="w-4 h-4" />
-            <span className="font-script text-2xl text-garden-amethyst dark:text-garden-thistle tracking-wide">
-              Notas & Cuidados
+            <span className="font-serif text-xs font-semibold uppercase tracking-wider text-garden-olive">
+              Cuaderno del Cultivador
             </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-garden-darkPurple dark:text-garden-thistle tracking-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-script font-normal text-garden-darkPurple dark:text-garden-thistle tracking-wide leading-tight">
             Publicaciones del Jardín
           </h2>
-          <p className="text-garden-darkPurple/80 dark:text-garden-thistle/80 mt-2 max-w-2xl text-sm sm:text-base">
-            Notas sencillas sobre riego, luz y cuidados para que tus plantas y flores crezcan hermosas.
+          <p className="text-garden-darkPurple/80 dark:text-garden-thistle/80 mt-1 max-w-2xl text-sm sm:text-base font-serif">
+            Artículos detallados sobre flores, orquídeas, humedad y cuidados prácticos para el hogar.
           </p>
         </div>
 
         <div className="flex items-center gap-3 shrink-0 flex-wrap">
-          {/* Button to test Groq AI Post generation */}
+          {/* Button: "Publicación Automática" (as requested) */}
           <button
             onClick={handleTestGroq}
             disabled={isGeneratingAI}
             className="flex items-center gap-2 bg-garden-darkPurple hover:bg-garden-darkPurple/90 dark:bg-garden-amethyst dark:hover:bg-garden-amethyst/80 text-white font-medium px-4 py-2.5 rounded-xl shadow-sm transition-all disabled:opacity-50 text-xs sm:text-sm"
-            title="Conectado a Groq IA: genera publicaciones automáticas los miércoles y jueves (prueba de hoy)"
+            title="Generar nueva publicación automática para el blog"
           >
             {isGeneratingAI ? (
               <>
                 <RefreshCw className="w-4 h-4 animate-spin text-garden-thistle" />
-                <span>Generando con IA...</span>
+                <span>Generando...</span>
               </>
             ) : (
               <>
                 <Sparkles className="w-4 h-4 text-garden-thistle" />
-                <span>Publicación con IA (Groq)</span>
+                <span>Publicación Automática</span>
               </>
             )}
           </button>
@@ -103,12 +108,12 @@ export default function ForumSection() {
         </div>
       </div>
 
-      {/* Groq Automated Schedule Info Banner */}
-      <div className="my-4 bg-garden-thistle/40 dark:bg-garden-darkCard p-3 rounded-2xl border border-garden-thistle/80 dark:border-garden-darkBorder flex items-center justify-between gap-3 text-xs text-garden-darkPurple dark:text-garden-thistle">
+      {/* Automated Schedule Info Banner */}
+      <div className="my-4 bg-garden-thistle/40 dark:bg-garden-darkCard p-3 rounded-2xl border border-garden-thistle/80 dark:border-garden-darkBorder flex items-center justify-between gap-3 text-xs text-garden-darkPurple dark:text-garden-thistle relative z-10">
         <div className="flex items-center gap-2">
           <Calendar className="w-4 h-4 text-garden-amethyst shrink-0" />
           <span>
-            <strong>Publicaciones automáticas con IA:</strong> Cada <strong>miércoles</strong> y <strong>jueves</strong> se publica una nueva nota botánica. Puedes pulsar el botón de arriba para probar la generación del día de hoy.
+            <strong>Publicaciones automáticas:</strong> Cada <strong>miércoles</strong> y <strong>jueves</strong> se publica un nuevo artículo botánico en el blog. Pulsa el botón de arriba para probar una publicación ahora mismo.
           </span>
         </div>
       </div>

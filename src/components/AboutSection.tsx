@@ -11,6 +11,7 @@ import {
   Camera, 
   Flower2 
 } from 'lucide-react';
+import { RootsBottomLeft } from './BotanicalRoots';
 
 export default function AboutSection() {
   const { content, openEditor } = useContent();
@@ -83,11 +84,13 @@ export default function AboutSection() {
         <div className="lg:col-span-7 space-y-6">
           <div className="inline-flex items-center gap-2 text-garden-amethyst font-semibold text-xs uppercase tracking-wider">
             <Sprout className="w-4 h-4" />
-            Nuestra Historia
+            <span className="font-serif text-garden-olive uppercase tracking-wider text-xs font-semibold">
+              El Refugio Botánico
+            </span>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl font-serif font-bold text-garden-darkPurple dark:text-white leading-tight">
-            Acerca de nuestro Jardín & Publicaciones
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-script font-normal text-garden-darkPurple dark:text-garden-thistle leading-tight tracking-wide">
+            Acerca de Nuestro Jardín
           </h2>
 
           <div className="space-y-4 text-lg text-garden-darkPurple/80 dark:text-garden-thistle leading-relaxed font-serif">

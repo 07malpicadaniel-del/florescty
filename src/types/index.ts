@@ -1,4 +1,4 @@
-export type DifficultyLevel = 'Principiante' | 'Intermedio' | 'Experto';
+export type DifficultyLevel = 'Principiante' | 'Intermedio' | 'Avanzado' | 'Experto';
 
 export type PostCategory = 
   | 'Flores y Cuidados'

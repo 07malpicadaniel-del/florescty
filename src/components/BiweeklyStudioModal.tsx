@@ -122,11 +122,11 @@ export default function BiweeklyStudioModal() {
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-serif text-2xl font-bold">
-                  Cuaderno de Edición Quincenal
+                  Cuaderno de El Jardín Secreto
                 </h3>
               </div>
               <p className="text-xs text-garden-thistle/80 font-serif">
-                Actualiza los textos, fechas y la planta destacada cada dos semanas.
+                Gestiona las publicaciones, textos e información del blog botánico.
               </p>
             </div>
           </div>

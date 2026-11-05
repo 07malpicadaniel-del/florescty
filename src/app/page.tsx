@@ -59,13 +59,13 @@ export default function HomePage() {
                   </p>
                   <div className="pt-2 flex items-center justify-center gap-3 text-xs text-garden-darkPurple/70 dark:text-garden-thistle/70 font-medium font-serif">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-garden-amethyst" />
-                      Renovación cada 2 semanas
+                      <Sprout className="w-3.5 h-3.5 text-garden-amethyst" />
+                      Más de 20 especies florales
                     </span>
                     <span>•</span>
                     <span className="flex items-center gap-1">
                       <Flower2 className="w-3.5 h-3.5 text-garden-amethyst" />
-                      Espacio Botánico
+                      Cuidados sencillos y efectivos
                     </span>
                   </div>
                 </div>
@@ -80,7 +80,7 @@ export default function HomePage() {
                     <Flower2 className="w-4 h-4" />
                     Publicaciones Recientes
                   </div>
-                  <h3 className="text-3xl sm:text-4xl font-serif font-bold text-garden-darkPurple dark:text-white">
+                  <h3 className="text-4xl sm:text-5xl font-script font-normal text-garden-darkPurple dark:text-garden-thistle tracking-wide leading-tight">
                     Notas y Cuidados
                   </h3>
                 </div>
@@ -109,7 +109,7 @@ export default function HomePage() {
                     <BookOpen className="w-4 h-4" />
                     Colección
                   </div>
-                  <h3 className="text-3xl sm:text-4xl font-serif font-bold text-garden-darkPurple dark:text-white">
+                  <h3 className="text-4xl sm:text-5xl font-script font-normal text-garden-darkPurple dark:text-garden-thistle tracking-wide leading-tight">
                     Plantas Destacadas
                   </h3>
                 </div>

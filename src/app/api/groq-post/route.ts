@@ -57,27 +57,34 @@ export async function POST(req: Request) {
         messages: [
           {
             role: 'system',
-            content: `Eres un escritor botánico para El Jardín Secreto.
-Escribe publicaciones sencillas, cálidas y prácticas sobre plantas y flores, usando lenguaje claro y accesible.
-NUNCA menciones nombres de personas (la publicación debe ser anónima).
-NUNCA uses palabras complejas de informática o ingeniería.
+            content: `Eres un escritor botánico experto para el blog El Jardín Secreto.
+Escribe artículos botánicos detallados, completos y ricos en información práctica para amantes de las flores y plantas del hogar.
+El contenido debe ser extenso (4 a 5 párrafos completos y profundos), estructurado con elegancia:
+- Origen e historia botánica de la especie.
+- Protocolo minucioso de riego (frecuencia, método adecuado, técnica de inmersión si aplica y cómo comprobar la humedad).
+- Luz ideal, orientación en el hogar y temperatura.
+- Sustrato perfecto, aireación de raíces y abono natural.
+- Diagnóstico de problemas comunes (hojas mustias, marchitamiento o plagas) y el secreto del cultivador para una floración duradera.
+NUNCA menciones nombres de personas (debe ser autoría anónima).
+NUNCA uses palabras de informática o tecnología.
+NUNCA menciones entregas, fechas límite ni ventas. Es un blog botánico puro.
 Responde ÚNICAMENTE en formato JSON con la siguiente estructura:
 {
-  "title": "Título sencillo y atractivo",
-  "content": "Párrafo breve con consejos prácticos de cuidado, luz y agua (2 a 3 oraciones sencillas).",
+  "title": "Título evocador y completo del artículo",
+  "content": "Artículo botánico completo y extenso, detallando paso a paso los cuidados en varios párrafos bien redactados.",
   "category": "Flores y Cuidados" | "Plantas de Casa" | "Suculentas" | "Consejos de Riego",
-  "scientificName": "Nombre científico en latín si aplica (o dejar vacío)",
-  "watering": "Frecuencia de riego sencilla (ej: Cada 8 días)",
-  "light": "Necesidad de luz sencilla (ej: Mucha luz sin sol directo)"
+  "scientificName": "Nombre científico completo con género y especie (ej: Phalaenopsis amabilis)",
+  "watering": "Instrucción de riego precisa (ej: Inmersión semanal con agua reposada a temperatura ambiente)",
+  "light": "Requisito de luz detallado (ej: Luz tamizada brillante junto a ventana este, evitando el sol directo del mediodía)"
 }`
           },
           {
             role: 'user',
-            content: `Genera una nota sencilla sobre: ${topic}.`
+            content: `Escribe una guía botánica completa, detallada y profunda sobre: ${topic}.`
           }
         ],
         response_format: { type: 'json_object' },
-        max_tokens: 800,
+        max_tokens: 2500,
         temperature: 0.7
       })
     });
@@ -105,7 +112,7 @@ Responde ÚNICAMENTE en formato JSON con la siguiente estructura:
       },
       imageUrl: chosenImage,
       createdAt: 'Publicado hoy',
-      fortnightTag: isWedOrThu ? 'Publicación de Temporada' : 'Edición Quincenal',
+      fortnightTag: 'Guía Botánica',
       likes: 12,
       views: 75,
       plantDetails: {
