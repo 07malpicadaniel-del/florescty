@@ -29,6 +29,10 @@ interface ContentContextType {
   selectedCategory: string;
   setSelectedCategory: (cat: string) => void;
   
+  // Theme Dark/Light
+  theme: 'light' | 'dark';
+  toggleTheme: () => void;
+
   // Actions
   updateCurrentEdition: (edition: BiweeklyEdition) => void;
   updateSiteSettings: (settings: SiteSettings) => void;
@@ -54,7 +58,8 @@ interface ContentContextType {
   importContentBackup: (jsonData: string) => boolean;
 }
 
-const STORAGE_KEY = 'jardin_secreto_content_v1';
+const STORAGE_KEY = 'jardin_secreto_content_v2';
+const THEME_KEY = 'jardin_secreto_theme';
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
@@ -67,23 +72,50 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
   const [isNewPostModalOpen, setIsNewPostModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('Todas');
-  const [hydrated, setHydrated] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   // Load from LocalStorage
   useEffect(() => {
     try {
+      const savedTheme = localStorage.getItem(THEME_KEY) as 'light' | 'dark' | null;
+      if (savedTheme) {
+        setTheme(savedTheme);
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        setTheme('dark');
+        document.documentElement.classList.add('dark');
+      }
+
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed && parsed.currentEdition && parsed.posts) {
+          // Verify posts only contain Constanza or update avatar
           setContent(parsed);
         }
       }
     } catch (e) {
       console.warn('Could not read from localStorage', e);
     }
-    setHydrated(true);
   }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem(THEME_KEY, nextTheme);
+    } catch (e) {}
+
+    if (nextTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
 
   // Save to LocalStorage whenever content changes
   const saveContent = (newContent: AppContentState) => {
@@ -129,19 +161,17 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       title: data.title,
       content: data.content,
       category: data.category,
-      imageUrl: data.imageUrl || (data.isCurator ? 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1000&q=80' : undefined),
+      imageUrl: data.imageUrl || 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1000&q=80',
       author: {
-        name: data.authorName || (data.isCurator ? content.siteSettings.curatorName : 'Cultivador Anónimo'),
-        role: data.isCurator ? 'Curadora & Editora' : 'Comunidad Botánica',
-        avatar: data.isCurator 
-          ? content.siteSettings.curatorAvatar 
-          : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
-        isCurator: !!data.isCurator
+        name: content.siteSettings.curatorName,
+        role: content.siteSettings.curatorRole,
+        avatar: content.siteSettings.curatorAvatar,
+        isCurator: true
       },
-      createdAt: 'Justo ahora',
+      createdAt: 'Publicación de la Quincena',
       fortnightTag: `Edición #${content.currentEdition.editionNumber}`,
       likes: 1,
-      views: 12,
+      views: 10,
       pinned: false,
       plantDetails: data.scientificName ? {
         scientificName: data.scientificName,
@@ -226,10 +256,8 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     if (!text.trim()) return;
     const newComment = {
       id: `c-${Date.now()}`,
-      author: authorName || (isCurator ? content.siteSettings.curatorName : 'Visitante Verde'),
-      avatar: isCurator 
-        ? content.siteSettings.curatorAvatar 
-        : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
+      author: authorName || content.siteSettings.curatorName,
+      avatar: isCurator ? content.siteSettings.curatorAvatar : '/wix-assets/acerca_1.jpg',
       createdAt: 'Hace un momento',
       content: text.trim(),
       isCurator: !!isCurator
@@ -282,7 +310,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(content, null, 2));
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute('href', dataStr);
-    downloadAnchor.setAttribute('download', `jardin-secreto-respaldo-${new Date().toISOString().slice(0, 10)}.json`);
+    downloadAnchor.setAttribute('download', `jardin-secreto-cuaderno-${new Date().toISOString().slice(0, 10)}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -321,6 +349,8 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
         setSearchQuery,
         selectedCategory,
         setSelectedCategory,
+        theme,
+        toggleTheme,
         updateCurrentEdition,
         updateSiteSettings,
         createPost,

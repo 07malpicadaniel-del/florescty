@@ -4,12 +4,11 @@ import React, { useState } from 'react';
 import { useContent } from '../context/ContentContext';
 import { 
   Sprout, 
-  Heart, 
   Send, 
   Sparkles, 
   CheckCircle2, 
-  ShieldCheck, 
-  Calendar 
+  Calendar,
+  Flower2
 } from 'lucide-react';
 
 export default function Footer() {
@@ -27,23 +26,27 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-botanical-950 text-white border-t border-botanical-800 pt-16 pb-12 px-4 sm:px-6 lg:px-8">
+    <footer className="bg-botanical-950 dark:bg-black text-white border-t border-botanical-800 pt-16 pb-12 px-4 sm:px-6 lg:px-8 transition-colors">
       <div className="max-w-7xl mx-auto space-y-12">
         {/* Main Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
           {/* Brand & Mission (5 cols) */}
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-botanical-900 border border-botanical-700 flex items-center justify-center text-emerald-400">
-                <Sprout className="w-6 h-6" />
+              <div className="relative w-9 h-11 rounded-lg overflow-hidden border border-botanical-700 shrink-0 bg-white shadow-md">
+                <img
+                  src="/logo.png"
+                  alt="Logo El Jardín Secreto"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <span className="font-serif text-2xl font-bold tracking-tight text-white">
                 {content.siteSettings.siteName}
               </span>
             </div>
 
-            <p className="text-xs sm:text-sm text-botanical-300 leading-relaxed max-w-sm">
-              Una comunidad botánica viva fundada por <strong>{content.siteSettings.curatorName}</strong>. Cada dos semanas exploramos una nueva dimensión del reino vegetal con guías, fichas y un foro colaborativo.
+            <p className="text-xs sm:text-sm text-botanical-300 leading-relaxed max-w-sm font-serif">
+              Un refugio botánico fundado por <strong>{content.siteSettings.curatorName}</strong>. Cada dos semanas compartimos notas sobre nuevas especies de flores y plantas, su hábitat y consejos de cuidado.
             </p>
 
             <div className="pt-2 flex items-center gap-2 text-xs text-botanical-400">
@@ -56,8 +59,8 @@ export default function Footer() {
 
           {/* Quick Links (3 cols) */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-botanical-400 font-mono">
-              Navegación
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-emerald-400 font-mono">
+              El Jardín
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-botanical-200">
               <li>
@@ -73,7 +76,7 @@ export default function Footer() {
                   onClick={() => setActiveTab('foro')}
                   className="hover:text-emerald-400 transition-colors"
                 >
-                  Foro de la Comunidad ({content.posts.length} hilos)
+                  Cuaderno de Publicaciones ({content.posts.length})
                 </button>
               </li>
               <li>
@@ -89,16 +92,16 @@ export default function Footer() {
                   onClick={() => setActiveTab('acerca-de')}
                   className="hover:text-emerald-400 transition-colors"
                 >
-                  Historia de Constanza Pimentel
+                  Acerca de Constanza Pimentel
                 </button>
               </li>
               <li>
                 <button 
                   onClick={openEditor}
-                  className="text-flora-amber hover:underline flex items-center gap-1 font-medium"
+                  className="text-flora-amber hover:underline flex items-center gap-1 font-medium pt-1"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
-                  <span>Jardín Studio (Editar cada 2 semanas)</span>
+                  <span>Taller Quincenal (Editar Contenido)</span>
                 </button>
               </li>
             </ul>
@@ -106,11 +109,11 @@ export default function Footer() {
 
           {/* Biweekly Newsletter (4 cols) */}
           <div className="lg:col-span-4 space-y-3">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-botanical-400 font-mono">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-emerald-400 font-mono">
               Cuaderno Quincenal
             </h4>
-            <p className="text-xs text-botanical-300 leading-relaxed">
-              Recibe un correo cada 15 días con la nueva especie destacada, recordatorios de riego estacional y lo mejor del foro.
+            <p className="text-xs text-botanical-300 leading-relaxed font-serif">
+              Recibe cada 15 días la nueva flor o planta destacada, consejos de temporada y recordatorios de riego.
             </p>
 
             <form onSubmit={handleSubscribe} className="space-y-2">
@@ -120,14 +123,14 @@ export default function Footer() {
                   placeholder="tu.correo@ejemplo.com"
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
-                  className="flex-1 bg-botanical-900 border border-botanical-700 text-white text-xs px-3.5 py-2.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="flex-1 bg-botanical-900 dark:bg-darkGarden-900 border border-botanical-700 text-white text-xs px-3.5 py-2.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500"
                   required
                 />
                 <button
                   type="submit"
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0"
+                  className="bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors shrink-0"
                 >
-                  Unirme
+                  Suscribirme
                 </button>
               </div>
               {subscribed && (
@@ -142,20 +145,13 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-botanical-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-botanical-400">
-          <p>
-            © {new Date().getFullYear()} {content.siteSettings.siteName}. Creado con amor botánico.
+          <p className="font-serif">
+            © {new Date().getFullYear()} {content.siteSettings.siteName}. Creado y cuidado con amor por {content.siteSettings.curatorName}.
           </p>
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-botanical-300">
-              <span>Next.js 14 App Router · Vercel Ready</span>
+            <span className="text-botanical-400">
+              Un espacio para aprender y celebrar el reino vegetal
             </span>
-            <span>•</span>
-            <button
-              onClick={openEditor}
-              className="hover:text-flora-amber transition-colors"
-            >
-              Panel Editor
-            </button>
           </div>
         </div>
       </div>

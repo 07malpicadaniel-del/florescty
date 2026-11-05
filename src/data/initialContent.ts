@@ -6,16 +6,16 @@ export const INITIAL_CONTENT: AppContentState = {
     siteName: 'El Jardín Secreto',
     curatorName: 'Constanza Pimentel P.',
     curatorRole: 'Fundadora & Curadora Botánica',
-    curatorBio: 'Apasionada del reino vegetal, la botánica urbana y la divulgación de las maravillas naturales. Creé El Jardín Secreto para compartir cada dos semanas una nueva mirada a las especies que llenan de vida nuestro planeta.',
-    curatorAvatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
+    curatorBio: 'Dedicada a compartir las maravillas del reino vegetal. Creé El Jardín Secreto como un refugio natural para aprender sobre nuevas especies de flores y plantas, su origen y consejos de cuidado quincenales.',
+    curatorAvatar: '/wix-assets/acerca_1.jpg',
     tagline: 'Comunidad botánica viva & cuadernos de cultivo quincenales',
-    welcomeText: 'Bienvenidos al mundo de las plantas. Aquí celebramos la importancia de la flora en nuestro planeta: las plantas no solo nos proporcionan oxígeno y alimento, sino que también embellecen nuestro entorno y mantienen el equilibrio de la naturaleza.',
-    aboutStory: 'El Jardín Secreto nació como un refugio digital para conectar a quienes sienten fascinación por la naturaleza. Nuestro objetivo es crear un espacio donde puedas aprender y conocer más sobre las plantas de una manera sencilla, interesante y entretenida. Cada dos semanas renovamos nuestras publicaciones con fichas botánicas detalladas, consejos de cuidado para el hogar y un foro abierto para intercambiar dudas, esquejes y experiencias verdes.',
+    welcomeText: 'Bienvenidos al mundo de las plantas. Aquí, celebramos la importancia de la flora en nuestro planeta, ya que las plantas no solo nos proporcionan oxígeno y alimento, sino que también embellecen nuestro entorno y mantienen el equilibrio de la naturaleza. Nuestra misión es ofrecerte un espacio donde puedas aprender sobre la diversidad vegetal de manera sencilla y entretenida. Cada dos semanas, actualizaremos nuestra página con información sobre nuevas especies y consejos para su cuidado. ¡Únete a nosotros en esta emocionante aventura verde!',
+    aboutStory: 'Nuestro objetivo es crear un espacio donde puedas aprender y conocer más sobre las plantas de una manera sencilla, interesante y entretenida. Cada dos semanas, nuestra página se actualizará con información sobre nuevas especies, desde pequeñas plantas ornamentales hasta árboles, flores y plantas exóticas que quizás nunca hayas conocido. Además, podrás descubrir sus principales características, su origen, los lugares donde crecen y algunos consejos para mantenerlas saludables.\n\nTe invitamos a explorar este fascinante mundo verde, a despertar tu curiosidad y a descubrir todo lo que la naturaleza tiene para ofrecernos. ¡Acompáñanos cada quincena y conoce una nueva planta que te sorprenderá!',
     manifesto: [
       'Aprender a observar los ritmos lentos y sabios de la naturaleza.',
-      'Democratizar el conocimiento botánico sin tecnicismos intimidantes.',
-      'Construir una comunidad amable donde toda pregunta sobre plantas sea bienvenida.',
-      'Fomentar la biodiversidad y el cuidado responsable de cada ejemplar.'
+      'Divulgar el conocimiento sobre las plantas de manera clara y accesible.',
+      'Construir un jardín compartido donde toda duda botánica sea bienvenida.',
+      'Celebrar la biodiversidad y el cuidado responsable de cada flor y hoja.'
     ],
     contactEmail: 'constanza.pimentel@jardinsecreto.org',
     instagram: '@eljardinsecreto.botanica',
@@ -66,13 +66,13 @@ export const INITIAL_CONTENT: AppContentState = {
       highlights: [
         'Ajustes de riego ante el cambio de estación',
         'Ficha: Monstera Adansonii y sus ventanas naturales',
-        'Elaboración de humus de lombriz casero'
+        'Elaboración de abono orgánico con hojas secas'
       ],
       featuredPlant: {
         id: 'planta-monstera-adansonii',
         commonName: 'Monstera Oblicua / Adansonii',
         scientificName: 'Monstera adansonii Schott',
-        category: 'Aráceas',
+        category: 'Plantas de Follaje',
         imageUrl: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=1200&q=80',
         summary: 'Famosa por las perforaciones naturales en sus hojas ("queso suizo"). Trepadora vigorosa ideal para tutores de musgo esfagno.',
         origin: 'Selvas tropicales de América Central y del Sur.',
@@ -86,134 +86,109 @@ export const INITIAL_CONTENT: AppContentState = {
       }
     }
   ],
+  // Solamente las publicaciones reales de Constanza Pimentel
   posts: [
     {
-      id: 'post-1',
+      id: 'post-constanza-1',
       title: '🌿 Cuaderno de la Quincena: Cómo lograr que tu orquídea vuelva a florecer año tras año',
-      content: 'Muchos piensan que cuando una orquídea pierde sus flores, la planta ha llegado a su fin. ¡Nada más lejos de la realidad! En esta edición quincenal les comparto mi método comprobado de choque térmico nocturno y fertilización ligera balanceada (20-20-20 al cuarto de dosis) para activar las varas florales durmientes.',
+      content: 'Muchos piensan que cuando una orquídea pierde sus flores, la planta ha terminado su ciclo. ¡Nada más lejos de la realidad! En esta entrega quincenal les comparto mi método comprobado de choque térmico nocturno y fertilización ligera balanceada para activar las varas florales durmientes sin forzar la planta.\n\nEl factor detonante es la variación de temperatura: si durante 3 a 4 semanas permites que la temperatura baje entre 4°C y 6°C por la noche, la planta recibe la señal natural de que es tiempo de emitir nuevas varas.',
       author: {
         name: 'Constanza Pimentel P.',
-        role: 'Curadora Principal',
-        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
+        role: 'Curadora & Creadora de El Jardín Secreto',
+        avatar: '/wix-assets/acerca_1.jpg',
         isCurator: true
       },
       category: 'Orquídeas y Flores',
       imageUrl: 'https://images.unsplash.com/photo-1566804374972-e1c55c5e8c47?auto=format&fit=crop&w=1000&q=80',
-      createdAt: 'Hace 2 días',
+      createdAt: 'Publicación de la Quincena',
       fortnightTag: 'Edición #24',
-      likes: 42,
-      views: 318,
+      likes: 48,
+      views: 342,
       pinned: true,
       plantDetails: {
         scientificName: 'Orchidaceae Juss.',
         light: 'Luz indirecta abundante',
-        watering: 'Inmersión semanal',
+        watering: 'Inmersión cada 8 a 10 días',
         difficulty: 'Intermedio'
       },
       comments: [
         {
-          id: 'c-101',
-          author: 'Martín Sotomayor',
-          avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
-          createdAt: 'Ayer a las 14:20',
-          content: '¡Increíble dato el de la diferencia de temperatura entre día y noche! La mía llevaba dos años sin dar vara y justo empezó a brotar cuando la acerqué a la ventana que abro en las noches.'
-        },
-        {
-          id: 'c-102',
+          id: 'c-constanza-101',
           author: 'Constanza Pimentel P.',
-          avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
-          createdAt: 'Ayer a las 16:45',
-          content: '¡Exactamente Martín! Ese salto de 4° a 6°C le avisa a la planta que es temporada de floración. Cuídale mucho esa vara nueva del viento directo.',
+          avatar: '/wix-assets/acerca_1.jpg',
+          createdAt: 'Nota de la Curadora',
+          content: 'Recuerden que cuando la vara floral esté creciendo, no deben cambiar la orientación de la maceta respecto a la luz, o la vara crecerá torcida buscando la ventana.',
           isCurator: true
         }
       ]
     },
     {
-      id: 'post-2',
-      title: '🔍 ¿Alguien me ayuda a identificar esta joya variegada que rescaté en el mercado?',
-      content: 'Compré esta pequeña planta en un vivero local donde solo decía "Planta surtida". Tiene tallos rojizos, hojas acorazonadas y una variegación blanca marmolada preciosa. ¿Es un Syngonium Albo o un Philodendron White Wizard?',
-      author: {
-        name: 'Camila Rosas',
-        role: 'Miembro Botánico',
-        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80',
-        isCurator: false
-      },
-      category: 'Identificación de Especies',
-      imageUrl: 'https://images.unsplash.com/photo-1604762524889-3e2fcc145683?auto=format&fit=crop&w=1000&q=80',
-      createdAt: 'Hace 3 días',
-      fortnightTag: 'Edición #24',
-      likes: 27,
-      views: 184,
-      comments: [
-        {
-          id: 'c-103',
-          author: 'Luciano Verde',
-          avatar: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80',
-          createdAt: 'Hace 2 días',
-          content: 'Por la forma del peciolo y el borde alado parece un Philodendron White Wizard. ¡Menudo hallazgo para un puesto callejero!'
-        }
-      ]
-    },
-    {
-      id: 'post-3',
+      id: 'post-constanza-2',
       title: '🌵 La regla de oro del sustrato para suculentas: Adiós a la tierra apelmazada',
-      content: 'El 80% de las suculentas mueren no por falta de amor, sino por exceso de agua retenida en el sustrato. Les comparto la mezcla mineral 70/30 que utilizo en El Jardín Secreto: 40% tepojal/pómice, 30% perlita o gravilla volcánica, y solo 30% tierra negra con humus.',
+      content: 'El 80% de las suculentas no mueren por falta de cuidado, sino por exceso de humedad retenida en un sustrato inadecuado. En nuestro jardín utilizamos la regla 70/30: 70% de material drenante inorgánico (pómice, tepojal o gravilla volcánica) y solamente un 30% de tierra de hojas o humus orgánico.\n\nCon esta combinación, el agua drena en segundos y las raíces respiran libremente, evitando la pudrición incluso en épocas lluviosas.',
       author: {
         name: 'Constanza Pimentel P.',
-        role: 'Curadora Principal',
-        avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
+        role: 'Curadora & Creadora de El Jardín Secreto',
+        avatar: '/wix-assets/acerca_1.jpg',
         isCurator: true
       },
       category: 'Suculentas y Cactus',
       imageUrl: 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=1000&q=80',
-      createdAt: 'Hace 5 días',
+      createdAt: 'Publicación de la Quincena',
       fortnightTag: 'Edición #24',
-      likes: 56,
-      views: 460,
-      comments: [
-        {
-          id: 'c-104',
-          author: 'Andrea Morales',
-          avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=80',
-          createdAt: 'Hace 4 días',
-          content: 'Cambié mis echeverias a esta fórmula la semana pasada y la absorción de agua es impecable. Se seca en 48 horas sin estancarse.'
-        }
-      ]
-    },
-    {
-      id: 'post-4',
-      title: '🍂 Remedio casero efectivo contra la temida cochinilla algodonosa',
-      content: 'Si descubres pequeñas pelusas blancas algodonosas en las axilas de tus hojas, ¡actúa de inmediato! Mi receta favorita: 500ml de agua tibia, 1 cucharada de jabón potásico neutro y 1 cucharadita de alcohol al 70%. Aplicar al atardecer para no quemar con el sol.',
-      author: {
-        name: 'Elena Vega',
-        role: 'Entusiasta de Plantas',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
-        isCurator: false
+      likes: 62,
+      views: 480,
+      pinned: false,
+      plantDetails: {
+        scientificName: 'Crassulaceae J.St.-Hil.',
+        light: 'Sol directo o luz muy brillante',
+        watering: 'Solo con sustrato seco al 100%',
+        difficulty: 'Principiante'
       },
-      category: 'Plagas y Soluciones Orgánicas',
-      imageUrl: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80',
-      createdAt: 'Hace 6 días',
-      fortnightTag: 'Edición #23',
-      likes: 38,
-      views: 290,
       comments: []
     },
     {
-      id: 'post-5',
-      title: '🍃 Taller de Esquejes en Agua: Mis resultados propagando Ficus Lyrata y Pothos',
-      content: 'Propagar plantas es una de las experiencias más gratificantes. Llevo 3 semanas enraizando esquejes con un chorrito de agua oxigenada para oxigenar el medio y canela en el corte. Ya asoman raíces de 5 centímetros listas para trasplante a maceta.',
+      id: 'post-constanza-3',
+      title: '🍃 Guía de Adaptación: Cómo recibir y aclimatar una nueva planta en el hogar',
+      content: 'Cuando llevamos una planta nueva a casa desde el invernadero, se enfrenta a un entorno con menos luz y menor humedad relativa. Mi consejo más importante para las dos primeras semanas:\n\n1. No la trasplantes inmediatamente: dale 14 días para habituarse a tu espacio.\n2. Ubícala en un lugar con buena iluminación natural indirecta, lejos de corrientes de aire.\n3. Riega únicamente cuando el tercio superior de la tierra esté seco al tacto.',
       author: {
-        name: 'Diego Valenzuela',
-        role: 'Jardinero Urbano',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80',
-        isCurator: false
+        name: 'Constanza Pimentel P.',
+        role: 'Curadora & Creadora de El Jardín Secreto',
+        avatar: '/wix-assets/acerca_1.jpg',
+        isCurator: true
       },
-      category: 'Propagación y Esquejes',
-      imageUrl: 'https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=1000&q=80',
-      createdAt: 'Hace 1 semana',
+      category: 'Cuidado y Riego',
+      imageUrl: 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1000&q=80',
+      createdAt: 'Publicación de la Quincena',
       fortnightTag: 'Edición #23',
-      likes: 31,
-      views: 245,
+      likes: 54,
+      views: 390,
+      pinned: false,
+      plantDetails: {
+        scientificName: 'Flora Doméstica',
+        light: 'Luz filtrada',
+        watering: 'Moderado',
+        difficulty: 'Principiante'
+      },
+      comments: []
+    },
+    {
+      id: 'post-constanza-4',
+      title: '🌸 El valor de la paciencia botánica: Observar las cuatro estaciones en las flores',
+      content: 'Cada especie tiene su propio reloj biológico. Algunas reposan en otoño e invierno para almacenar energía y regalar su mejor floración en primavera. En El Jardín Secreto honramos estos ciclos naturales cada quincena, aprendiendo a acompañar a nuestras plantas sin apresurarlas.',
+      author: {
+        name: 'Constanza Pimentel P.',
+        role: 'Curadora & Creadora de El Jardín Secreto',
+        avatar: '/wix-assets/acerca_1.jpg',
+        isCurator: true
+      },
+      category: 'Diario Botánico',
+      imageUrl: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=1000&q=80',
+      createdAt: 'Publicación de la Quincena',
+      fortnightTag: 'Edición #23',
+      likes: 39,
+      views: 295,
+      pinned: false,
       comments: []
     }
   ],
@@ -224,9 +199,9 @@ export const INITIAL_CONTENT: AppContentState = {
       scientificName: 'Monstera deliciosa Liebm.',
       category: 'Aráceas',
       imageUrl: 'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=800&q=80',
-      summary: 'Reina indiscutible de los interiores modernos por sus imponentes hojas con fenestraciones.',
+      summary: 'Reina indiscutible de los interiores por sus imponentes hojas con fenestraciones naturales.',
       origin: 'Selvas de México y Centroamérica',
-      light: 'Luz indirecta brillante, tolera sombra ligera',
+      light: 'Luz indirecta brillante, tolera sombra suave',
       watering: 'Moderado (dejar secar los primeros 3-4 cm de tierra)',
       humidity: 'Media a alta (50-60%)',
       difficulty: 'Principiante',
@@ -256,14 +231,14 @@ export const INITIAL_CONTENT: AppContentState = {
       scientificName: 'Dracaena trifasciata (Prain) Mabb.',
       category: 'Suculentas y Follaje',
       imageUrl: 'https://images.unsplash.com/photo-1593482892290-f54927ae1bf6?auto=format&fit=crop&w=800&q=80',
-      summary: 'La planta más indestructible del reino vegetal. Excelente purificadora recomendada por la NASA.',
+      summary: 'Una planta resistente y longeva. Excelente purificadora recomendada para dormitorios.',
       origin: 'África tropical occidental',
-      light: 'Se adapta a todo: desde sol filtrado hasta poca luz',
+      light: 'Se adapta a todo: desde sol filtrado hasta semisombra',
       watering: 'Muy escaso (cada 2 a 3 semanas en invierno)',
       humidity: 'Baja a normal',
       difficulty: 'Principiante',
       toxicity: 'Levemente tóxica para mascotas',
-      curatorNotes: 'El peor enemigo de la Sansevieria es regarla demasiado. Si dudas, no riegues.',
+      curatorNotes: 'El peor enemigo de la Sansevieria es regarla demasiado. Si dudas, espera unos días más.',
       tags: ['Ultra Resistente', 'Purificadora', 'Dormitorio']
     },
     {
@@ -275,7 +250,7 @@ export const INITIAL_CONTENT: AppContentState = {
       summary: 'Hojas redondas con franjas plateadas simétricas que bailan abriéndose de día y cerrándose de noche.',
       origin: 'Bosques lluviosos de Bolivia y Brasil',
       light: 'Sombra brillante, nunca sol directo',
-      watering: 'Mantener humedad constante sin encharcar (agua filtrada)',
+      watering: 'Mantener humedad constante sin encharcar (agua filtrada o reposada)',
       humidity: 'Muy alta (mínimo 65-75%)',
       difficulty: 'Experto',
       toxicity: '100% Pet-friendly',
@@ -295,7 +270,7 @@ export const INITIAL_CONTENT: AppContentState = {
       humidity: 'Media (40-50%)',
       difficulty: 'Intermedio',
       toxicity: 'Tóxica por savia lechosa',
-      curatorNotes: 'Odia las corrientes de aire frío y que la cambien de lugar constantemente.',
+      curatorNotes: 'Evita las corrientes de aire frío y no la cambies de lugar con frecuencia.',
       tags: ['Árbol de Interior', 'Escultural', 'Luz Brillante']
     },
     {
@@ -311,7 +286,7 @@ export const INITIAL_CONTENT: AppContentState = {
       humidity: 'Baja (ambiente seco)',
       difficulty: 'Principiante',
       toxicity: 'Inofensiva para mascotas',
-      curatorNotes: 'Nunca toques sus hojas con los dedos para no remover la pruina que la protege de los rayos UV.',
+      curatorNotes: 'Nunca toques sus hojas con los dedos para no remover la pruina natural que la protege.',
       tags: ['Geometría Sagrada', 'Poco Riego', 'Exterior/Ventana']
     }
   ]

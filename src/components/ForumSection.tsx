@@ -6,13 +6,10 @@ import ForumPostCard from './ForumPostCard';
 import { 
   MessageSquare, 
   PlusCircle, 
-  Filter, 
   Sparkles, 
-  Search, 
-  Sprout,
-  HelpCircle,
-  TrendingUp,
-  Layers
+  Sprout, 
+  Leaf,
+  Flower2
 } from 'lucide-react';
 import { PostCategory } from '../types';
 
@@ -55,36 +52,36 @@ export default function ForumSection() {
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-botanical-200">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-botanical-200 dark:border-botanical-800">
         <div>
-          <div className="inline-flex items-center gap-2 text-emerald-700 font-semibold text-xs uppercase tracking-wider mb-2">
-            <MessageSquare className="w-4 h-4" />
-            Comunidad Abierta · El Jardín Secreto
+          <div className="inline-flex items-center gap-2 text-emerald-700 dark:text-emerald-400 font-semibold text-xs uppercase tracking-wider mb-2">
+            <Flower2 className="w-4 h-4" />
+            Publicaciones de Constanza Pimentel · El Jardín Secreto
           </div>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-botanical-950 tracking-tight">
-            Foro Botánico & Cuadernos de Cultivo
+          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-botanical-950 dark:text-emerald-50 tracking-tight">
+            Cuadernos Botánicos & Entregas Quincenales
           </h2>
-          <p className="text-botanical-700 mt-2 max-w-2xl text-sm sm:text-base">
-            Comparte tus dudas, descubre soluciones orgánicas, aprende de los cuadernos de la quincena e intercambia experiencias con amantes de las plantas de todo el mundo.
+          <p className="text-botanical-700 dark:text-botanical-300 mt-2 max-w-2xl text-sm sm:text-base">
+            Espacio dedicado a compartir notas de cultivo, consejos de riego, cuidados de orquídeas y fichas de especies seleccionadas para enriquecer tu rincón verde cada dos semanas.
           </p>
         </div>
 
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={() => setIsNewPostModalOpen(true)}
-            className="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-white font-medium px-4 py-2.5 rounded-xl shadow-sm transition-all hover:shadow"
+            className="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-medium px-4 py-2.5 rounded-xl shadow-sm transition-all"
           >
             <PlusCircle className="w-4 h-4" />
-            <span>Crear Nueva Publicación</span>
+            <span>Nueva Publicación</span>
           </button>
 
           <button
             onClick={openEditor}
-            className="flex items-center gap-1.5 bg-botanical-100 hover:bg-botanical-200 text-botanical-900 border border-botanical-300 font-medium px-3.5 py-2.5 rounded-xl text-sm transition-colors"
-            title="Administrar publicaciones de la quincena"
+            className="flex items-center gap-1.5 bg-botanical-100 dark:bg-darkGarden-800 hover:bg-botanical-200 dark:hover:bg-darkGarden-700 text-botanical-900 dark:text-botanical-100 border border-botanical-300 dark:border-botanical-700 font-medium px-3.5 py-2.5 rounded-xl text-sm transition-colors"
+            title="Cuaderno de edición quincenal"
           >
             <Sparkles className="w-4 h-4 text-flora-amber" />
-            <span className="hidden sm:inline">Modo Curadora</span>
+            <span className="hidden sm:inline">Taller Quincenal</span>
           </button>
         </div>
       </div>
@@ -101,8 +98,8 @@ export default function ForumSection() {
                   onClick={() => setSelectedCategory(cat)}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
                     isSelected
-                      ? 'bg-botanical-800 text-white shadow-sm ring-1 ring-botanical-700'
-                      : 'bg-white text-botanical-800 border border-botanical-200/80 hover:bg-botanical-50 hover:border-botanical-400'
+                      ? 'bg-botanical-800 dark:bg-emerald-700 text-white shadow-sm ring-1 ring-botanical-700'
+                      : 'bg-white dark:bg-darkGarden-900 text-botanical-800 dark:text-botanical-200 border border-botanical-200/80 dark:border-botanical-800 hover:bg-botanical-50 dark:hover:bg-darkGarden-850'
                   }`}
                 >
                   {cat}
@@ -111,19 +108,19 @@ export default function ForumSection() {
             })}
           </div>
 
-          <div className="text-xs text-botanical-600 font-medium">
-            Mostrando <strong>{filteredPosts.length}</strong> {filteredPosts.length === 1 ? 'discusión' : 'discusiones'}
+          <div className="text-xs text-botanical-600 dark:text-botanical-400 font-medium">
+            Mostrando <strong>{filteredPosts.length}</strong> {filteredPosts.length === 1 ? 'publicación' : 'publicaciones'}
           </div>
         </div>
 
         {searchQuery && (
-          <div className="bg-botanical-100/70 text-botanical-900 text-xs px-3 py-1.5 rounded-lg flex items-center justify-between">
+          <div className="bg-botanical-100/70 dark:bg-darkGarden-850 text-botanical-900 dark:text-botanical-100 text-xs px-3 py-1.5 rounded-lg flex items-center justify-between">
             <span>
               Filtrando por: <strong>&ldquo;{searchQuery}&rdquo;</strong>
             </span>
             <button
               onClick={() => setSearchQuery('')}
-              className="text-botanical-700 hover:text-black font-semibold underline text-xs"
+              className="text-emerald-700 dark:text-emerald-400 hover:underline font-semibold text-xs ml-2"
             >
               Limpiar filtro
             </button>
@@ -139,26 +136,24 @@ export default function ForumSection() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 px-4 bg-white rounded-3xl border border-dashed border-botanical-300">
-          <div className="w-14 h-14 bg-botanical-100 rounded-full flex items-center justify-center mx-auto mb-4 text-botanical-600">
+        <div className="text-center py-16 px-4 bg-white dark:bg-darkGarden-900 rounded-3xl border border-dashed border-botanical-300 dark:border-botanical-800">
+          <div className="w-14 h-14 bg-botanical-100 dark:bg-darkGarden-800 rounded-full flex items-center justify-center mx-auto mb-4 text-emerald-600 dark:text-emerald-400">
             <Sprout className="w-7 h-7" />
           </div>
-          <h3 className="font-serif text-xl font-bold text-botanical-950 mb-1">
+          <h3 className="font-serif text-xl font-bold text-botanical-950 dark:text-white mb-1">
             No se encontraron publicaciones
           </h3>
-          <p className="text-botanical-700 text-sm max-w-md mx-auto mb-6">
-            No hay temas con la categoría o búsqueda seleccionada. Sé el primero en iniciar una conversación sobre este tema.
+          <p className="text-botanical-700 dark:text-botanical-300 text-sm max-w-md mx-auto mb-6">
+            No hay temas registrados bajo este criterio de búsqueda.
           </p>
           <button
             onClick={() => {
               setSelectedCategory('Todas');
               setSearchQuery('');
-              setIsNewPostModalOpen(true);
             }}
             className="inline-flex items-center gap-2 bg-emerald-700 text-white text-sm font-medium px-4 py-2.5 rounded-xl hover:bg-emerald-600 transition-colors"
           >
-            <PlusCircle className="w-4 h-4" />
-            <span>Crear la primera publicación</span>
+            Ver todas las publicaciones de Constanza
           </button>
         </div>
       )}

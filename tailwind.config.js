@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -20,6 +21,16 @@ module.exports = {
           800: '#234839',
           900: '#1e3c30',
           950: '#0e2019',
+        },
+        darkGarden: {
+          950: '#08130e',
+          900: '#0c1b14',
+          850: '#10241b',
+          800: '#152e23',
+          700: '#1c3d2e',
+          600: '#26523e',
+          border: '#1f4534',
+          card: '#0f2219',
         },
         earth: {
           50: '#fbf8f4',
@@ -48,6 +59,7 @@ module.exports = {
         'soft': '0 4px 20px -2px rgba(14, 32, 25, 0.06)',
         'lifted': '0 10px 30px -4px rgba(14, 32, 25, 0.1)',
         'glow': '0 0 25px rgba(72, 140, 110, 0.25)',
+        'dark-glow': '0 0 25px rgba(52, 113, 86, 0.35)',
       }
     },
   },

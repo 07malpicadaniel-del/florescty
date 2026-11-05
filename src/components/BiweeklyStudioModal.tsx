@@ -10,20 +10,15 @@ import {
   Calendar, 
   Leaf, 
   FileText, 
-  Settings, 
   Save, 
   Download, 
   Upload, 
   RotateCcw, 
-  Plus, 
   Trash2, 
   Pin, 
   CheckCircle2, 
-  Lock, 
-  Unlock,
-  Eye,
   Sliders,
-  HelpCircle
+  Flower2
 } from 'lucide-react';
 
 export default function BiweeklyStudioModal() {
@@ -67,7 +62,7 @@ export default function BiweeklyStudioModal() {
       spread: 70,
       origin: { y: 0.6 }
     });
-    showToast('¡Edición Quincenal actualizada y guardada con éxito!');
+    showToast('¡Edición Quincenal guardada con éxito en el jardín!');
   };
 
   const handleSaveSettings = (e: React.FormEvent) => {
@@ -78,7 +73,7 @@ export default function BiweeklyStudioModal() {
       spread: 60,
       origin: { y: 0.6 }
     });
-    showToast('¡Ajustes generales del sitio actualizados!');
+    showToast('¡Textos y datos de Constanza actualizados!');
   };
 
   const handleAddHighlight = () => {
@@ -106,10 +101,10 @@ export default function BiweeklyStudioModal() {
       if (result) {
         const ok = importContentBackup(result);
         if (ok) {
-          showToast('¡Copia de respaldo importada correctamente!');
+          showToast('¡Cuaderno de respaldo restaurado correctamente!');
           confetti({ particleCount: 60, spread: 70 });
         } else {
-          alert('El archivo no tiene el formato JSON válido de El Jardín Secreto.');
+          alert('El archivo no tiene el formato válido de El Jardín Secreto.');
         }
       }
     };
@@ -117,28 +112,28 @@ export default function BiweeklyStudioModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fadeIn">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fadeIn">
       <div 
-        className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl border border-botanical-200 overflow-hidden flex flex-col max-h-[92vh]"
+        className="relative w-full max-w-4xl bg-white dark:bg-darkGarden-900 rounded-3xl shadow-2xl border border-botanical-200 dark:border-botanical-800 overflow-hidden flex flex-col max-h-[92vh] transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Bar */}
-        <div className="bg-botanical-950 text-white px-6 py-4 flex items-center justify-between border-b border-botanical-800">
+        <div className="bg-botanical-950 dark:bg-black text-white px-6 py-4 flex items-center justify-between border-b border-botanical-800">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-botanical-800 flex items-center justify-center text-flora-amber border border-botanical-700">
-              <Sparkles className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-xl bg-botanical-800 dark:bg-darkGarden-800 flex items-center justify-center text-flora-amber border border-botanical-700">
+              <Flower2 className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-serif text-lg font-bold">
-                  Jardín Studio · Panel de Edición Quincenal
+                  Taller Botánico · Edición Quincenal
                 </h3>
                 <span className="bg-emerald-700 text-emerald-100 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
-                  Modo Editor
+                  Constanza Pimentel
                 </span>
               </div>
               <p className="text-xs text-botanical-300">
-                Diseñado para que actualices tu web botánica y foro cada 2 semanas con cero complicaciones.
+                Diseñado para que renueves el jardín y sus publicaciones cada 2 semanas con total facilidad.
               </p>
             </div>
           </div>
@@ -151,60 +146,60 @@ export default function BiweeklyStudioModal() {
           </button>
         </div>
 
-        {/* Studio Sub-Navigation */}
-        <div className="bg-botanical-50 border-b border-botanical-200 px-6 py-2 flex items-center gap-2 overflow-x-auto scrollbar-none">
+        {/* Sub-Navigation */}
+        <div className="bg-botanical-50 dark:bg-darkGarden-950 border-b border-botanical-200 dark:border-botanical-800 px-6 py-2 flex items-center gap-2 overflow-x-auto scrollbar-none">
           <button
             onClick={() => setActiveTab('edicion')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === 'edicion'
-                ? 'bg-botanical-900 text-white shadow-sm'
-                : 'text-botanical-700 hover:bg-botanical-200/60'
+                ? 'bg-botanical-900 dark:bg-emerald-800 text-white shadow-sm'
+                : 'text-botanical-700 dark:text-botanical-300 hover:bg-botanical-200/60 dark:hover:bg-darkGarden-800'
             }`}
           >
             <Calendar className="w-3.5 h-3.5 text-flora-amber" />
-            <span>1. Edición Quincenal Activa</span>
+            <span>1. Entrega Quincenal Activa</span>
           </button>
 
           <button
             onClick={() => setActiveTab('textos')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === 'textos'
-                ? 'bg-botanical-900 text-white shadow-sm'
-                : 'text-botanical-700 hover:bg-botanical-200/60'
+                ? 'bg-botanical-900 dark:bg-emerald-800 text-white shadow-sm'
+                : 'text-botanical-700 dark:text-botanical-300 hover:bg-botanical-200/60 dark:hover:bg-darkGarden-800'
             }`}
           >
             <FileText className="w-3.5 h-3.5 text-botanical-500" />
-            <span>2. Textos & Curadora</span>
+            <span>2. Textos del Jardín</span>
           </button>
 
           <button
             onClick={() => setActiveTab('publicaciones')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === 'publicaciones'
-                ? 'bg-botanical-900 text-white shadow-sm'
-                : 'text-botanical-700 hover:bg-botanical-200/60'
+                ? 'bg-botanical-900 dark:bg-emerald-800 text-white shadow-sm'
+                : 'text-botanical-700 dark:text-botanical-300 hover:bg-botanical-200/60 dark:hover:bg-darkGarden-800'
             }`}
           >
             <Sliders className="w-3.5 h-3.5 text-botanical-500" />
-            <span>3. Gestionar Foro ({content.posts.length})</span>
+            <span>3. Publicaciones ({content.posts.length})</span>
           </button>
 
           <button
             onClick={() => setActiveTab('respaldos')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === 'respaldos'
-                ? 'bg-botanical-900 text-white shadow-sm'
-                : 'text-botanical-700 hover:bg-botanical-200/60'
+                ? 'bg-botanical-900 dark:bg-emerald-800 text-white shadow-sm'
+                : 'text-botanical-700 dark:text-botanical-300 hover:bg-botanical-200/60 dark:hover:bg-darkGarden-800'
             }`}
           >
             <Download className="w-3.5 h-3.5 text-botanical-500" />
-            <span>4. Respaldo & Vercel</span>
+            <span>4. Respaldos del Cuaderno</span>
           </button>
         </div>
 
         {/* Toast Notification */}
         {toastMessage && (
-          <div className="bg-emerald-600 text-white text-xs font-medium px-4 py-2.5 flex items-center justify-between shadow-md">
+          <div className="bg-emerald-700 text-white text-xs font-medium px-4 py-2.5 flex items-center justify-between shadow-md">
             <span className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
               {toastMessage}
@@ -220,30 +215,30 @@ export default function BiweeklyStudioModal() {
           {/* TAB 1: BIWEEKLY EDITION */}
           {activeTab === 'edicion' && (
             <form onSubmit={handleSaveEdition} className="space-y-6">
-              <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl flex items-start gap-3">
-                <Leaf className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
-                <div className="text-xs text-emerald-950">
-                  <strong>Paso Quincenal:</strong> Cambia aquí el título del ciclo, las fechas, la planta que protagonizará estas dos semanas y el mensaje para la comunidad. Al presionar <strong>Guardar Cambios</strong>, la web se actualizará al instante.
+              <div className="bg-emerald-50 dark:bg-darkGarden-850 border border-emerald-200 dark:border-botanical-800 p-4 rounded-2xl flex items-start gap-3">
+                <Leaf className="w-5 h-5 text-emerald-700 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <div className="text-xs text-emerald-950 dark:text-emerald-100">
+                  <strong>Actualización Quincenal:</strong> Cambia aquí el título del ciclo, las fechas de la quincena, la planta protagonista y la nota de bienvenida. Al hacer clic en <strong>Guardar Cambios</strong>, la web se actualizará al instante de forma linda.
                 </div>
               </div>
 
               {/* Cycle Meta */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                     Número de Entrega
                   </label>
                   <input
                     type="number"
                     value={editionForm.editionNumber}
                     onChange={(e) => setEditionForm({ ...editionForm, editionNumber: Number(e.target.value) })}
-                    className="w-full bg-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 font-mono"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700 font-mono"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                     Rango de Fechas
                   </label>
                   <input
@@ -251,13 +246,13 @@ export default function BiweeklyStudioModal() {
                     value={editionForm.dateRange}
                     onChange={(e) => setEditionForm({ ...editionForm, dateRange: e.target.value })}
                     placeholder="Ej. 01 Nov – 15 Nov 2026"
-                    className="w-full bg-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                     Próxima Entrega
                   </label>
                   <input
@@ -265,7 +260,7 @@ export default function BiweeklyStudioModal() {
                     value={editionForm.nextEditionDate}
                     onChange={(e) => setEditionForm({ ...editionForm, nextEditionDate: e.target.value })}
                     placeholder="Ej. 16 Noviembre 2026"
-                    className="w-full bg-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700"
                     required
                   />
                 </div>
@@ -274,7 +269,7 @@ export default function BiweeklyStudioModal() {
               {/* Cycle Title & Editorial Message */}
               <div className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                     Título del Ciclo Quincenal *
                   </label>
                   <input
@@ -282,38 +277,38 @@ export default function BiweeklyStudioModal() {
                     value={editionForm.cycleTitle}
                     onChange={(e) => setEditionForm({ ...editionForm, cycleTitle: e.target.value })}
                     placeholder="Ej. El Despertar de las Aráceas y Selvas Domésticas"
-                    className="w-full bg-white text-botanical-950 text-sm p-3 rounded-xl border border-botanical-200 font-serif font-bold text-base"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-sm p-3 rounded-xl border border-botanical-200 dark:border-botanical-700 font-serif font-bold text-base"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
-                    Mensaje Editorial de Constanza Pimentel
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
+                    Mensaje de Constanza Pimentel
                   </label>
                   <textarea
                     rows={3}
                     value={editionForm.editorialMessage}
                     onChange={(e) => setEditionForm({ ...editionForm, editorialMessage: e.target.value })}
-                    className="w-full bg-white text-botanical-950 text-sm p-3 rounded-xl border border-botanical-200 leading-relaxed resize-none"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-sm p-3 rounded-xl border border-botanical-200 dark:border-botanical-700 leading-relaxed resize-none"
                     required
                   />
                 </div>
               </div>
 
               {/* Highlights Manager */}
-              <div className="bg-botanical-50 p-4 rounded-2xl border border-botanical-200 space-y-3">
-                <label className="block text-xs font-semibold text-botanical-900">
-                  Ejes Destacados de esta Quincena
+              <div className="bg-botanical-50 dark:bg-darkGarden-850 p-4 rounded-2xl border border-botanical-200 dark:border-botanical-800 space-y-3">
+                <label className="block text-xs font-semibold text-botanical-900 dark:text-botanical-100">
+                  Temas Clave de esta Quincena
                 </label>
                 <div className="space-y-2">
                   {editionForm.highlights?.map((h, i) => (
-                    <div key={i} className="flex items-center justify-between gap-2 bg-white px-3 py-2 rounded-xl border border-botanical-200 text-xs">
+                    <div key={i} className="flex items-center justify-between gap-2 bg-white dark:bg-darkGarden-900 px-3 py-2 rounded-xl border border-botanical-200 dark:border-botanical-800 text-xs dark:text-botanical-200">
                       <span>• {h}</span>
                       <button
                         type="button"
                         onClick={() => handleRemoveHighlight(i)}
-                        className="text-rose-600 hover:text-rose-800"
+                        className="text-rose-500 hover:text-rose-700"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -326,12 +321,12 @@ export default function BiweeklyStudioModal() {
                     placeholder="Agregar nuevo punto clave (ej: Guía de poda para el otoño)..."
                     value={newHighlight}
                     onChange={(e) => setNewHighlight(e.target.value)}
-                    className="flex-1 bg-white text-xs p-2.5 rounded-xl border border-botanical-200"
+                    className="flex-1 bg-white dark:bg-darkGarden-900 dark:text-white text-xs p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700"
                   />
                   <button
                     type="button"
                     onClick={handleAddHighlight}
-                    className="bg-botanical-800 hover:bg-botanical-700 text-white text-xs px-3.5 py-2.5 rounded-xl font-medium"
+                    className="bg-botanical-800 dark:bg-emerald-700 hover:bg-botanical-700 text-white text-xs px-3.5 py-2.5 rounded-xl font-medium"
                   >
                     Agregar
                   </button>
@@ -339,15 +334,15 @@ export default function BiweeklyStudioModal() {
               </div>
 
               {/* Featured Plant Section */}
-              <div className="border-t border-botanical-200 pt-6 space-y-4">
-                <div className="flex items-center gap-2 text-botanical-950 font-serif font-bold text-lg">
-                  <Leaf className="w-5 h-5 text-emerald-600" />
+              <div className="border-t border-botanical-200 dark:border-botanical-800 pt-6 space-y-4">
+                <div className="flex items-center gap-2 text-botanical-950 dark:text-emerald-100 font-serif font-bold text-lg">
+                  <Flower2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                   <h4>Planta Protagonista de la Quincena</h4>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                    <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                       Nombre Común
                     </label>
                     <input
@@ -357,13 +352,13 @@ export default function BiweeklyStudioModal() {
                         ...editionForm,
                         featuredPlant: { ...editionForm.featuredPlant, commonName: e.target.value }
                       })}
-                      className="w-full bg-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 font-semibold"
+                      className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700 font-semibold"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                    <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                       Nombre Científico
                     </label>
                     <input
@@ -373,14 +368,14 @@ export default function BiweeklyStudioModal() {
                         ...editionForm,
                         featuredPlant: { ...editionForm.featuredPlant, scientificName: e.target.value }
                       })}
-                      className="w-full bg-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 italic"
+                      className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700 italic font-serif"
                       required
                     />
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label className="block text-xs font-semibold text-botanical-800 mb-1">
-                      URL de la Fotografía Principal
+                    <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
+                      Fotografía Principal (URL)
                     </label>
                     <input
                       type="url"
@@ -389,13 +384,13 @@ export default function BiweeklyStudioModal() {
                         ...editionForm,
                         featuredPlant: { ...editionForm.featuredPlant, imageUrl: e.target.value }
                       })}
-                      className="w-full bg-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200 font-mono"
+                      className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700 font-mono"
                       required
                     />
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                    <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                       Resumen / Por qué es especial esta quincena
                     </label>
                     <textarea
@@ -405,12 +400,12 @@ export default function BiweeklyStudioModal() {
                         ...editionForm,
                         featuredPlant: { ...editionForm.featuredPlant, summary: e.target.value }
                       })}
-                      className="w-full bg-white text-botanical-950 text-xs sm:text-sm p-2.5 rounded-xl border border-botanical-200 resize-none"
+                      className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs sm:text-sm p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700 resize-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                    <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                       Requerimiento de Luz
                     </label>
                     <input
@@ -420,12 +415,12 @@ export default function BiweeklyStudioModal() {
                         ...editionForm,
                         featuredPlant: { ...editionForm.featuredPlant, light: e.target.value }
                       })}
-                      className="w-full bg-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200"
+                      className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                    <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                       Pauta de Riego
                     </label>
                     <input
@@ -435,27 +430,12 @@ export default function BiweeklyStudioModal() {
                         ...editionForm,
                         featuredPlant: { ...editionForm.featuredPlant, watering: e.target.value }
                       })}
-                      className="w-full bg-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200"
+                      className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-botanical-800 mb-1">
-                      Humedad Requerida
-                    </label>
-                    <input
-                      type="text"
-                      value={editionForm.featuredPlant.humidity}
-                      onChange={(e) => setEditionForm({
-                        ...editionForm,
-                        featuredPlant: { ...editionForm.featuredPlant, humidity: e.target.value }
-                      })}
-                      className="w-full bg-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                    <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                       Dificultad de Cultivo
                     </label>
                     <select
@@ -464,7 +444,7 @@ export default function BiweeklyStudioModal() {
                         ...editionForm,
                         featuredPlant: { ...editionForm.featuredPlant, difficulty: e.target.value as DifficultyLevel }
                       })}
-                      className="w-full bg-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200"
+                      className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700"
                     >
                       <option value="Principiante">Principiante</option>
                       <option value="Intermedio">Intermedio</option>
@@ -472,9 +452,9 @@ export default function BiweeklyStudioModal() {
                     </select>
                   </div>
 
-                  <div className="sm:col-span-2">
-                    <label className="block text-xs font-semibold text-botanical-800 mb-1">
-                      Consejo Secreto de la Curadora
+                  <div>
+                    <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
+                      Consejo de la Curadora
                     </label>
                     <input
                       type="text"
@@ -483,18 +463,18 @@ export default function BiweeklyStudioModal() {
                         ...editionForm,
                         featuredPlant: { ...editionForm.featuredPlant, curatorNotes: e.target.value }
                       })}
-                      placeholder="Ej. El secreto está en no encharcar las raíces aéreas..."
-                      className="w-full bg-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200"
+                      placeholder="Ej. El secreto está en las raíces..."
+                      className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Submit Buttons */}
-              <div className="pt-4 border-t border-botanical-200 flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-botanical-200 dark:border-botanical-800 flex items-center justify-end">
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-sm px-6 py-3 rounded-xl shadow-lg transition-all"
+                  className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-semibold text-sm px-6 py-3 rounded-xl shadow-lg transition-all"
                 >
                   <Save className="w-4 h-4" />
                   <span>Guardar y Publicar Quincena</span>
@@ -506,91 +486,91 @@ export default function BiweeklyStudioModal() {
           {/* TAB 2: TEXTS AND CURATOR */}
           {activeTab === 'textos' && (
             <form onSubmit={handleSaveSettings} className="space-y-6">
-              <div className="bg-botanical-50 border border-botanical-200 p-4 rounded-2xl flex items-start gap-3">
-                <FileText className="w-5 h-5 text-botanical-700 shrink-0 mt-0.5" />
-                <div className="text-xs text-botanical-900">
+              <div className="bg-botanical-50 dark:bg-darkGarden-850 border border-botanical-200 dark:border-botanical-800 p-4 rounded-2xl flex items-start gap-3">
+                <FileText className="w-5 h-5 text-botanical-700 dark:text-botanical-300 shrink-0 mt-0.5" />
+                <div className="text-xs text-botanical-900 dark:text-botanical-100">
                   Edita los textos base creados por <strong>Constanza Pimentel</strong> (nombre del jardín, mensaje de bienvenida, historia de Acerca de y datos de contacto).
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
-                    Nombre del Sitio / Proyecto
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
+                    Nombre del Sitio / Jardín
                   </label>
                   <input
                     type="text"
                     value={settingsForm.siteName}
                     onChange={(e) => setSettingsForm({ ...settingsForm, siteName: e.target.value })}
-                    className="w-full bg-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 font-serif font-bold"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700 font-serif font-bold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
-                    Curadora / Autora
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
+                    Curadora
                   </label>
                   <input
                     type="text"
                     value={settingsForm.curatorName}
                     onChange={(e) => setSettingsForm({ ...settingsForm, curatorName: e.target.value })}
-                    className="w-full bg-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 font-medium"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-sm p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700 font-medium"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                     Mensaje de Bienvenida (Página Principal)
                   </label>
                   <textarea
                     rows={3}
                     value={settingsForm.welcomeText}
                     onChange={(e) => setSettingsForm({ ...settingsForm, welcomeText: e.target.value })}
-                    className="w-full bg-white text-botanical-950 text-xs sm:text-sm p-3 rounded-xl border border-botanical-200 resize-none leading-relaxed"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs sm:text-sm p-3 rounded-xl border border-botanical-200 dark:border-botanical-700 resize-none leading-relaxed"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                     Historia Completa (Sección &ldquo;Acerca de&rdquo;)
                   </label>
                   <textarea
                     rows={4}
                     value={settingsForm.aboutStory}
                     onChange={(e) => setSettingsForm({ ...settingsForm, aboutStory: e.target.value })}
-                    className="w-full bg-white text-botanical-950 text-xs sm:text-sm p-3 rounded-xl border border-botanical-200 resize-none leading-relaxed"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs sm:text-sm p-3 rounded-xl border border-botanical-200 dark:border-botanical-700 resize-none leading-relaxed"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                     Instagram de la Comunidad
                   </label>
                   <input
                     type="text"
                     value={settingsForm.instagram}
                     onChange={(e) => setSettingsForm({ ...settingsForm, instagram: e.target.value })}
-                    className="w-full bg-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-botanical-800 mb-1">
+                  <label className="block text-xs font-semibold text-botanical-800 dark:text-botanical-200 mb-1">
                     Correo de Contacto
                   </label>
                   <input
                     type="email"
                     value={settingsForm.contactEmail}
                     onChange={(e) => setSettingsForm({ ...settingsForm, contactEmail: e.target.value })}
-                    className="w-full bg-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200"
+                    className="w-full bg-white dark:bg-darkGarden-850 dark:text-white text-botanical-950 text-xs p-2.5 rounded-xl border border-botanical-200 dark:border-botanical-700"
                   />
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-botanical-200 flex items-center justify-end">
+              <div className="pt-4 border-t border-botanical-200 dark:border-botanical-800 flex items-center justify-end">
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-sm px-6 py-3 rounded-xl shadow-lg transition-all"
+                  className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 dark:bg-emerald-600 dark:hover:bg-emerald-500 text-white font-semibold text-sm px-6 py-3 rounded-xl shadow-lg transition-all"
                 >
                   <Save className="w-4 h-4" />
                   <span>Guardar Textos</span>
@@ -604,34 +584,34 @@ export default function BiweeklyStudioModal() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="font-serif font-bold text-botanical-950 text-base">
-                    Publicaciones Activas en el Foro ({content.posts.length})
+                  <h4 className="font-serif font-bold text-botanical-950 dark:text-white text-base">
+                    Publicaciones Activas de Constanza ({content.posts.length})
                   </h4>
-                  <p className="text-xs text-botanical-600">
-                    Fija las más importantes en portada o elimina contenido no deseado.
+                  <p className="text-xs text-botanical-600 dark:text-botanical-400">
+                    Fija las más importantes en portada o administra las entregas quincenales.
                   </p>
                 </div>
               </div>
 
-              <div className="divide-y divide-botanical-100 border border-botanical-200 rounded-2xl overflow-hidden bg-white">
+              <div className="divide-y divide-botanical-100 dark:divide-botanical-800 border border-botanical-200 dark:border-botanical-800 rounded-2xl overflow-hidden bg-white dark:bg-darkGarden-900">
                 {content.posts.map((p) => (
-                  <div key={p.id} className="p-4 flex items-center justify-between gap-4 hover:bg-botanical-50/50 transition-colors">
+                  <div key={p.id} className="p-4 flex items-center justify-between gap-4 hover:bg-botanical-50/50 dark:hover:bg-darkGarden-850 transition-colors">
                     <div className="space-y-1 min-w-0">
                       <div className="flex items-center gap-2">
                         {p.pinned && (
-                          <span className="bg-emerald-100 text-emerald-800 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">
-                            Fijado
+                          <span className="bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">
+                            Fijada
                           </span>
                         )}
-                        <span className="text-[10px] font-mono text-botanical-500">
+                        <span className="text-[10px] font-mono text-botanical-500 dark:text-botanical-400">
                           {p.category} · {p.fortnightTag}
                         </span>
                       </div>
-                      <h5 className="font-semibold text-sm text-botanical-950 truncate">
+                      <h5 className="font-semibold text-sm text-botanical-950 dark:text-white truncate">
                         {p.title}
                       </h5>
-                      <p className="text-xs text-botanical-600 truncate">
-                        Por {p.author.name} · {p.comments.length} comentarios · {p.likes} me gusta
+                      <p className="text-xs text-botanical-600 dark:text-botanical-400 truncate">
+                        {p.comments.length} comentarios · {p.likes} me gusta
                       </p>
                     </div>
 
@@ -640,8 +620,8 @@ export default function BiweeklyStudioModal() {
                         onClick={() => togglePinPost(p.id)}
                         className={`p-2 rounded-lg border text-xs font-medium transition-colors ${
                           p.pinned 
-                            ? 'bg-emerald-100 text-emerald-800 border-emerald-300' 
-                            : 'bg-white text-botanical-700 border-botanical-200 hover:bg-botanical-100'
+                            ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border-emerald-300' 
+                            : 'bg-white dark:bg-darkGarden-800 text-botanical-700 dark:text-botanical-200 border-botanical-200 dark:border-botanical-700'
                         }`}
                         title={p.pinned ? 'Desfijar' : 'Fijar en portada'}
                       >
@@ -650,11 +630,11 @@ export default function BiweeklyStudioModal() {
 
                       <button
                         onClick={() => {
-                          if (confirm(`¿Eliminar "${p.title}"?`)) {
+                          if (confirm(`¿Retirar "${p.title}"?`)) {
                             deletePost(p.id);
                           }
                         }}
-                        className="p-2 rounded-lg bg-white hover:bg-rose-50 text-botanical-400 hover:text-rose-600 border border-botanical-200 transition-colors"
+                        className="p-2 rounded-lg bg-white dark:bg-darkGarden-800 hover:bg-rose-50 text-botanical-400 hover:text-rose-600 border border-botanical-200 dark:border-botanical-700 transition-colors"
                         title="Eliminar publicación"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -666,37 +646,34 @@ export default function BiweeklyStudioModal() {
             </div>
           )}
 
-          {/* TAB 4: BACKUPS, RESTORE & VERCEL */}
+          {/* TAB 4: BACKUPS, RESTORE */}
           {activeTab === 'respaldos' && (
             <div className="space-y-6">
-              <div className="bg-botanical-900 text-white p-5 rounded-2xl space-y-3">
+              <div className="bg-botanical-950 dark:bg-black text-white p-5 rounded-2xl space-y-3 border border-botanical-800">
                 <div className="flex items-center gap-2 text-flora-amber font-semibold text-sm">
-                  <Sparkles className="w-4 h-4" />
-                  <span>¿Cómo funciona el flujo quincenal?</span>
+                  <Flower2 className="w-4 h-4" />
+                  <span>¿Cómo funciona la renovación quincenal?</span>
                 </div>
                 <div className="text-xs text-botanical-200 space-y-2 leading-relaxed">
                   <p>
-                    <strong>1. Edición en Vivo:</strong> Cualquier cambio que hagas en este panel se guarda automáticamente en tu navegador y en la sesión de la web.
+                    <strong>1. Edición inmediata:</strong> Cualquier cambio que realices en este taller se almacena de inmediato en tu navegador de forma persistente.
                   </p>
                   <p>
-                    <strong>2. Exportación con un clic:</strong> Puedes descargar un archivo de respaldo (<code>.json</code>) para guardar el historial de tus quincenas o compartirlo.
-                  </p>
-                  <p>
-                    <strong>3. Publicación en Vercel:</strong> Cuando realices el deploy en Vercel, este panel seguirá 100% activo y funcional en producción.
+                    <strong>2. Guardar y compartir:</strong> Puedes descargar un archivo de respaldo (<code>.json</code>) cada quincena para conservar el histórico de todas tus plantas destacadas.
                   </p>
                 </div>
               </div>
 
               {/* Action Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-botanical-50 border border-botanical-200 p-4 rounded-2xl flex flex-col justify-between space-y-3">
+                <div className="bg-botanical-50 dark:bg-darkGarden-850 border border-botanical-200 dark:border-botanical-800 p-4 rounded-2xl flex flex-col justify-between space-y-3">
                   <div>
-                    <h5 className="font-bold text-xs text-botanical-950 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+                    <h5 className="font-bold text-xs text-botanical-950 dark:text-white uppercase tracking-wide flex items-center gap-1.5 mb-1">
                       <Download className="w-4 h-4 text-emerald-600" />
-                      Descargar Copia
+                      Descargar Cuaderno
                     </h5>
-                    <p className="text-[11px] text-botanical-600">
-                      Guarda todo el contenido actual (textos, quincena, foro) en tu computadora.
+                    <p className="text-[11px] text-botanical-600 dark:text-botanical-400">
+                      Guarda todo el contenido quincenal en un archivo en tu computadora.
                     </p>
                   </div>
                   <button
@@ -707,17 +684,17 @@ export default function BiweeklyStudioModal() {
                   </button>
                 </div>
 
-                <div className="bg-botanical-50 border border-botanical-200 p-4 rounded-2xl flex flex-col justify-between space-y-3">
+                <div className="bg-botanical-50 dark:bg-darkGarden-850 border border-botanical-200 dark:border-botanical-800 p-4 rounded-2xl flex flex-col justify-between space-y-3">
                   <div>
-                    <h5 className="font-bold text-xs text-botanical-950 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+                    <h5 className="font-bold text-xs text-botanical-950 dark:text-white uppercase tracking-wide flex items-center gap-1.5 mb-1">
                       <Upload className="w-4 h-4 text-cyan-600" />
-                      Importar Copia
+                      Restaurar Cuaderno
                     </h5>
-                    <p className="text-[11px] text-botanical-600">
-                      Restaura un archivo de respaldo previo de una quincena anterior.
+                    <p className="text-[11px] text-botanical-600 dark:text-botanical-400">
+                      Restaura un archivo de respaldo de una quincena previa.
                     </p>
                   </div>
-                  <label className="w-full bg-white hover:bg-botanical-100 text-botanical-900 border border-botanical-300 text-xs font-semibold py-2.5 rounded-xl transition-colors text-center cursor-pointer block">
+                  <label className="w-full bg-white dark:bg-darkGarden-800 text-botanical-900 dark:text-white border border-botanical-300 dark:border-botanical-700 text-xs font-semibold py-2.5 rounded-xl transition-colors text-center cursor-pointer block hover:bg-botanical-100">
                     <span>Seleccionar Archivo</span>
                     <input
                       type="file"
@@ -728,26 +705,26 @@ export default function BiweeklyStudioModal() {
                   </label>
                 </div>
 
-                <div className="bg-rose-50 border border-rose-200 p-4 rounded-2xl flex flex-col justify-between space-y-3">
+                <div className="bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900/40 p-4 rounded-2xl flex flex-col justify-between space-y-3">
                   <div>
-                    <h5 className="font-bold text-xs text-rose-950 uppercase tracking-wide flex items-center gap-1.5 mb-1">
+                    <h5 className="font-bold text-xs text-rose-950 dark:text-rose-200 uppercase tracking-wide flex items-center gap-1.5 mb-1">
                       <RotateCcw className="w-4 h-4 text-rose-600" />
-                      Restablecer Todo
+                      Restablecer Jardín
                     </h5>
-                    <p className="text-[11px] text-rose-700">
-                      Restaura la web a su configuración original de El Jardín Secreto.
+                    <p className="text-[11px] text-rose-700 dark:text-rose-300">
+                      Restaura el jardín a su estado original inicial.
                     </p>
                   </div>
                   <button
                     onClick={() => {
-                      if (confirm('¿Restablecer todo el contenido a los valores iniciales de fábrica?')) {
+                      if (confirm('¿Restablecer el jardín al estado inicial?')) {
                         resetToDefaults();
-                        showToast('Contenido restablecido.');
+                        showToast('Jardín restablecido al estado original.');
                       }
                     }}
                     className="w-full bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold py-2.5 rounded-xl transition-colors"
                   >
-                    Restablecer de Fábrica
+                    Restablecer Jardín Original
                   </button>
                 </div>
               </div>
