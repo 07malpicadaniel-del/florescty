@@ -57,7 +57,7 @@ interface ContentContextType {
   importContentBackup: (jsonData: string) => boolean;
 }
 
-const STORAGE_KEY = 'jardin_secreto_content_v5';
+const STORAGE_KEY = 'jardin_secreto_content_v6';
 const THEME_KEY = 'jardin_secreto_theme_v3';
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
@@ -90,17 +90,18 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       // Check current or prior localStorage keys
       const saved = 
         localStorage.getItem(STORAGE_KEY) || 
-        localStorage.getItem('jardin_secreto_content_v4') ||
-        localStorage.getItem('jardin_secreto_content_v3');
+        localStorage.getItem('jardin_secreto_content_v5') ||
+        localStorage.getItem('jardin_secreto_content_v4');
 
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed && parsed.posts && Array.isArray(parsed.posts)) {
-          // Merge custom posts created by user with new initial posts
+          // Keep only user-created posts (e.g. post-173... or post-ia-...) that are not legacy default posts
+          const legacyIds = new Set(['post-1', 'post-2', 'post-3', 'post-4', 'post-5']);
           const initialIds = new Set(INITIAL_CONTENT.posts.map(p => p.id));
-          const userCustomPosts = parsed.posts.filter((p: ForumPost) => !initialIds.has(p.id));
+          const userCustomPosts = parsed.posts.filter((p: ForumPost) => !initialIds.has(p.id) && !legacyIds.has(p.id));
 
-          // Merge any updated likes/comments for initial posts
+          // Merge any updated likes/comments for current initial posts
           const mergedInitialPosts = INITIAL_CONTENT.posts.map(initPost => {
             const savedMatch = parsed.posts.find((p: ForumPost) => p.id === initPost.id);
             if (savedMatch) {
@@ -119,7 +120,6 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
           setContent({
             ...INITIAL_CONTENT,
             ...parsed,
-            // Always preserve verified 20 local authentic plant profiles
             plantsEncyclopedia: INITIAL_CONTENT.plantsEncyclopedia,
             posts: [...userCustomPosts, ...mergedInitialPosts]
           });

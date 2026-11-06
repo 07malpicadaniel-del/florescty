@@ -80,11 +80,11 @@ async function runE2E() {
       throw new Error(`Título no esperado: ${pageTitle}`);
     }
 
-    // Verificar las 2 nuevas publicaciones cargadas
+    // Verificar las 3 nuevas publicaciones botánicas cargadas
     const postTitles = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('h3')).map(h => h.innerText);
     });
-    console.log(`  - Títulos de publicaciones en página:`, postTitles.filter(t => t.includes('Orquídeas') || t.includes('Violetas') || t.includes('Guía')));
+    console.log(`  - Títulos de publicaciones en página:`, postTitles.filter(t => t.includes('flores') || t.includes('significados') || t.includes('mascotas')));
     console.log('  ✅ Carga inicial y publicaciones verificadas correctamente.');
 
     // TEST 2: Botón de Alternancia de Modo Obscuro

@@ -49,190 +49,175 @@ export const INITIAL_CONTENT: AppContentState = {
     }
   },
   archivedEditions: [],
-  // Publicaciones anónimas extensas y detalladas para el blog
+  // Publicaciones del blog
   posts: [
     {
-      id: 'post-1',
-      title: '🌸 Guía Maestra: Cómo lograr que tu orquídea Phalaenopsis vuelva a florecer año tras año',
-      content: `Muchos amantes de la jardinería sienten frustración cuando una orquídea pierde su floración inicial y pasa meses sin dar señales de nuevos brotes. Sin embargo, este período de reposo es completamente natural y marca el inicio de una nueva etapa de crecimiento vegetativo.
+      id: 'post-flores-conocer',
+      title: '🌼 5 flores que debes conocer (y cómo cuidarlas en casa)',
+      content: `Si estás empezando a llenar tu casa o tu balcón de flores, estas cinco son un excelente punto de partida. Son hermosas, fáciles de cuidar y cada una aporta una personalidad única a tu hogar.
 
-1. El secreto de la diferencia térmica nocturna:
-En su hábitat natural, las Phalaenopsis experimentan una ligera caída en la temperatura al caer la noche (entre 4°C y 6°C menos que durante el día). Durante el otoño o principios de invierno, colocar tu orquídea cerca de una ventana bien ventilada donde perciba este fresco nocturno es el estímulo biológico exacto que despierta la yema latente para emitir una nueva vara floral.
+1. Orquídea mariposa (Phalaenopsis)
+Es la orquídea reina de los hogares y una de las más agradecidas: sus varas florales pueden mantenerse impecables entre dos y tres meses consecutivos.
+- Luz: mucha claridad natural tamizada, sin sol directo que queme sus pétalos. Una ventana orientada al este o con cortina blanca fina es perfecta.
+- Riego: cuando sus raíces se tornen de un tono gris plateado, sumerge la maceta durante diez minutos en agua tibia reposada y deja escurrir por completo.
+- Secreto del cultivador: sus raíces realizan fotosíntesis, por lo que siempre deben permanecer en macetas transparentes con corteza de pino aireada.
 
-2. El protocolo de riego por inmersión:
-El error más común es regar en un calendario rígido. El verdadero indicador son las raíces visibles dentro de la maceta transparente: cuando lucen de un verde esmeralda brillante, la planta tiene suficiente agua. Cuando se tornan de un tono gris plateado opaco, es momento de hidratar. Sumerge la maceta durante 10 a 15 minutos en un recipiente con agua reposada a temperatura ambiente, deja escurrir por completo cada gota antes de devolverla a su macetero decorativo para evitar cualquier encharcamiento en la corona.
+2. Lavanda francesa (Lavandula)
+Su aroma inconfundible relaja los sentidos, aporta serenidad y actúa como un repelente natural contra insectos y polillas.
+- Luz: pleno sol directo, al menos 6 horas diarias en balcones, terrazas o ventanas muy iluminadas.
+- Riego: moderado a escaso. Permite que el sustrato se seque por completo entre riegos; el exceso de agua es su mayor enemigo.
+- Secreto del cultivador: corta las espigas justo cuando comiencen a abrir y cuélgalas boca abajo a la sombra; conservarán su fragancia durante meses.
 
-3. Sustrato y fotosíntesis radicular:
-A diferencia de las plantas terrestres, las orquídeas son epífitas: sus raíces absorben luz y aire. Nunca utilices tierra regular de jardín; requieren corteza de pino de grano medio, perlita o fibra de coco que permita el paso continuo del oxígeno. Alimenta con abono específico muy diluido cada dos riegos durante su fase activa de hojas.`,
+3. Hortensia de jardín (Hydrangea)
+Majestuosas esferas florales en tonalidades que van del azul cielo al rosa pastel y blanco puro.
+- Luz: sol suave durante la mañana y sombra fresca por la tarde.
+- Riego: abundante y constante, especialmente en los meses cálidos. El sustrato debe mantenerse fresco y húmedo, nunca encharcado.
+- Secreto del cultivador: el color de sus pétalos depende del pH del suelo; los sustratos ácidos producen flores azuladas, mientras que los alcalinos dan tonos rosados.
+
+4. Gardenia (Jazmín del Cabo)
+Flores de un blanco cremoso con uno de los perfumes más embriagadores y elegantes del reino botánico.
+- Luz: luz indirecta muy brillante. La radiación directa del mediodía daña sus capullos.
+- Riego: regular, manteniendo la humedad ambiental alta mediante platos con piedras húmedas debajo de la maceta. Usa agua sin cal.
+- Secreto del cultivador: evita corrientes de aire frío y no gires la maceta cuando tenga botones florales, o podrían caer antes de abrir.
+
+5. Dalia pompón (Dahlia)
+Geometría perfecta de pétalos superpuestos en colores vibrantes, desde lilas profundos hasta naranjas cálidos.
+- Luz: requiere pleno sol para una floración vigorosa y continua.
+- Riego: tres veces por semana en temporada de calor, mojando siempre el pie de la planta sin mojar las flores.
+- Secreto del cultivador: retira sistemáticamente las flores marchitas para estimular la aparición inmediata de nuevos brotes.`,
       author: {
         name: 'Cultivador Anónimo',
         avatar: '/logo.png'
       },
       category: 'Flores y Cuidados',
-      imageUrl: '/flowers/orquidea-phalaenopsis.jpg',
+      imageUrl: '/flowers/dalia.jpg',
       createdAt: 'Artículo Destacado',
-      fortnightTag: 'Guía Floral',
-      likes: 64,
-      views: 480,
+      fortnightTag: 'Guía de Flores',
+      likes: 84,
+      views: 520,
       pinned: true,
       plantDetails: {
-        scientificName: 'Phalaenopsis amabilis (Orchidaceae)',
-        light: 'Luz filtrada brillante sin sol directo',
-        watering: 'Inmersión al tornarse raíces plateadas',
-        difficulty: 'Intermedio'
+        scientificName: 'Phalaenopsis, Lavandula, Hydrangea, Gardenia, Dahlia',
+        light: 'De luz tamizada a pleno sol según la especie',
+        watering: 'Moderado a frecuente según la flor',
+        difficulty: 'Principiante'
       },
       comments: [
         {
-          id: 'c-1',
+          id: 'c-conocer-1',
           author: 'Lector del Jardín',
           avatar: '/logo.png',
-          createdAt: 'Reciente',
-          content: 'Excelente explicación. Apliqué la técnica de la ventana con fresco nocturno y ya asoma una vara con 5 botones.'
+          createdAt: 'Hace un momento',
+          content: 'Hermosa selección. Puse en práctica el riego por inmersión de la orquídea y los botones abrieron radiantes.'
         }
       ]
     },
     {
-      id: 'post-2',
-      title: '💧 El arte del agua: Manual exhaustivo de hidratación para suculentas y plantas crasas',
-      content: `Las plantas crasas han evolucionado a lo largo de millones de años en ecosistemas áridos, almacenando reservas hídricas en sus carnosas hojas y tallos. Curiosamente, la causa número uno de pérdida en el cultivo doméstico no es la falta de agua, sino el exceso bondadoso de riego.
+      id: 'post-flores-significados',
+      title: '💐 Las flores y sus significados: qué decir con cada una',
+      content: `Desde la época victoriana, cuando nació la «floriografía» o el lenguaje secreto de las flores, los ramos se han utilizado para transmitir emociones que las palabras a veces no logran expresar. Cada flor posee un simbolismo poético que transforma cualquier rincón o regalo en un mensaje sincero.
 
-1. La técnica del "empape y sequía profunda":
-Olvídate de suministrar pequeñas gotas con aspersor o cucharaditas de agua. El sistema radicular de las suculentas necesita sentir un riego generoso que empape todo el cepellón, seguido inmediatamente de un drenaje absoluto y un período de sequía total hasta que el sustrato esté completamente seco de arriba a abajo. Para comprobarlo, introduce un palillo de madera hasta el fondo: si sale con la más mínima partícula húmeda adherida, espera unos días más.
+1. Rosa (Rosa spp.)
+La flor universal de los sentimientos:
+- Roja: amor apasionado, admiración profunda y devoción.
+- Blanca: pureza, nuevos comienzos, paz y respeto sincero.
+- Amarilla: alegría, calidez, gratitud y amistad incondicional.
+- Rosada: gentileza, elegancia, cariño y agradecimiento.
 
-2. Señales visuales que transmiten las hojas:
-Aprender a leer tu suculenta es el mejor indicador. Una planta hidratada tiene hojas firmes, turgentes y compactas. Cuando comienza a necesitar agua, las hojas inferiores pierden ligeramente su brillo y se sienten blandas al tacto con sutiles arrugas longitudinales. Por el contrario, si las hojas lucen amarillentas, transparentes y caen con un ligero roce, es una alarma crítica de pudrición por asfixia radicular.
+2. Orquídea (Orchidaceae)
+Símbolo milenario de belleza refinada, elegancia suprema y fortaleza serena. Regalar una orquídea expresa un profundo respeto hacia la persona que la recibe, reconociendo su virtud y perseverancia.
 
-3. La mezcla de sustrato mineral:
-El secreto de un cultivador reside bajo tierra. Una mezcla equilibrada debe componerse de al menos un 60% de material inorgánico (piedra pómez, perlita, grava volcánica o arena de río lavada) y sólo un 40% de materia orgánica tamizada. Las macetas de barro cocido con amplio orificio de drenaje son las mejores aliadas, pues sus paredes porosas permiten que la humedad excedente se evapore con rapidez.`,
+3. Peonía (Paeonia)
+Conocida en la cultura oriental como la «reina de las flores», simboliza la prosperidad, la buena fortuna, el honor y la armonía matrimonial. Sus generosos pétalos representan abundancia y dicha.
+
+4. Flor de Loto (Nelumbo nucifera)
+Emerge inmaculada desde aguas pantanosas para abrirse al sol matutino. Representa la pureza espiritual, la superación de dificultades, el renacimiento interior y la serenidad mental.
+
+5. Lavanda (Lavandula angustifolia)
+Simboliza la tranquilidad, la devoción, el silencio reparador y la paz en el hogar. Un ramillete de lavanda colocado en una habitación invita a la calma y aleja las tensiones.
+
+6. Gardenia (Gardenia jasminoides)
+En el código floral clásico, la gardenia representa el amor secreto, la gracia pura y la atracción sutil que se declara con discreción y dulzura.
+
+7. Camelia (Camellia japonica)
+Con sus pétalos perfectamente dispuestos, simboliza la admiración constante, la longevidad y el cariño que permanece inalterable a través de las estaciones.`,
       author: {
         name: 'Cultivador Anónimo',
         avatar: '/logo.png'
       },
-      category: 'Suculentas',
-      imageUrl: 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?auto=format&fit=crop&w=1000&q=80',
-      createdAt: 'Artículo de Cultivo',
-      fortnightTag: 'Guía de Riego',
-      likes: 82,
-      views: 590,
+      category: 'Diario de Jardín',
+      imageUrl: '/flowers/peonia.jpg',
+      createdAt: 'Guía Simbólica',
+      fortnightTag: 'Lenguaje Floral',
+      likes: 92,
+      views: 640,
       pinned: false,
       plantDetails: {
-        scientificName: 'Crassulaceae',
-        light: 'Mucha luz solar directa o indirecta brillante',
-        watering: 'Solo cuando el sustrato esté 100% seco',
-        difficulty: 'Principiante'
-      },
-      comments: []
-    },
-    {
-      id: 'post-3',
-      title: '🌿 Aclimatación y bienvenida: Cómo recibir una planta nueva en tu hogar sin causarle shock',
-      content: `Llegar a casa con una planta floreciente recién adquirida es una de las mayores alegrías de un entusiasta vegetal. No obstante, el traslado desde las condiciones controladas de un vivero o invernadero hacia las corrientes de aire, humedad y luminosidad del hogar representa un cambio brusco en su equilibrio fisiológico.
-
-1. El período de cuarentena y reposo:
-Antes de mezclar tu nueva adquisición con el resto de tu colección botánica, ubícala en un espacio iluminado pero separado durante 7 a 10 días. Esta prudente cuarentena te permite inspeccionar con lupa el envés de las hojas y la unión de los peciolos en busca de pequeños visitantes indeseados (como pulgones, trips o arañuela roja) que puedan haber viajado con la maceta.
-
-2. Por qué nunca debes trasplantar inmediatamente:
-La tentación de cambiar la maceta de plástico por un tiesto de cerámica decorativo es grande, pero realizar un trasplante mientras la planta está estresada y en plena floración provoca con frecuencia la caída súbita de capullos florales y el colapso de las raíces más finas. Permite que la planta se adapte a la luz y humedad de tu hogar durante al menos tres semanas completas antes de intervenir en sus raíces.
-
-3. Pulverización y calidad de agua:
-Las plantas de follaje tropical agradecen una humedad ambiental superior al 50%. En lugar de mojar constantemente la tierra, coloca bandejas con piedras volcánicas húmedas debajo de las macetas (sin que el agua toque la base del tiesto). Utiliza siempre agua de lluvia o reposada durante 24 horas para permitir la evaporación del cloro y evitar la formación de manchas blanquecinas minerales sobre el follaje.`,
-      author: {
-        name: 'Cultivador Anónimo',
-        avatar: '/logo.png'
-      },
-      category: 'Plantas de Casa',
-      imageUrl: 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1000&q=80',
-      createdAt: 'Consejos Esenciales',
-      fortnightTag: 'Guía de Entrada',
-      likes: 51,
-      views: 420,
-      pinned: false,
-      plantDetails: {
-        scientificName: 'Ficus & Araceae',
-        light: 'Claridad natural tamizada',
-        watering: 'Moderado según evaporación ambiental',
-        difficulty: 'Principiante'
-      },
-      comments: []
-    },
-    {
-      id: 'post-4',
-      title: '🌸 Guía de Trasplante y Poda Sanitaria para Orquídeas: Revive raíces y renueva sustrato',
-      content: `El trasplante de una orquídea es una de las intervenciones más delicadas y gratificantes en el cultivo doméstico. A diferencia de las plantas convencionales, la corteza de pino y los sustratos epífitos se descomponen con el paso de 18 a 24 meses, volviéndose ácidos y compactos, lo que asfixia gradualmente las raíces por falta de ventilación.
-
-1. El momento biológico adecuado:
-Nunca trasplantes una orquídea en plena floración, ya que la planta destinará toda su energía a mitigar el estrés y perderá prematuramente sus capullos. El instante ideal ocurre justo después de que la vara floral se haya secado de forma natural y comiencen a emerger nuevas puntas de raíces de color verde brillante desde la base de la corona.
-
-2. Poda sanitaria del velamen y desinfección:
-Extrae la orquídea de su tiesto con suavidad y sumerge las raíces en agua tibia durante diez minutos para flexibilizarlas. Con tijeras previamente esterilizadas con alcohol o fuego directo, corta todas las raíces marrones, huecas o gelatinosas. Conserva intactas las raíces firmes, incluso si son blanquecinas por falta de luz. Espolvorea canela pura en polvo sobre cada corte: actúa como un potente fungicida y cicatrizante biológico que previene infecciones bacterianas.
-
-3. La mezcla de corteza y asentamiento:
-Utiliza una maceta transparente perforada en laterales y fondo. Acomoda las raíces con giros suaves y rellena con corteza de pino de grano medio, carbón vegetal activo (que previene malos olores) y un toque de perlita. No riegues la orquídea durante los primeros 5 a 7 días posteriores al trasplante; esta ligera sequedad estimula la cicatrización de los cortes y previene la pudrición temprana.`,
-      author: {
-        name: 'Cultivador Anónimo',
-        avatar: '/logo.png'
-      },
-      category: 'Flores y Cuidados',
-      imageUrl: '/flowers/orquidea-cattleya.jpg',
-      createdAt: 'Artículo de Temporada',
-      fortnightTag: 'Técnicas de Cultivo',
-      likes: 67,
-      views: 450,
-      pinned: false,
-      plantDetails: {
-        scientificName: 'Orchidaceae (Phalaenopsis & Cattleya)',
-        light: 'Luz brillante indirecta tamizada',
-        watering: 'Inmersión ligera tras cicatrización inicial',
-        difficulty: 'Intermedio'
-      },
-      comments: [
-        {
-          id: 'c-4-1',
-          author: 'Lector del Jardín',
-          avatar: '/logo.png',
-          createdAt: 'Hace 2 días',
-          content: 'El truco de la canela en polvo para sellar los cortes de raíz salvó por completo mi orquídea. ¡Excelente explicación paso a paso!'
-        }
-      ]
-    },
-    {
-      id: 'post-5',
-      title: '🌿 Propagación de Violetas Africanas por esquejes de hoja: Paciencia y florecimiento en miniatura',
-      content: `Las violetas africanas (Saintpaulia) son auténticas joyas del reino vegetal interior. Su asombrosa capacidad para regenerar una planta completa a partir de una simple hoja aterciopelada las convierte en la especie predilecta para experimentar la magia de la propagación casera.
-
-1. Selección de la hoja perfecta:
-Elige una hoja firme, sana y de verde intenso procedente de la segunda o tercera fila de la roseta (el tercio medio). Las hojas más externas son demasiado viejas y tardan mucho más en responder, mientras que las del centro aún son inmaduras. Corta el peciolo dejando un tallo de unos 3 centímetros y realiza un corte limpio en bisel a 45 grados con una cuchilla afilada para maximizar la superficie de absorción.
-
-2. Método en agua vs. sustrato ligero:
-- Enraizamiento en agua: Coloca papel film sobre un frasco pequeño con agua reposada, haz una pequeña perforación e introduce el tallo de modo que la lámina foliar quede suspendida en el aire sin tocar el agua. En 15 a 20 días verás surgir las primeras raíces blancas.
-- En sustrato: Planta el peciolo con inclinación en una mezcla de turba rubia y perlita al 50%. Mantén el sustrato húmedo con pulverizaciones ligeras sin mojar la vellosidad de la hoja.
-
-3. Separación de hijuelos y primera floración:
-Tras 6 a 8 semanas, diminutas hojitas aparecerán en la base del peciolo formando pequeñas coronas independientes. Cuando los hijuelos tengan cuatro hojas formadas, sepáralos con sumo cuidado y plántalos individualmente en macetitas de 6 cm. Ubícalas en una ventana con luz tamizada y regando siempre por capilaridad desde el plato. En pocos meses tendrás tu primera floración violeta en casa.`,
-      author: {
-        name: 'Cultivador Anónimo',
-        avatar: '/logo.png'
-      },
-      category: 'Plantas de Casa',
-      imageUrl: '/flowers/violeta-africana.jpg',
-      createdAt: 'Guía de Propagación',
-      fortnightTag: 'Esquejes & Semillas',
-      likes: 74,
-      views: 512,
-      pinned: false,
-      plantDetails: {
-        scientificName: 'Saintpaulia ionantha',
-        light: 'Luz difusa abundante en ventana este o norte',
-        watering: 'Subirrigación por capilaridad (evitar mojar hojas)',
+        scientificName: 'Rosa, Orchidaceae, Paeonia, Nelumbo, Lavandula',
+        light: 'Luz ambiental suave',
+        watering: 'Según la especie',
         difficulty: 'Principiante'
       },
       comments: [
         {
-          id: 'c-5-1',
+          id: 'c-significados-1',
           author: 'Entusiasta Floral',
           avatar: '/logo.png',
-          createdAt: 'Ayer',
-          content: 'Puse a enraizar dos hojas en perlita húmeda hace tres semanas y ya están brotando las primeras raicillas. ¡Muy emocionante verlas crecer!'
+          createdAt: 'Hace un momento',
+          content: 'Qué fascinante el simbolismo de la gardenia y la peonía. Ahora elegir flores tiene mucho más sentido.'
+        }
+      ]
+    },
+    {
+      id: 'post-flores-mascotas',
+      title: '🐾 Flores que son malas para tus mascotas (y alternativas seguras)',
+      content: `Perros y gatos exploran el mundo a través del olfato y el gusto. Cuando introducimos flores y plantas en casa, es imprescindible saber cuáles representan un peligro para su salud y cuáles podemos cultivar con absoluta tranquilidad.
+
+1. Especies de alto riesgo que debes evitar
+- Lirios verdaderos (Lilium) y Azucenas: Extremadamente tóxicos para los gatos. El simple contacto con el polen que cae en su pelaje y que luego ingieren al acicalarse, o beber el agua del florero, puede desencadenar fallo renal agudo en menos de 24 horas. Si compartes hogar con felinos, descarta completamente los lirios.
+- Adelfa (Nerium oleander): Contiene glucósidos cardíacos en todas sus partes (hojas, flores y savia). Su ingestión provoca arritmias severas, vómitos y colapso circulatorio.
+- Azaleas y Rododendros: Contienen grayanotoxinas que alteran el sistema nervioso y cardiovascular de perros y gatos, causando debilidad, salivación excesiva y vómito continuo.
+- Bulbos de Primavera (Tulipanes, Narcisos y Amarilis): La mayor concentración de toxinas se ubica en los bulbos. Si tu perro tiene hábito de cavar, mantenlos fuera de su alcance.
+
+2. Flores que causan molestias digestivas o irritación bucal
+- Lirio de la Paz (Spathiphyllum) y Anturios: Contienen cristales insolubles de oxalato de calcio. Al morderlos, liberan microagujas que producen ardor bucal intenso, salivación profusa e hinchazón de lengua y labios.
+- Hortensias: Sus flores y brotes contienen compuestos cianogénicos que suelen provocar vómitos y diarreas si son masticados.
+- Begonias: Los tubérculos y tallos pueden causar irritación estomacal severa.
+
+3. Alternativas florales 100% seguras para perros y gatos
+Afortunadamente, existen especies espectaculares completamente inocuas para tus compañeros de cuatro patas:
+- Orquídea Mariposa (Phalaenopsis): Totalmente no tóxica y segura.
+- Violeta Africana (Saintpaulia): Segura y florece todo el año en ventanas luminosas.
+- Camelia Japonesa: Belleza invernal inofensiva para animales.
+- Hibisco (Rosa de China): Flores tropicales seguras para gatos y perros.
+- Girasol (Helianthus annuus): Alegría pura sin ningún riesgo tóxico.
+
+4. ¿Qué hacer ante una sospecha de ingestión?
+Retira con suavidad cualquier resto vegetal de la boca de tu mascota. No intentes provocar el vómito sin indicación médica veterinaria. Toma una fotografía clara de la flor o lleva una muestra de la planta de inmediato a la clínica veterinaria para que identifiquen el principio activo y apliquen el tratamiento oportuno.`,
+      author: {
+        name: 'Cultivador Anónimo',
+        avatar: '/logo.png'
+      },
+      category: 'Plantas de Casa',
+      imageUrl: '/flowers/lirio-paz.jpg',
+      createdAt: 'Guía de Salud & Hogar',
+      fortnightTag: 'Hogar y Mascotas',
+      likes: 115,
+      views: 780,
+      pinned: false,
+      plantDetails: {
+        scientificName: 'Lilium, Nerium, Spathiphyllum vs Phalaenopsis, Saintpaulia',
+        light: 'Luz indirecta recomendada',
+        watering: 'Riego según especie segura',
+        difficulty: 'Principiante'
+      },
+      comments: [
+        {
+          id: 'c-mascotas-1',
+          author: 'Lector del Jardín',
+          avatar: '/logo.png',
+          createdAt: 'Hace un momento',
+          content: 'Un artículo vital. Tenía lirios cortados en un jarrón y no sabía lo peligrosos que son para los gatos. Los cambié por orquídeas.'
         }
       ]
     }

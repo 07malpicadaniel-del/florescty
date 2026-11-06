@@ -61,7 +61,7 @@ export default function ForumPostCard({ post }: ForumPostCardProps) {
               {isAIGenerated && (
                 <span 
                   className="absolute -bottom-1 -right-1 bg-garden-darkPurple text-garden-thistle rounded-full p-0.5 border border-garden-amethyst" 
-                  title="Generado con Groq IA"
+                  title="Publicación Automática"
                 >
                   <Sparkles className="w-3 h-3 text-garden-amethyst" />
                 </span>
@@ -74,8 +74,8 @@ export default function ForumPostCard({ post }: ForumPostCardProps) {
                   {post.author.name}
                 </span>
                 {isAIGenerated && (
-                  <span className="bg-garden-thistle/70 dark:bg-garden-darkBg text-garden-darkPurple dark:text-garden-thistle text-[10px] font-bold px-1.5 py-0.2 rounded uppercase tracking-wider border border-garden-amethyst/30">
-                    IA Groq
+                  <span className="bg-garden-thistle/70 dark:bg-garden-darkBg text-garden-darkPurple dark:text-garden-thistle text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-garden-amethyst/30">
+                    Publicación Automática
                   </span>
                 )}
               </div>

@@ -14,6 +14,101 @@ import {
   Droplet
 } from 'lucide-react';
 
+// Helper to format botanical post content with beautiful editorial typography
+function FormattedBotanicalArticle({ content }: { content: string }) {
+  if (!content) return null;
+
+  const sections = content.split(/\n\s*\n/);
+
+  return (
+    <div className="space-y-6 text-garden-darkPurple/90 dark:text-garden-thistle font-serif text-base sm:text-lg leading-relaxed">
+      {sections.map((section, sIdx) => {
+        const lines = section.trim().split('\n');
+        const firstLine = lines[0];
+
+        // Check if section starts with numbered title like "1. Orquídea mariposa (Phalaenopsis)"
+        const numMatch = firstLine.match(/^(\d+)\.\s+(.+)$/);
+
+        if (numMatch) {
+          const num = numMatch[1];
+          const title = numMatch[2];
+          const remainingLines = lines.slice(1);
+
+          return (
+            <div 
+              key={sIdx} 
+              className="pt-5 border-t border-garden-thistle/70 dark:border-garden-darkBorder/80 first:pt-0 first:border-0 space-y-3"
+            >
+              <div className="flex items-center gap-3">
+                <span className="w-8 h-8 rounded-full bg-garden-thistle/80 dark:bg-garden-darkBorder text-garden-darkPurple dark:text-white font-sans font-bold text-sm flex items-center justify-center shrink-0 shadow-sm border border-garden-amethyst/40">
+                  {num}
+                </span>
+                <h3 className="font-serif text-xl sm:text-2xl font-bold text-garden-darkPurple dark:text-white leading-snug">
+                  {title}
+                </h3>
+              </div>
+
+              {remainingLines.map((line, lIdx) => renderArticleLine(line, lIdx))}
+            </div>
+          );
+        }
+
+        // Standard paragraph or list section
+        return (
+          <div key={sIdx} className="space-y-2.5">
+            {lines.map((line, lIdx) => renderArticleLine(line, lIdx))}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function renderArticleLine(line: string, idx: number) {
+  const trimmed = line.trim();
+  if (!trimmed) return null;
+
+  // Bullet points
+  if (trimmed.startsWith('- ') || trimmed.startsWith('• ')) {
+    const raw = trimmed.replace(/^[-•]\s*/, '');
+    const colonIdx = raw.indexOf(':');
+
+    if (colonIdx > 0 && colonIdx < 35) {
+      const label = raw.substring(0, colonIdx).trim();
+      const value = raw.substring(colonIdx + 1).trim();
+
+      return (
+        <div key={idx} className="flex items-start gap-2.5 my-2 pl-2 sm:pl-3">
+          <span className="w-2 h-2 rounded-full bg-garden-amethyst shrink-0 mt-2.5" />
+          <div className="text-sm sm:text-base leading-relaxed">
+            <span className="font-sans font-bold text-xs uppercase tracking-wider text-garden-darkPurple dark:text-white bg-garden-thistle/50 dark:bg-garden-darkBorder px-2 py-0.5 rounded-md mr-1.5 border border-garden-thistle dark:border-garden-darkBorder inline-block">
+              {label}
+            </span>
+            <span className="text-garden-darkPurple/90 dark:text-garden-thistle">
+              {value}
+            </span>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div key={idx} className="flex items-start gap-2.5 my-1.5 pl-2 sm:pl-3">
+        <span className="w-2 h-2 rounded-full bg-garden-amethyst shrink-0 mt-2.5" />
+        <span className="text-sm sm:text-base text-garden-darkPurple/90 dark:text-garden-thistle leading-relaxed">
+          {raw}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <p key={idx} className="leading-relaxed">
+      {trimmed}
+    </p>
+  );
+}
+
 export default function PostDetailModal() {
   const { 
     selectedPost, 
@@ -121,9 +216,16 @@ export default function PostDetailModal() {
               className="w-12 h-12 rounded-full object-cover border border-garden-thistle dark:border-garden-darkBorder shadow-sm"
             />
             <div>
-              <h4 className="font-bold text-garden-darkPurple dark:text-white text-base">
-                {selectedPost.author.name}
-              </h4>
+              <div className="flex items-center gap-2">
+                <h4 className="font-bold text-garden-darkPurple dark:text-white text-base">
+                  {selectedPost.author.name}
+                </h4>
+                {selectedPost.id.startsWith('post-ia-') && (
+                  <span className="bg-garden-thistle/70 dark:bg-garden-darkBg text-garden-darkPurple dark:text-garden-thistle text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-garden-amethyst/30">
+                    Publicación Automática
+                  </span>
+                )}
+              </div>
               <p className="text-xs text-garden-darkPurple/60 dark:text-garden-thistle/60">
                 {selectedPost.createdAt} · El Jardín Secreto
               </p>
@@ -173,9 +275,7 @@ export default function PostDetailModal() {
           )}
 
           {/* Post Content */}
-          <div className="text-garden-darkPurple/90 dark:text-garden-thistle text-base sm:text-lg leading-relaxed whitespace-pre-line font-normal font-serif">
-            {selectedPost.content}
-          </div>
+          <FormattedBotanicalArticle content={selectedPost.content} />
 
           {/* Post Footer Actions */}
           <div className="pt-4 border-t border-garden-thistle/60 dark:border-garden-darkBorder flex items-center justify-between">
