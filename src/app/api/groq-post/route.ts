@@ -105,8 +105,31 @@ Responde ÚNICAMENTE en formato JSON con la siguiente estructura:
     }
 
     const data = await response.json();
-    const rawContent = data.choices?.[0]?.message?.content;
-    const parsed = JSON.parse(rawContent);
+    const rawContent = data.choices?.[0]?.message?.content || '{}';
+    let cleanContent = rawContent.trim();
+    if (cleanContent.startsWith('```json')) {
+      cleanContent = cleanContent.slice(7);
+    } else if (cleanContent.startsWith('```')) {
+      cleanContent = cleanContent.slice(3);
+    }
+    if (cleanContent.endsWith('```')) {
+      cleanContent = cleanContent.slice(0, -3);
+    }
+    cleanContent = cleanContent.trim();
+
+    let parsed: any = {};
+    try {
+      parsed = JSON.parse(cleanContent);
+    } catch (e) {
+      console.warn('Could not parse JSON from Groq, using fallback extraction', e);
+      const titleMatch = cleanContent.match(/"title"\s*:\s*"([^"]+)"/);
+      const contentMatch = cleanContent.match(/"content"\s*:\s*"([^"]+)"/);
+      parsed = {
+        title: titleMatch ? titleMatch[1] : 'Cuidados esenciales para tus flores',
+        content: contentMatch ? contentMatch[1] : cleanContent,
+        category: 'Flores y Cuidados'
+      };
+    }
 
     const newPost = {
       id: `post-ia-${Date.now()}`,

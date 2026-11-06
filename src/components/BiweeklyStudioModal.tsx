@@ -108,9 +108,12 @@ export default function BiweeklyStudioModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fadeIn">
+    <div 
+      onClick={closeEditor}
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 animate-fadeIn cursor-pointer"
+    >
       <div 
-        className="relative w-full max-w-4xl bg-white dark:bg-garden-darkCard rounded-3xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder overflow-hidden flex flex-col max-h-[92vh] transition-colors"
+        className="relative w-full max-w-4xl bg-white dark:bg-garden-darkCard rounded-3xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder overflow-hidden flex flex-col max-h-[92vh] transition-colors cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Bar */}
@@ -132,8 +135,9 @@ export default function BiweeklyStudioModal() {
           </div>
 
           <button
+            type="button"
             onClick={closeEditor}
-            className="p-1.5 rounded-xl text-garden-thistle hover:text-white hover:bg-white/10 transition-colors"
+            className="cursor-pointer p-1.5 rounded-xl text-garden-thistle hover:text-white hover:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>

@@ -52,8 +52,9 @@ export default function Navbar() {
 
           <div className="flex items-center gap-3">
             <button
+              type="button"
               onClick={openEditor}
-              className="flex items-center gap-1.5 bg-garden-amethyst/30 hover:bg-garden-amethyst/50 text-white px-3 py-0.5 rounded-full text-[11px] font-medium transition-colors border border-garden-amethyst/40"
+              className="cursor-pointer flex items-center gap-1.5 bg-garden-amethyst/30 hover:bg-garden-amethyst/50 text-white px-3 py-0.5 rounded-full text-[11px] font-medium transition-colors border border-garden-amethyst/40"
               title="Cuaderno del Blog"
             >
               <Sparkles className="w-3 h-3 text-garden-thistle" />
@@ -67,8 +68,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
         {/* Brand: Logo significantly larger with Avonia script title */}
         <button 
+          type="button"
           onClick={() => setActiveTab('inicio')}
-          className="flex items-center gap-3.5 sm:gap-4 text-left group shrink-0"
+          className="cursor-pointer flex items-center gap-3.5 sm:gap-4 text-left group shrink-0"
         >
           <div 
             className="relative rounded-2xl overflow-hidden shadow-lg group-hover:scale-105 transition-transform duration-200 border-2 border-garden-thistle dark:border-garden-darkBorder shrink-0 bg-white"
@@ -122,9 +124,10 @@ export default function Navbar() {
             const isActive = activeTab === item.id;
             return (
               <button
+                type="button"
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
+                className={`cursor-pointer flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-all ${
                   isActive 
                     ? 'bg-garden-darkPurple text-white dark:bg-garden-amethyst dark:text-white shadow-sm' 
                     : 'text-garden-darkPurple dark:text-garden-thistle hover:bg-garden-thistle/50 dark:hover:bg-garden-darkCard'
@@ -145,8 +148,9 @@ export default function Navbar() {
 
           {/* Modo Obscuro / Dark Mode Toggle */}
           <button
+            type="button"
             onClick={toggleTheme}
-            className="p-2 rounded-xl text-garden-darkPurple dark:text-garden-thistle hover:bg-garden-thistle/50 dark:hover:bg-garden-darkCard transition-colors"
+            className="cursor-pointer p-2 rounded-xl text-garden-darkPurple dark:text-garden-thistle hover:bg-garden-thistle/50 dark:hover:bg-garden-darkCard transition-colors"
             title={theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
             aria-label="Alternar modo obscuro"
           >
@@ -159,8 +163,9 @@ export default function Navbar() {
 
           {/* Action Button: Publicar */}
           <button
+            type="button"
             onClick={() => setIsNewPostModalOpen(true)}
-            className="flex items-center gap-1.5 bg-garden-olive hover:bg-garden-calPoly text-white px-3.5 py-2 rounded-xl text-sm font-medium shadow-sm transition-all"
+            className="cursor-pointer flex items-center gap-1.5 bg-garden-olive hover:bg-garden-calPoly text-white px-3.5 py-2 rounded-xl text-sm font-medium shadow-sm transition-all"
             title="Escribir una publicación"
           >
             <PlusCircle className="w-4 h-4" />

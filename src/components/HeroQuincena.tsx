@@ -103,10 +103,11 @@ export default function HeroQuincena() {
             </div>
 
             {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+            <div className="flex flex-wrap items-center gap-3.5 pt-2 relative z-20">
               <button
+                type="button"
                 onClick={() => setActiveTab('plantas')}
-                className="inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white font-medium px-5 py-3 rounded-xl transition-all shadow-lg hover:shadow-garden-olive/30 text-sm group"
+                className="inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white font-medium px-5 py-3 rounded-xl transition-all shadow-lg hover:shadow-garden-olive/30 text-sm group cursor-pointer"
               >
                 <BookOpen className="w-4 h-4 text-garden-thistle" />
                 <span>Explorar Colección de Flores</span>
@@ -114,8 +115,9 @@ export default function HeroQuincena() {
               </button>
 
               <button
+                type="button"
                 onClick={() => setActiveTab('publicaciones')}
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-4 py-3 rounded-xl transition-colors border border-white/20 text-sm"
+                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-medium px-4 py-3 rounded-xl transition-colors border border-white/20 text-sm cursor-pointer"
               >
                 <Leaf className="w-4 h-4 text-garden-thistle" />
                 <span>Leer Publicaciones del Jardín</span>

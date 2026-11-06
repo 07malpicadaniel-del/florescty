@@ -69,9 +69,12 @@ export default function NewPostModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fadeIn">
+    <div 
+      onClick={() => setIsNewPostModalOpen(false)}
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fadeIn cursor-pointer"
+    >
       <div 
-        className="relative w-full max-w-2xl bg-white dark:bg-garden-darkCard rounded-3xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder overflow-hidden flex flex-col max-h-[92vh] transition-colors"
+        className="relative w-full max-w-2xl bg-white dark:bg-garden-darkCard rounded-3xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder overflow-hidden flex flex-col max-h-[92vh] transition-colors cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -83,8 +86,9 @@ export default function NewPostModal() {
             </h3>
           </div>
           <button
+            type="button"
             onClick={() => setIsNewPostModalOpen(false)}
-            className="p-1.5 rounded-lg text-garden-thistle hover:text-white hover:bg-white/10 transition-colors"
+            className="cursor-pointer p-1.5 rounded-lg text-garden-thistle hover:text-white hover:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -241,13 +245,13 @@ export default function NewPostModal() {
             <button
               type="button"
               onClick={() => setIsNewPostModalOpen(false)}
-              className="px-4 py-2 text-xs font-semibold text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white rounded-xl"
+              className="cursor-pointer px-4 py-2 text-xs font-semibold text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white rounded-xl"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all"
+              className="cursor-pointer inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Publicar</span>

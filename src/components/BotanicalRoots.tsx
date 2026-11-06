@@ -6,7 +6,7 @@ import React from 'react';
 // Enhanced with rich Cal Poly Green (#374126) and Olive (#6C6D11) leaves, vines and tendrils
 export function RootsTopRight({ className = '' }: { className?: string }) {
   return (
-    <div className={`pointer-events-none select-none absolute top-0 right-0 overflow-hidden ${className}`}>
+    <div className={`pointer-events-none select-none absolute top-0 right-0 overflow-hidden -z-0 ${className}`}>
       <svg
         viewBox="0 0 360 360"
         fill="none"
@@ -111,7 +111,7 @@ export function RootsTopRight({ className = '' }: { className?: string }) {
 
 export function RootsBottomLeft({ className = '' }: { className?: string }) {
   return (
-    <div className={`pointer-events-none select-none absolute bottom-0 left-0 overflow-hidden ${className}`}>
+    <div className={`pointer-events-none select-none absolute bottom-0 left-0 overflow-hidden -z-0 ${className}`}>
       <svg
         viewBox="0 0 360 360"
         fill="none"

@@ -49,7 +49,21 @@ export default function Orchid3DViewer() {
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
     camera.position.set(0, 0.5, 5.5);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch (e) {
+      console.warn('WebGL no está disponible en este entorno o contexto bloqueado:', e);
+      container.innerHTML = `
+        <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;">
+          <img src="/flowers/orquidea-phalaenopsis.jpg" alt="Orquídea Phalaenopsis" style="max-height:240px;border-radius:20px;object-fit:cover;box-shadow:0 10px 30px rgba(0,0,0,0.6);margin-bottom:12px;border:1px solid rgba(216,196,233,0.3);" />
+          <p style="color:#D8C4E9;font-family:serif;font-size:14px;font-weight:600;margin:0;">Orquídea Phalaenopsis amabilis</p>
+          <span style="color:rgba(216,196,233,0.7);font-size:11px;font-style:italic;">Floración constante y cuidados del hogar</span>
+        </div>
+      `;
+      return;
+    }
+
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;

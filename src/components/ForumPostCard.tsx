@@ -142,8 +142,9 @@ export default function ForumPostCard({ post }: ForumPostCardProps) {
       <div className="px-5 sm:px-6 py-3 bg-garden-cream/80 dark:bg-garden-darkBg border-t border-garden-thistle/60 dark:border-garden-darkBorder flex items-center justify-between text-xs text-garden-darkPurple/70 dark:text-garden-thistle/70">
         <div className="flex items-center gap-4">
           <button
+            type="button"
             onClick={handleLike}
-            className="flex items-center gap-1.5 hover:text-garden-amethyst transition-colors group/btn"
+            className="cursor-pointer flex items-center gap-1.5 hover:text-garden-amethyst transition-colors group/btn"
             title="Me gusta"
           >
             <Heart className="w-4 h-4 group-hover/btn:scale-110 text-garden-amethyst transition-transform" />

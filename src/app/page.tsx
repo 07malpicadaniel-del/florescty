@@ -86,8 +86,9 @@ export default function HomePage() {
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => setActiveTab('publicaciones')}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-garden-amethyst hover:text-garden-darkPurple dark:hover:text-white transition-colors font-serif"
+                  className="cursor-pointer inline-flex items-center gap-1.5 text-sm font-semibold text-garden-amethyst hover:text-garden-darkPurple dark:hover:text-white transition-colors font-serif"
                 >
                   <span>Ver todas las publicaciones</span>
                   <ArrowRight className="w-4 h-4" />
@@ -115,8 +116,9 @@ export default function HomePage() {
                 </div>
 
                 <button
+                  type="button"
                   onClick={() => setActiveTab('plantas')}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-garden-amethyst hover:text-garden-darkPurple dark:hover:text-white transition-colors font-serif"
+                  className="cursor-pointer inline-flex items-center gap-1.5 text-sm font-semibold text-garden-amethyst hover:text-garden-darkPurple dark:hover:text-white transition-colors font-serif"
                 >
                   <span>Ver todas las plantas</span>
                   <ArrowRight className="w-4 h-4" />

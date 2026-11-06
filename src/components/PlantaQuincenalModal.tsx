@@ -25,15 +25,19 @@ export default function PlantaQuincenalModal() {
     selectedPlant.toxicity.toLowerCase().includes('no tóxica');
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fadeIn">
+    <div 
+      onClick={() => setSelectedPlant(null)}
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fadeIn cursor-pointer"
+    >
       <div 
-        className="relative w-full max-w-3xl bg-white dark:bg-garden-darkCard rounded-3xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder overflow-hidden flex flex-col max-h-[92vh] transition-colors"
+        className="relative w-full max-w-3xl bg-white dark:bg-garden-darkCard rounded-3xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder overflow-hidden flex flex-col max-h-[92vh] transition-colors cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Sticky Close Button */}
         <button
+          type="button"
           onClick={() => setSelectedPlant(null)}
-          className="absolute top-4 right-4 z-20 bg-garden-darkPurple/80 hover:bg-garden-darkPurple text-white p-2 rounded-full backdrop-blur transition-all border border-garden-amethyst/30"
+          className="cursor-pointer absolute top-4 right-4 z-20 bg-garden-darkPurple/80 hover:bg-garden-darkPurple text-white p-2 rounded-full backdrop-blur transition-all border border-garden-amethyst/30"
         >
           <X className="w-5 h-5" />
         </button>

@@ -143,10 +143,11 @@ export default function AboutSection() {
             A diferencia del ritmo acelerado de la vida diaria, las plantas crecen despacio: una hoja nueva toma de diez a quince días en desarrollarse por completo. Cada dos semanas, renovamos este espacio con una nueva especie destacada, consejos de temporada y nuevas publicaciones para compartir el amor por la flora.
           </p>
 
-          <div className="pt-2">
+          <div className="pt-2 relative z-20">
             <button
+              type="button"
               onClick={openEditor}
-              className="inline-flex items-center gap-2 bg-garden-olive text-white hover:bg-garden-calPoly font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-colors shadow-md"
+              className="cursor-pointer inline-flex items-center gap-2 bg-garden-olive text-white hover:bg-garden-calPoly font-semibold px-5 py-2.5 rounded-xl text-xs sm:text-sm transition-colors shadow-md"
             >
               <Sparkles className="w-4 h-4 text-garden-thistle" />
               <span>Abrir Cuaderno Quincenal (Editar)</span>

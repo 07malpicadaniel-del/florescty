@@ -154,6 +154,87 @@ Las plantas de follaje tropical agradecen una humedad ambiental superior al 50%.
         difficulty: 'Principiante'
       },
       comments: []
+    },
+    {
+      id: 'post-4',
+      title: '🌸 Guía de Trasplante y Poda Sanitaria para Orquídeas: Revive raíces y renueva sustrato',
+      content: `El trasplante de una orquídea es una de las intervenciones más delicadas y gratificantes en el cultivo doméstico. A diferencia de las plantas convencionales, la corteza de pino y los sustratos epífitos se descomponen con el paso de 18 a 24 meses, volviéndose ácidos y compactos, lo que asfixia gradualmente las raíces por falta de ventilación.
+
+1. El momento biológico adecuado:
+Nunca trasplantes una orquídea en plena floración, ya que la planta destinará toda su energía a mitigar el estrés y perderá prematuramente sus capullos. El instante ideal ocurre justo después de que la vara floral se haya secado de forma natural y comiencen a emerger nuevas puntas de raíces de color verde brillante desde la base de la corona.
+
+2. Poda sanitaria del velamen y desinfección:
+Extrae la orquídea de su tiesto con suavidad y sumerge las raíces en agua tibia durante diez minutos para flexibilizarlas. Con tijeras previamente esterilizadas con alcohol o fuego directo, corta todas las raíces marrones, huecas o gelatinosas. Conserva intactas las raíces firmes, incluso si son blanquecinas por falta de luz. Espolvorea canela pura en polvo sobre cada corte: actúa como un potente fungicida y cicatrizante biológico que previene infecciones bacterianas.
+
+3. La mezcla de corteza y asentamiento:
+Utiliza una maceta transparente perforada en laterales y fondo. Acomoda las raíces con giros suaves y rellena con corteza de pino de grano medio, carbón vegetal activo (que previene malos olores) y un toque de perlita. No riegues la orquídea durante los primeros 5 a 7 días posteriores al trasplante; esta ligera sequedad estimula la cicatrización de los cortes y previene la pudrición temprana.`,
+      author: {
+        name: 'Cultivador Anónimo',
+        avatar: '/logo.png'
+      },
+      category: 'Flores y Cuidados',
+      imageUrl: '/flowers/orquidea-cattleya.jpg',
+      createdAt: 'Artículo de Temporada',
+      fortnightTag: 'Técnicas de Cultivo',
+      likes: 67,
+      views: 450,
+      pinned: false,
+      plantDetails: {
+        scientificName: 'Orchidaceae (Phalaenopsis & Cattleya)',
+        light: 'Luz brillante indirecta tamizada',
+        watering: 'Inmersión ligera tras cicatrización inicial',
+        difficulty: 'Intermedio'
+      },
+      comments: [
+        {
+          id: 'c-4-1',
+          author: 'Lector del Jardín',
+          avatar: '/logo.png',
+          createdAt: 'Hace 2 días',
+          content: 'El truco de la canela en polvo para sellar los cortes de raíz salvó por completo mi orquídea. ¡Excelente explicación paso a paso!'
+        }
+      ]
+    },
+    {
+      id: 'post-5',
+      title: '🌿 Propagación de Violetas Africanas por esquejes de hoja: Paciencia y florecimiento en miniatura',
+      content: `Las violetas africanas (Saintpaulia) son auténticas joyas del reino vegetal interior. Su asombrosa capacidad para regenerar una planta completa a partir de una simple hoja aterciopelada las convierte en la especie predilecta para experimentar la magia de la propagación casera.
+
+1. Selección de la hoja perfecta:
+Elige una hoja firme, sana y de verde intenso procedente de la segunda o tercera fila de la roseta (el tercio medio). Las hojas más externas son demasiado viejas y tardan mucho más en responder, mientras que las del centro aún son inmaduras. Corta el peciolo dejando un tallo de unos 3 centímetros y realiza un corte limpio en bisel a 45 grados con una cuchilla afilada para maximizar la superficie de absorción.
+
+2. Método en agua vs. sustrato ligero:
+- Enraizamiento en agua: Coloca papel film sobre un frasco pequeño con agua reposada, haz una pequeña perforación e introduce el tallo de modo que la lámina foliar quede suspendida en el aire sin tocar el agua. En 15 a 20 días verás surgir las primeras raíces blancas.
+- En sustrato: Planta el peciolo con inclinación en una mezcla de turba rubia y perlita al 50%. Mantén el sustrato húmedo con pulverizaciones ligeras sin mojar la vellosidad de la hoja.
+
+3. Separación de hijuelos y primera floración:
+Tras 6 a 8 semanas, diminutas hojitas aparecerán en la base del peciolo formando pequeñas coronas independientes. Cuando los hijuelos tengan cuatro hojas formadas, sepáralos con sumo cuidado y plántalos individualmente en macetitas de 6 cm. Ubícalas en una ventana con luz tamizada y regando siempre por capilaridad desde el plato. En pocos meses tendrás tu primera floración violeta en casa.`,
+      author: {
+        name: 'Cultivador Anónimo',
+        avatar: '/logo.png'
+      },
+      category: 'Plantas de Casa',
+      imageUrl: '/flowers/violeta-africana.jpg',
+      createdAt: 'Guía de Propagación',
+      fortnightTag: 'Esquejes & Semillas',
+      likes: 74,
+      views: 512,
+      pinned: false,
+      plantDetails: {
+        scientificName: 'Saintpaulia ionantha',
+        light: 'Luz difusa abundante en ventana este o norte',
+        watering: 'Subirrigación por capilaridad (evitar mojar hojas)',
+        difficulty: 'Principiante'
+      },
+      comments: [
+        {
+          id: 'c-5-1',
+          author: 'Entusiasta Floral',
+          avatar: '/logo.png',
+          createdAt: 'Ayer',
+          content: 'Puse a enraizar dos hojas en perlita húmeda hace tres semanas y ya están brotando las primeras raicillas. ¡Muy emocionante verlas crecer!'
+        }
+      ]
     }
   ],
   // 20 Especies de Flores y Plantas detalladas

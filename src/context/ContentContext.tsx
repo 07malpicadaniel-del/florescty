@@ -57,7 +57,7 @@ interface ContentContextType {
   importContentBackup: (jsonData: string) => boolean;
 }
 
-const STORAGE_KEY = 'jardin_secreto_content_v3';
+const STORAGE_KEY = 'jardin_secreto_content_v5';
 const THEME_KEY = 'jardin_secreto_theme_v3';
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
@@ -87,11 +87,42 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
         }
       }
 
-      const saved = localStorage.getItem(STORAGE_KEY);
+      // Check current or prior localStorage keys
+      const saved = 
+        localStorage.getItem(STORAGE_KEY) || 
+        localStorage.getItem('jardin_secreto_content_v4') ||
+        localStorage.getItem('jardin_secreto_content_v3');
+
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed && parsed.currentEdition && parsed.posts) {
-          setContent(parsed);
+        if (parsed && parsed.posts && Array.isArray(parsed.posts)) {
+          // Merge custom posts created by user with new initial posts
+          const initialIds = new Set(INITIAL_CONTENT.posts.map(p => p.id));
+          const userCustomPosts = parsed.posts.filter((p: ForumPost) => !initialIds.has(p.id));
+
+          // Merge any updated likes/comments for initial posts
+          const mergedInitialPosts = INITIAL_CONTENT.posts.map(initPost => {
+            const savedMatch = parsed.posts.find((p: ForumPost) => p.id === initPost.id);
+            if (savedMatch) {
+              return {
+                ...initPost,
+                likes: Math.max(initPost.likes, savedMatch.likes || 0),
+                pinned: savedMatch.pinned !== undefined ? savedMatch.pinned : initPost.pinned,
+                comments: savedMatch.comments && savedMatch.comments.length > initPost.comments.length 
+                  ? savedMatch.comments 
+                  : initPost.comments
+              };
+            }
+            return initPost;
+          });
+
+          setContent({
+            ...INITIAL_CONTENT,
+            ...parsed,
+            // Always preserve verified 20 local authentic plant profiles
+            plantsEncyclopedia: INITIAL_CONTENT.plantsEncyclopedia,
+            posts: [...userCustomPosts, ...mergedInitialPosts]
+          });
         }
       }
     } catch (e) {

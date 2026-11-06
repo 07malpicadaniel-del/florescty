@@ -56,12 +56,13 @@ export default function PlantGuidesSection() {
         </div>
 
         {/* Filter by Difficulty */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative z-20">
           {['Todas', 'Principiante', 'Intermedio', 'Experto'].map((level) => (
             <button
+              type="button"
               key={level}
               onClick={() => setFilterDifficulty(level)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
+              className={`cursor-pointer px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
                 filterDifficulty === level
                   ? 'bg-garden-darkPurple text-white dark:bg-garden-amethyst dark:text-white shadow-sm ring-1 ring-garden-amethyst'
                   : 'bg-white dark:bg-garden-darkCard text-garden-darkPurple dark:text-garden-thistle border border-garden-thistle/80 dark:border-garden-darkBorder hover:bg-garden-thistle/40'
@@ -74,7 +75,7 @@ export default function PlantGuidesSection() {
       </div>
 
       {/* Search Bar for Encyclopedia */}
-      <div className="py-6">
+      <div className="py-6 relative z-10">
         <div className="relative max-w-md">
           <Search className="w-4 h-4 text-garden-amethyst absolute left-3.5 top-3 pointer-events-none" />
           <input
@@ -88,7 +89,7 @@ export default function PlantGuidesSection() {
       </div>
 
       {/* Plants Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
         {plants.map((plant) => {
           const isPetSafe = 
             plant.toxicity.toLowerCase().includes('segura') ||

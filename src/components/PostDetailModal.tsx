@@ -53,9 +53,12 @@ export default function PostDetailModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fadeIn">
+    <div 
+      onClick={() => setSelectedPost(null)}
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fadeIn cursor-pointer"
+    >
       <div 
-        className="relative w-full max-w-3xl bg-white dark:bg-garden-darkCard rounded-3xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder overflow-hidden flex flex-col max-h-[92vh] transition-colors"
+        className="relative w-full max-w-3xl bg-white dark:bg-garden-darkCard rounded-3xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder overflow-hidden flex flex-col max-h-[92vh] transition-colors cursor-default"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Sticky Header with Controls */}
@@ -77,28 +80,31 @@ export default function PostDetailModal() {
 
           <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={() => togglePinPost(selectedPost.id)}
-              className="p-2 rounded-xl text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-amethyst hover:bg-garden-thistle/30 transition-colors"
+              className="cursor-pointer p-2 rounded-xl text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-amethyst hover:bg-garden-thistle/30 transition-colors"
               title={selectedPost.pinned ? 'Desfijar' : 'Fijar publicación'}
             >
               <Pin className={`w-4 h-4 ${selectedPost.pinned ? 'fill-current text-garden-amethyst' : ''}`} />
             </button>
 
             <button
+              type="button"
               onClick={() => {
                 if (confirm('¿Deseas retirar esta publicación?')) {
                   deletePost(selectedPost.id);
                 }
               }}
-              className="p-2 rounded-xl text-rose-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
+              className="cursor-pointer p-2 rounded-xl text-rose-400 hover:text-rose-600 hover:bg-rose-50 transition-colors"
               title="Eliminar publicación"
             >
               <Trash2 className="w-4 h-4" />
             </button>
 
             <button
+              type="button"
               onClick={() => setSelectedPost(null)}
-              className="p-2 rounded-xl text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white hover:bg-garden-thistle/30 transition-colors ml-1"
+              className="cursor-pointer p-2 rounded-xl text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white hover:bg-garden-thistle/30 transition-colors ml-1"
             >
               <X className="w-5 h-5" />
             </button>
@@ -175,16 +181,18 @@ export default function PostDetailModal() {
           <div className="pt-4 border-t border-garden-thistle/60 dark:border-garden-darkBorder flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button
+                type="button"
                 onClick={() => likePost(selectedPost.id)}
-                className="inline-flex items-center gap-2 bg-garden-thistle/40 dark:bg-garden-darkBg hover:bg-garden-thistle text-garden-darkPurple dark:text-garden-thistle px-4 py-2 rounded-xl text-sm font-semibold transition-colors"
+                className="cursor-pointer inline-flex items-center gap-2 bg-garden-thistle/40 dark:bg-garden-darkBg hover:bg-garden-thistle text-garden-darkPurple dark:text-garden-thistle px-4 py-2 rounded-xl text-sm font-semibold transition-colors"
               >
                 <Heart className="w-4 h-4 fill-garden-amethyst text-garden-amethyst" />
                 <span>{selectedPost.likes} Me gusta</span>
               </button>
 
               <button
+                type="button"
                 onClick={handleShare}
-                className="inline-flex items-center gap-1.5 text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white px-3 py-2 rounded-xl text-xs font-medium border border-garden-thistle dark:border-garden-darkBorder transition-colors"
+                className="cursor-pointer inline-flex items-center gap-1.5 text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white px-3 py-2 rounded-xl text-xs font-medium border border-garden-thistle dark:border-garden-darkBorder transition-colors"
               >
                 <Share2 className="w-3.5 h-3.5" />
                 <span>{copiedLink ? '¡Enlace copiado!' : 'Compartir'}</span>

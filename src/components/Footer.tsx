@@ -74,40 +74,45 @@ export default function Footer() {
             <ul className="space-y-2 text-sm text-garden-thistle/90 font-serif">
               <li>
                 <button 
+                  type="button"
                   onClick={() => setActiveTab('inicio')}
-                  className="hover:text-white transition-colors"
+                  className="cursor-pointer hover:text-white transition-colors"
                 >
                   Inicio
                 </button>
               </li>
               <li>
                 <button 
+                  type="button"
                   onClick={() => setActiveTab('publicaciones')}
-                  className="hover:text-white transition-colors"
+                  className="cursor-pointer hover:text-white transition-colors"
                 >
                   Publicaciones ({content.posts.length})
                 </button>
               </li>
               <li>
                 <button 
+                  type="button"
                   onClick={() => setActiveTab('plantas')}
-                  className="hover:text-white transition-colors"
+                  className="cursor-pointer hover:text-white transition-colors"
                 >
                   Plantas ({content.plantsEncyclopedia.length})
                 </button>
               </li>
               <li>
                 <button 
+                  type="button"
                   onClick={() => setActiveTab('acerca-de')}
-                  className="hover:text-white transition-colors"
+                  className="cursor-pointer hover:text-white transition-colors"
                 >
                   Acerca de
                 </button>
               </li>
               <li>
                 <button 
+                  type="button"
                   onClick={openEditor}
-                  className="text-garden-thistle hover:underline flex items-center gap-1 font-sans text-xs pt-1"
+                  className="cursor-pointer text-garden-thistle hover:underline flex items-center gap-1 font-sans text-xs pt-1"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-garden-amethyst" />
                   <span>Cuaderno Quincenal (Editar)</span>
