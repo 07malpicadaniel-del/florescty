@@ -236,6 +236,16 @@ async function runE2E() {
       if (allBtn) allBtn.click();
     });
     await new Promise((r) => setTimeout(r, 400));
+
+    // Verificar que el botón de publicación automática ya no está expuesto de forma independiente
+    const hasStandaloneAutoBtn = await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('section button'));
+      return btns.some(b => b.innerText === 'Publicación Automática');
+    });
+    if (hasStandaloneAutoBtn) {
+      throw new Error('El botón de publicación automática sigue expuesto como botón independiente');
+    }
+    console.log('  - Verificado: El botón de publicación automática no está expuesto de forma independiente (está escondido).');
     console.log('  ✅ Filtros de categoría de publicaciones probados con éxito.');
 
     // TEST 8: Apertura de Publicación, Like y Comentario
@@ -295,6 +305,14 @@ async function runE2E() {
       if (pubBtns.length > 0) pubBtns[0].click();
     });
     await new Promise((r) => setTimeout(r, 500));
+
+    // Verificar que el botón "Ayuda" está integrado dentro del modal de publicar
+    const hasHelpBtn = await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('.fixed.inset-0 form button'));
+      return btns.some(b => b.innerText.includes('Ayuda'));
+    });
+    if (!hasHelpBtn) throw new Error('El botón "Ayuda" no se encontró dentro del modal de publicar');
+    console.log('  - Verificado: El botón de "Ayuda" está integrado dentro del modal de publicar.');
 
     // Rellenar formulario
     const testPostTitle = `Nota Botánica de Campo #${Date.now().toString().slice(-4)}`;

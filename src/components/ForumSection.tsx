@@ -12,7 +12,8 @@ import {
   Flower2,
   RefreshCw,
   Calendar,
-  CheckCircle2
+  CheckCircle2,
+  ChevronDown
 } from 'lucide-react';
 
 import { RootsTopRight, RootsBottomLeft, RootsDivider } from './BotanicalRoots';
@@ -40,6 +41,7 @@ export default function ForumSection() {
   } = useContent();
 
   const [aiFeedback, setAiFeedback] = useState<string | null>(null);
+  const [showHelpMenu, setShowHelpMenu] = useState(false);
 
   const filteredPosts = content.posts.filter((post) => {
     const matchesCategory = 
@@ -92,36 +94,67 @@ export default function ForumSection() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0 flex-wrap relative z-20">
-          {/* Button: "Publicación Automática" */}
-          <button
-            type="button"
-            onClick={handleTestGroq}
-            disabled={isGeneratingAI}
-            className="cursor-pointer flex items-center gap-2 bg-garden-darkPurple hover:bg-garden-darkPurple/90 dark:bg-garden-amethyst dark:hover:bg-garden-amethyst/80 text-white font-medium px-4 py-2.5 rounded-xl shadow-sm transition-all disabled:opacity-50 text-xs sm:text-sm"
-            title="Generar nueva publicación automática para el blog"
-          >
-            {isGeneratingAI ? (
-              <>
-                <RefreshCw className="w-4 h-4 animate-spin text-garden-thistle" />
-                <span>Generando...</span>
-              </>
-            ) : (
-              <>
-                <Sparkles className="w-4 h-4 text-garden-thistle" />
-                <span>Publicación Automática</span>
-              </>
-            )}
-          </button>
+        <div className="relative flex items-center shrink-0 z-20">
+          {/* Backdrop to close help dropdown when clicked outside */}
+          {showHelpMenu && (
+            <div 
+              className="fixed inset-0 z-30" 
+              onClick={() => setShowHelpMenu(false)} 
+            />
+          )}
 
-          <button
-            type="button"
-            onClick={() => setIsNewPostModalOpen(true)}
-            className="cursor-pointer flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white font-medium px-4 py-2.5 rounded-xl shadow-sm transition-all text-xs sm:text-sm"
-          >
-            <PlusCircle className="w-4 h-4" />
-            <span>Nueva Publicación</span>
-          </button>
+          {/* Unified Publish Button with Hidden/Discreet 'Ayuda' */}
+          <div className="inline-flex rounded-xl shadow-sm z-40 relative">
+            <button
+              type="button"
+              onClick={() => setIsNewPostModalOpen(true)}
+              className="cursor-pointer inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white font-medium px-4 py-2.5 rounded-l-xl text-xs sm:text-sm transition-all border-r border-garden-calPoly/60"
+            >
+              <PlusCircle className="w-4 h-4" />
+              <span>Nueva Publicación</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setShowHelpMenu(!showHelpMenu)}
+              className="cursor-pointer inline-flex items-center justify-center bg-garden-olive hover:bg-garden-calPoly text-white px-2.5 py-2.5 rounded-r-xl transition-all"
+              title="Opciones de publicación y Ayuda"
+              aria-label="Abrir opciones de ayuda"
+            >
+              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showHelpMenu ? 'rotate-180' : ''}`} />
+            </button>
+          </div>
+
+          {/* Discreet Help Dropdown Menu ("Ayuda") */}
+          {showHelpMenu && (
+            <div 
+              className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-garden-darkCard rounded-2xl shadow-2xl border border-garden-thistle dark:border-garden-darkBorder py-2 z-50 animate-fadeIn"
+            >
+              <div className="px-3.5 py-1.5 border-b border-garden-thistle/60 dark:border-garden-darkBorder text-[10px] font-semibold text-garden-darkPurple/60 dark:text-garden-thistle/60 uppercase tracking-wider font-serif">
+                Asistencia al Cultivador
+              </div>
+              <button
+                type="button"
+                onClick={async () => {
+                  setShowHelpMenu(false);
+                  handleTestGroq();
+                }}
+                disabled={isGeneratingAI}
+                className="w-full text-left px-3.5 py-2.5 text-xs text-garden-darkPurple dark:text-garden-thistle hover:bg-garden-thistle/40 dark:hover:bg-garden-darkBg flex items-center gap-2.5 transition-colors cursor-pointer"
+              >
+                <Sparkles className="w-4 h-4 text-garden-amethyst shrink-0" />
+                <div>
+                  <div className="font-semibold text-garden-darkPurple dark:text-white flex items-center gap-1.5">
+                    <span>Ayuda</span>
+                    <span className="text-[10px] font-normal text-garden-amethyst font-sans bg-garden-thistle/50 dark:bg-garden-darkBorder px-1.5 py-0.2 rounded">Automática</span>
+                  </div>
+                  <div className="text-[10px] text-garden-darkPurple/60 dark:text-garden-thistle/60 mt-0.5">
+                    Redactar publicación con ayuda del modelo
+                  </div>
+                </div>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 

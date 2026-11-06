@@ -11,7 +11,9 @@ import {
   Sun, 
   Leaf,
   Flower2,
-  UserCheck
+  UserCheck,
+  RefreshCw,
+  CheckCircle2
 } from 'lucide-react';
 
 const CATEGORIES = [
@@ -41,6 +43,43 @@ export default function NewPostModal() {
   const [watering, setWatering] = useState('');
   const [light, setLight] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [isAssisting, setIsAssisting] = useState(false);
+  const [assistSuccess, setAssistSuccess] = useState(false);
+  const [assistError, setAssistError] = useState<string | null>(null);
+
+  const handleAIAssist = async () => {
+    setIsAssisting(true);
+    setAssistError(null);
+    try {
+      const res = await fetch('/api/groq-post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ force: true })
+      });
+      if (!res.ok) throw new Error('Error al conectar');
+      const data = await res.json();
+      if (data && data.post) {
+        setTitle(data.post.title);
+        setContentBody(data.post.content);
+        if (data.post.category) setCategory(data.post.category);
+        if (data.post.imageUrl) setImageUrl(data.post.imageUrl);
+        if (data.post.plantDetails) {
+          setShowAdvanced(true);
+          setScientificName(data.post.plantDetails.scientificName || '');
+          setWatering(data.post.plantDetails.watering || '');
+          setLight(data.post.plantDetails.light || '');
+        }
+        setAssistSuccess(true);
+        setTimeout(() => setAssistSuccess(false), 6000);
+      }
+    } catch (err) {
+      console.error(err);
+      setAssistError('No se pudo conectar con la ayuda automática en este momento.');
+      setTimeout(() => setAssistError(null), 4000);
+    } finally {
+      setIsAssisting(false);
+    }
+  };
 
   if (!isNewPostModalOpen) return null;
 
@@ -110,6 +149,56 @@ export default function NewPostModal() {
               </span>
             </div>
           </div>
+
+          {/* Ayuda para redactar */}
+          <div className="bg-gradient-to-r from-garden-thistle/40 via-white to-garden-thistle/30 dark:from-garden-darkBg dark:via-garden-darkCard dark:to-garden-darkBg p-3.5 rounded-2xl border border-garden-amethyst/30 flex items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-garden-amethyst/20 flex items-center justify-center text-garden-amethyst shrink-0">
+                <Sparkles className="w-3.5 h-3.5" />
+              </div>
+              <div>
+                <span className="font-semibold text-garden-darkPurple dark:text-white block font-serif text-xs">
+                  ¿Necesitas inspiración botánica?
+                </span>
+                <span className="text-[11px] text-garden-darkPurple/70 dark:text-garden-thistle/70">
+                  Pulsa en Ayuda para redactar un borrador automático.
+                </span>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleAIAssist}
+              disabled={isAssisting}
+              className="cursor-pointer shrink-0 inline-flex items-center gap-1.5 bg-garden-darkPurple hover:bg-garden-darkPurple/90 dark:bg-garden-amethyst dark:hover:bg-garden-amethyst/80 text-white font-medium px-3.5 py-1.5 rounded-xl shadow-sm transition-all disabled:opacity-50 text-xs"
+              title="Obtener ayuda para redactar la publicación"
+            >
+              {isAssisting ? (
+                <>
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin text-garden-thistle" />
+                  <span>Redactando...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 text-garden-thistle" />
+                  <span>Ayuda</span>
+                </>
+              )}
+            </button>
+          </div>
+
+          {assistSuccess && (
+            <div className="p-3 bg-garden-calPoly text-garden-thistle rounded-xl text-xs flex items-center gap-2 border border-garden-olive animate-fadeIn">
+              <CheckCircle2 className="w-4 h-4 text-garden-amethyst shrink-0" />
+              <span>Borrador generado con ayuda. Puedes revisarlo, personalizarlo y pulsar &quot;Publicar&quot;.</span>
+            </div>
+          )}
+
+          {assistError && (
+            <div className="p-3 bg-rose-900/80 text-white rounded-xl text-xs border border-rose-700 animate-fadeIn">
+              {assistError}
+            </div>
+          )}
 
           {/* Category */}
           <div>
@@ -241,21 +330,43 @@ export default function NewPostModal() {
           </div>
 
           {/* Footer Submit */}
-          <div className="pt-4 border-t border-garden-thistle/60 dark:border-garden-darkBorder flex items-center justify-end gap-3">
+          <div className="pt-4 border-t border-garden-thistle/60 dark:border-garden-darkBorder flex items-center justify-between gap-3">
             <button
               type="button"
-              onClick={() => setIsNewPostModalOpen(false)}
-              className="cursor-pointer px-4 py-2 text-xs font-semibold text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white rounded-xl"
+              onClick={handleAIAssist}
+              disabled={isAssisting}
+              className="cursor-pointer inline-flex items-center gap-1.5 text-garden-darkPurple dark:text-garden-thistle hover:text-garden-amethyst text-xs font-semibold px-3 py-2 rounded-xl border border-garden-thistle dark:border-garden-darkBorder hover:bg-garden-thistle/30 transition-colors"
+              title="Obtener ayuda para redactar"
             >
-              Cancelar
+              {isAssisting ? (
+                <>
+                  <RefreshCw className="w-3.5 h-3.5 animate-spin text-garden-amethyst" />
+                  <span>Redactando...</span>
+                </>
+              ) : (
+                <>
+                  <Sparkles className="w-3.5 h-3.5 text-garden-amethyst" />
+                  <span>Ayuda</span>
+                </>
+              )}
             </button>
-            <button
-              type="submit"
-              className="cursor-pointer inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all"
-            >
-              <PlusCircle className="w-4 h-4" />
-              <span>Publicar</span>
-            </button>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setIsNewPostModalOpen(false)}
+                className="cursor-pointer px-4 py-2 text-xs font-semibold text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white rounded-xl"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                className="cursor-pointer inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all"
+              >
+                <PlusCircle className="w-4 h-4" />
+                <span>Publicar</span>
+              </button>
+            </div>
           </div>
         </form>
       </div>
