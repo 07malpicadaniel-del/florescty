@@ -565,6 +565,11 @@ export default function BiweeklyStudioModal() {
                   <div key={p.id} className="p-4 flex items-center justify-between gap-4 hover:bg-garden-cream/60 dark:hover:bg-garden-darkCard transition-colors">
                     <div className="space-y-1 min-w-0">
                       <div className="flex items-center gap-2">
+                        {p.isAdmin && (
+                          <span className="bg-garden-darkPurple text-white text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">
+                            Admin
+                          </span>
+                        )}
                         {p.pinned && (
                           <span className="bg-garden-amethyst text-white text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">
                             Fijada

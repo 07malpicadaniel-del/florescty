@@ -11,7 +11,8 @@ import {
   Sun, 
   Droplet,
   Flower2,
-  Sparkles
+  Sparkles,
+  Crown
 } from 'lucide-react';
 
 interface ForumPostCardProps {
@@ -27,24 +28,36 @@ export default function ForumPostCard({ post }: ForumPostCardProps) {
   };
 
   const isAIGenerated = post.id.startsWith('post-ia-');
+  const isAdminPost = Boolean(post.isAdmin);
 
   return (
     <article
       onClick={() => setSelectedPost(post)}
       className={`group relative bg-white dark:bg-garden-darkCard rounded-2xl border transition-all duration-200 cursor-pointer overflow-hidden flex flex-col justify-between ${
-        post.pinned 
+        post.pinned || isAdminPost
           ? 'border-garden-amethyst/70 shadow-md ring-1 ring-garden-amethyst/30 bg-gradient-to-br from-white to-garden-thistle/20 dark:from-garden-darkCard dark:to-garden-darkBg' 
           : 'border-garden-thistle/80 dark:border-garden-darkBorder hover:border-garden-amethyst shadow-soft hover:shadow-lifted'
       }`}
     >
-      {/* Top Strip for Pinned post */}
-      {post.pinned && (
+      {/* Top Strip for Pinned or Admin post */}
+      {(post.pinned || isAdminPost) && (
         <div className="bg-garden-darkPurple text-garden-thistle text-[11px] font-semibold px-4 py-1 flex items-center justify-between">
           <span className="flex items-center gap-1.5 font-serif">
-            <Pin className="w-3.5 h-3.5 fill-current text-garden-amethyst" />
-            Publicación Destacada
+            {isAdminPost ? (
+              <>
+                <Crown className="w-3.5 h-3.5 text-garden-amethyst" />
+                Publicación de Admin
+              </>
+            ) : (
+              <>
+                <Pin className="w-3.5 h-3.5 fill-current text-garden-amethyst" />
+                Publicación Destacada
+              </>
+            )}
           </span>
-          <span className="text-garden-thistle/70 text-[10px] uppercase tracking-wider">Fijada</span>
+          <span className="text-garden-thistle/70 text-[10px] uppercase tracking-wider">
+            {isAdminPost ? 'Autor / Admin' : 'Fijada'}
+          </span>
         </div>
       )}
 
@@ -66,6 +79,14 @@ export default function ForumPostCard({ post }: ForumPostCardProps) {
                   <Sparkles className="w-3 h-3 text-garden-amethyst" />
                 </span>
               )}
+              {isAdminPost && !isAIGenerated && (
+                <span 
+                  className="absolute -bottom-1 -right-1 bg-garden-darkPurple text-garden-thistle rounded-full p-0.5 border border-garden-amethyst" 
+                  title="Autor / Admin"
+                >
+                  <Crown className="w-3 h-3 text-garden-amethyst" />
+                </span>
+              )}
             </div>
 
             <div>
@@ -73,6 +94,11 @@ export default function ForumPostCard({ post }: ForumPostCardProps) {
                 <span className="font-semibold text-sm text-garden-darkPurple dark:text-garden-thistle">
                   {post.author.name}
                 </span>
+                {isAdminPost && (
+                  <span className="bg-garden-darkPurple text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-garden-amethyst/40">
+                    Autor / Admin
+                  </span>
+                )}
                 {isAIGenerated && (
                   <span className="bg-garden-thistle/70 dark:bg-garden-darkBg text-garden-darkPurple dark:text-garden-thistle text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-garden-amethyst/30">
                     Publicación Automática

@@ -13,7 +13,10 @@ import {
   Flower2,
   UserCheck,
   RefreshCw,
-  CheckCircle2
+  CheckCircle2,
+  KeyRound,
+  Eye,
+  EyeOff
 } from 'lucide-react';
 
 const CATEGORIES = [
@@ -33,7 +36,13 @@ const PRESET_IMAGES = [
 ];
 
 export default function NewPostModal() {
-  const { isNewPostModalOpen, setIsNewPostModalOpen, createPost } = useContent();
+  const {
+    isNewPostModalOpen,
+    setIsNewPostModalOpen,
+    createPost,
+    activeTab,
+    setActiveTab
+  } = useContent();
 
   const [title, setTitle] = useState('');
   const [contentBody, setContentBody] = useState('');
@@ -43,6 +52,10 @@ export default function NewPostModal() {
   const [watering, setWatering] = useState('');
   const [light, setLight] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [adminKey, setAdminKey] = useState('');
+  const [showAdminKey, setShowAdminKey] = useState(false);
+  const [adminError, setAdminError] = useState<string | null>(null);
+  const [isVerifyingAdmin, setIsVerifyingAdmin] = useState(false);
   const [isAssisting, setIsAssisting] = useState(false);
   const [assistSuccess, setAssistSuccess] = useState(false);
   const [assistError, setAssistError] = useState<string | null>(null);
@@ -83,9 +96,44 @@ export default function NewPostModal() {
 
   if (!isNewPostModalOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleClose = () => {
+    setAdminError(null);
+    setIsNewPostModalOpen(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !contentBody.trim()) return;
+
+    const trimmedAdminKey = adminKey.trim();
+    let isAdminPost = false;
+
+    if (trimmedAdminKey.length > 0) {
+      setIsVerifyingAdmin(true);
+      setAdminError(null);
+      try {
+        const res = await fetch('/api/verify-admin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ adminKey: trimmedAdminKey }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.valid) {
+          setAdminError(
+            data.error || 'La clave admin ingresada es incorrecta. Verifícala o deja el campo vacío para publicar normalmente.'
+          );
+          setIsVerifyingAdmin(false);
+          return;
+        }
+        isAdminPost = true;
+      } catch (err) {
+        console.error(err);
+        setAdminError('No se pudo validar la clave admin en este momento.');
+        setIsVerifyingAdmin(false);
+        return;
+      }
+      setIsVerifyingAdmin(false);
+    }
 
     createPost({
       title: title.trim(),
@@ -95,6 +143,7 @@ export default function NewPostModal() {
       scientificName: scientificName.trim() || undefined,
       watering: watering.trim() || undefined,
       light: light.trim() || undefined,
+      isAdmin: isAdminPost,
     });
 
     // Reset form
@@ -104,12 +153,22 @@ export default function NewPostModal() {
     setScientificName('');
     setWatering('');
     setLight('');
+    setAdminKey('');
+    setAdminError(null);
+    setShowAdminKey(false);
     setIsNewPostModalOpen(false);
+
+    // Ensure the user is navigated directly to the section where their post was placed
+    if (isAdminPost) {
+      setActiveTab('publicaciones-admin');
+    } else if (activeTab === 'publicaciones-admin') {
+      setActiveTab('publicaciones');
+    }
   };
 
   return (
     <div 
-      onClick={() => setIsNewPostModalOpen(false)}
+      onClick={handleClose}
       className="fixed inset-0 z-50 overflow-y-auto bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 animate-fadeIn cursor-pointer"
     >
       <div 
@@ -126,7 +185,7 @@ export default function NewPostModal() {
           </div>
           <button
             type="button"
-            onClick={() => setIsNewPostModalOpen(false)}
+            onClick={handleClose}
             className="cursor-pointer p-1.5 rounded-lg text-garden-thistle hover:text-white hover:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
@@ -255,8 +314,8 @@ export default function NewPostModal() {
               <span className="text-garden-darkPurple/60 dark:text-garden-thistle/60 font-normal">Opcional</span>
             </label>
             <input
-              type="url"
-              placeholder="https://images.unsplash.com/... o /wix-assets/..."
+              type="text"
+              placeholder="https://images.unsplash.com/... o /flowers/..."
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
               className="w-full bg-white dark:bg-garden-darkBg dark:text-white text-garden-darkPurple text-xs p-2.5 rounded-xl border border-garden-thistle dark:border-garden-darkBorder focus:outline-none focus:ring-1 focus:ring-garden-amethyst"
@@ -329,6 +388,71 @@ export default function NewPostModal() {
             )}
           </div>
 
+          {/* Sección Clave Admin */}
+          <div className="bg-garden-cream/80 dark:bg-garden-darkBg p-4 rounded-2xl border border-garden-thistle/90 dark:border-garden-darkBorder space-y-2.5">
+            <div className="flex items-center justify-between gap-2 flex-wrap">
+              <label
+                htmlFor="admin-key-input"
+                className="text-xs font-semibold text-garden-darkPurple dark:text-garden-thistle flex items-center gap-1.5"
+              >
+                <KeyRound className="w-3.5 h-3.5 text-garden-amethyst" />
+                <span>Clave Admin</span>
+                <span className="text-[11px] font-normal text-garden-darkPurple/60 dark:text-garden-thistle/60">
+                  (Opcional)
+                </span>
+              </label>
+
+              <span
+                className={`text-[10px] font-semibold px-2.5 py-0.5 rounded-full border ${
+                  adminKey.trim()
+                    ? 'bg-garden-darkPurple text-garden-thistle border-garden-amethyst/60'
+                    : 'bg-garden-thistle/40 dark:bg-garden-darkCard text-garden-darkPurple/80 dark:text-garden-thistle/80 border-garden-thistle dark:border-garden-darkBorder'
+                }`}
+              >
+                {adminKey.trim() ? 'Destino: Publicaciones de Admin' : 'Destino: Publicaciones'}
+              </span>
+            </div>
+
+            <div className="relative">
+              <input
+                id="admin-key-input"
+                name="adminKey"
+                type={showAdminKey ? 'text' : 'password'}
+                placeholder="Déjalo vacío para publicar con el resto, o ingresa la clave admin..."
+                value={adminKey}
+                onChange={(e) => {
+                  setAdminKey(e.target.value);
+                  if (adminError) setAdminError(null);
+                }}
+                autoComplete="off"
+                className="w-full bg-white dark:bg-garden-darkCard dark:text-white text-garden-darkPurple text-xs p-2.5 pr-9 rounded-xl border border-garden-thistle dark:border-garden-darkBorder focus:outline-none focus:ring-2 focus:ring-garden-amethyst"
+              />
+              <button
+                type="button"
+                onClick={() => setShowAdminKey(!showAdminKey)}
+                className="cursor-pointer absolute right-2.5 top-1/2 -translate-y-1/2 text-garden-darkPurple/50 dark:text-garden-thistle/50 hover:text-garden-amethyst p-0.5"
+                title={showAdminKey ? 'Ocultar clave' : 'Mostrar clave'}
+                aria-label={showAdminKey ? 'Ocultar clave' : 'Mostrar clave'}
+              >
+                {showAdminKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+
+            <p className="text-[11px] text-garden-darkPurple/70 dark:text-garden-thistle/70 leading-snug">
+              Si anotas tu clave admin, la publicación se guardará separada en{' '}
+              <strong>Publicaciones de Admin</strong>. Si no la anotas, irá con el resto de publicaciones.
+            </p>
+
+            {adminError && (
+              <div
+                role="alert"
+                className="p-2.5 bg-rose-50 dark:bg-rose-950/60 border border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-200 rounded-xl text-xs font-medium animate-fadeIn"
+              >
+                {adminError}
+              </div>
+            )}
+          </div>
+
           {/* Footer Submit */}
           <div className="pt-4 border-t border-garden-thistle/60 dark:border-garden-darkBorder flex items-center justify-between gap-3">
             <button
@@ -354,17 +478,27 @@ export default function NewPostModal() {
             <div className="flex items-center gap-3">
               <button
                 type="button"
-                onClick={() => setIsNewPostModalOpen(false)}
+                onClick={handleClose}
                 className="cursor-pointer px-4 py-2 text-xs font-semibold text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white rounded-xl"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
-                className="cursor-pointer inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all"
+                disabled={isVerifyingAdmin}
+                className="cursor-pointer inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly disabled:opacity-60 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl shadow-md transition-all"
               >
-                <PlusCircle className="w-4 h-4" />
-                <span>Publicar</span>
+                {isVerifyingAdmin ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span>Verificando...</span>
+                  </>
+                ) : (
+                  <>
+                    <PlusCircle className="w-4 h-4" />
+                    <span>Publicar</span>
+                  </>
+                )}
               </button>
             </div>
           </div>

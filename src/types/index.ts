@@ -36,6 +36,7 @@ export interface ForumPost {
   id: string;
   title: string;
   content: string;
+  isAdmin?: boolean;
   author: {
     name: string;
     avatar: string;

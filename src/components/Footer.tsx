@@ -15,6 +15,9 @@ export default function Footer() {
   const [emailInput, setEmailInput] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
+  const regularPostsCount = content.posts.filter((p) => !p.isAdmin).length;
+  const adminPostsCount = content.posts.filter((p) => Boolean(p.isAdmin)).length;
+
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (emailInput.trim()) {
@@ -87,7 +90,16 @@ export default function Footer() {
                   onClick={() => setActiveTab('publicaciones')}
                   className="cursor-pointer hover:text-white transition-colors"
                 >
-                  Publicaciones ({content.posts.length})
+                  Publicaciones ({regularPostsCount})
+                </button>
+              </li>
+              <li>
+                <button 
+                  type="button"
+                  onClick={() => setActiveTab('publicaciones-admin')}
+                  className="cursor-pointer hover:text-white transition-colors"
+                >
+                  Publicaciones de Admin ({adminPostsCount})
                 </button>
               </li>
               <li>

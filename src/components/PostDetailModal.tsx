@@ -11,7 +11,8 @@ import {
   Trash2, 
   Share2, 
   Sun, 
-  Droplet
+  Droplet,
+  Crown
 } from 'lucide-react';
 
 // Helper to format botanical post content with beautiful editorial typography
@@ -158,7 +159,13 @@ export default function PostDetailModal() {
       >
         {/* Sticky Header with Controls */}
         <div className="sticky top-0 z-20 bg-white/95 dark:bg-garden-darkCard/95 backdrop-blur-md px-6 py-4 border-b border-garden-thistle/80 dark:border-garden-darkBorder flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            {selectedPost.isAdmin && (
+              <span className="bg-garden-darkPurple text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1 border border-garden-amethyst/40">
+                <Crown className="w-3 h-3 text-garden-amethyst" />
+                Autor / Admin
+              </span>
+            )}
             <span className="bg-garden-thistle/50 dark:bg-garden-darkBg text-garden-darkPurple dark:text-garden-thistle text-xs font-semibold px-3 py-1 rounded-full border border-garden-thistle dark:border-garden-darkBorder">
               {selectedPost.category}
             </span>
@@ -216,10 +223,15 @@ export default function PostDetailModal() {
               className="w-12 h-12 rounded-full object-cover border border-garden-thistle dark:border-garden-darkBorder shadow-sm"
             />
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h4 className="font-bold text-garden-darkPurple dark:text-white text-base">
                   {selectedPost.author.name}
                 </h4>
+                {selectedPost.isAdmin && (
+                  <span className="bg-garden-darkPurple text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-garden-amethyst/40">
+                    Autor / Admin
+                  </span>
+                )}
                 {selectedPost.id.startsWith('post-ia-') && (
                   <span className="bg-garden-thistle/70 dark:bg-garden-darkBg text-garden-darkPurple dark:text-garden-thistle text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border border-garden-amethyst/30">
                     Publicación Automática

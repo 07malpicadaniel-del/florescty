@@ -19,7 +19,10 @@ import {
   ArrowRight, 
   Sprout, 
   Calendar,
-  Flower2
+  Flower2,
+  Crown,
+  KeyRound,
+  PlusCircle
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -27,10 +30,12 @@ export default function HomePage() {
     content, 
     activeTab, 
     setActiveTab, 
-    setSelectedPlant 
+    setSelectedPlant,
+    setIsNewPostModalOpen
   } = useContent();
 
-  const latestPosts = content.posts.slice(0, 3);
+  const latestRegularPosts = content.posts.filter((post) => !post.isAdmin).slice(0, 3);
+  const latestAdminPosts = content.posts.filter((post) => Boolean(post.isAdmin)).slice(0, 3);
   const featuredPlants = content.plantsEncyclopedia.slice(0, 3);
 
   return (
@@ -96,10 +101,66 @@ export default function HomePage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {latestPosts.map((post) => (
+                {latestRegularPosts.map((post) => (
                   <ForumPostCard key={post.id} post={post} />
                 ))}
               </div>
+            </section>
+
+            {/* Home: Publicaciones de Admin Snapshot (Separated Author Section) */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+              <div className="flex items-center justify-between gap-4 border-b border-garden-thistle/80 dark:border-garden-darkBorder pb-4 flex-wrap">
+                <div>
+                  <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-garden-amethyst mb-1">
+                    <Crown className="w-4 h-4" />
+                    Espacio del Autor
+                  </div>
+                  <h3 className="text-4xl sm:text-5xl font-script font-normal text-garden-darkPurple dark:text-garden-thistle tracking-wide leading-tight">
+                    Publicaciones de Admin
+                  </h3>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('publicaciones-admin')}
+                  className="cursor-pointer inline-flex items-center gap-1.5 text-sm font-semibold text-garden-amethyst hover:text-garden-darkPurple dark:hover:text-white transition-colors font-serif"
+                >
+                  <span>Ver sección de Admin</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              {latestAdminPosts.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {latestAdminPosts.map((post) => (
+                    <ForumPostCard key={post.id} post={post} />
+                  ))}
+                </div>
+              ) : (
+                <div className="bg-white/80 dark:bg-garden-darkCard rounded-3xl border border-dashed border-garden-amethyst/50 dark:border-garden-darkBorder p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-soft">
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-11 h-11 rounded-2xl bg-garden-thistle/50 dark:bg-garden-darkBg flex items-center justify-center text-garden-amethyst shrink-0 border border-garden-amethyst/30">
+                      <KeyRound className="w-5 h-5" />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="font-serif text-lg font-bold text-garden-darkPurple dark:text-white">
+                        Sección separada para el autor/a del jardín
+                      </h4>
+                      <p className="text-xs sm:text-sm text-garden-darkPurple/75 dark:text-garden-thistle/80 font-serif max-w-2xl">
+                        Al crear una publicación e ingresar la <strong>Clave Admin</strong>, aparecerá aquí de forma independiente al resto de publicaciones. Si dejas la clave vacía, se publicará en la sección general.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsNewPostModalOpen(true)}
+                    className="cursor-pointer shrink-0 inline-flex items-center gap-2 bg-garden-darkPurple hover:bg-garden-darkPurple/90 dark:bg-garden-amethyst dark:hover:bg-garden-amethyst/80 text-white text-xs sm:text-sm font-medium px-4 py-2.5 rounded-xl shadow-sm transition-colors"
+                  >
+                    <PlusCircle className="w-4 h-4" />
+                    <span>Publicar como Admin</span>
+                  </button>
+                </div>
+              )}
             </section>
 
             {/* Home: Featured Encyclopedia Snapshot */}
@@ -162,7 +223,10 @@ export default function HomePage() {
         )}
 
         {/* TAB 2: PUBLICACIONES (antes Foro) */}
-        {activeTab === 'publicaciones' && <ForumSection />}
+        {activeTab === 'publicaciones' && <ForumSection mode="community" />}
+
+        {/* TAB 2B: PUBLICACIONES DE ADMIN */}
+        {activeTab === 'publicaciones-admin' && <ForumSection mode="admin" />}
 
         {/* TAB 3: PLANTAS */}
         {activeTab === 'plantas' && <PlantGuidesSection />}

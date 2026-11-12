@@ -10,10 +10,12 @@ import {
 } from '../types';
 import { INITIAL_CONTENT } from '../data/initialContent';
 
+export type ActiveTab = 'inicio' | 'publicaciones' | 'publicaciones-admin' | 'plantas' | 'acerca-de';
+
 interface ContentContextType {
   content: AppContentState;
-  activeTab: 'inicio' | 'publicaciones' | 'plantas' | 'acerca-de';
-  setActiveTab: (tab: 'inicio' | 'publicaciones' | 'plantas' | 'acerca-de') => void;
+  activeTab: ActiveTab;
+  setActiveTab: (tab: ActiveTab) => void;
   isEditorOpen: boolean;
   openEditor: () => void;
   closeEditor: () => void;
@@ -47,6 +49,7 @@ interface ContentContextType {
     scientificName?: string;
     watering?: string;
     light?: string;
+    isAdmin?: boolean;
   }) => void;
   deletePost: (id: string) => void;
   togglePinPost: (id: string) => void;
@@ -64,7 +67,7 @@ const ContentContext = createContext<ContentContextType | undefined>(undefined);
 
 export function ContentProvider({ children }: { children: React.ReactNode }) {
   const [content, setContent] = useState<AppContentState>(INITIAL_CONTENT);
-  const [activeTab, setActiveTab] = useState<'inicio' | 'publicaciones' | 'plantas' | 'acerca-de'>('inicio');
+  const [activeTab, setActiveTab] = useState<ActiveTab>('inicio');
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [selectedPost, setSelectedPost] = useState<ForumPost | null>(null);
   const [selectedPlant, setSelectedPlant] = useState<PlantProfile | null>(null);
@@ -228,7 +231,7 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     saveContent(updated);
   };
 
-  // Create post anonymously
+  // Create post anonymously (separated into Publicaciones de Admin when isAdmin is true)
   const createPost = (data: {
     title: string;
     content: string;
@@ -237,19 +240,29 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
     scientificName?: string;
     watering?: string;
     light?: string;
+    isAdmin?: boolean;
   }) => {
+    const isAdminPost = Boolean(data.isAdmin);
     const newPost: ForumPost = {
       id: `post-${Date.now()}`,
       title: data.title,
       content: data.content,
       category: data.category,
+      isAdmin: isAdminPost,
       imageUrl: data.imageUrl || 'https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1000&q=80',
-      author: {
-        name: 'Cultivador Anónimo',
-        avatar: '/logo.png'
-      },
+      author: isAdminPost
+        ? {
+            name: 'Autor del Jardín',
+            role: 'Admin',
+            avatar: '/logo.png',
+            isCurator: true,
+          }
+        : {
+            name: 'Cultivador Anónimo',
+            avatar: '/logo.png'
+          },
       createdAt: 'Publicado hoy',
-      fortnightTag: `Edición #${content.currentEdition.editionNumber}`,
+      fortnightTag: isAdminPost ? 'Publicación de Admin' : `Edición #${content.currentEdition.editionNumber}`,
       likes: 1,
       views: 12,
       pinned: false,

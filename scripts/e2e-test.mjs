@@ -1,9 +1,26 @@
 import { spawn } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 import puppeteer from 'puppeteer-core';
 
 const CHROME_PATH = '/usr/bin/google-chrome-stable';
 const PORT = 3000;
 const URL = `http://127.0.0.1:${PORT}`;
+
+function loadExpectedAdminKey() {
+  if (process.env.ADMIN_KEY) return process.env.ADMIN_KEY.trim();
+  try {
+    const envPath = path.join(process.cwd(), '.env.local');
+    if (fs.existsSync(envPath)) {
+      const raw = fs.readFileSync(envPath, 'utf8');
+      const match = raw.match(/^ADMIN_KEY=(.+)$/m);
+      if (match && match[1]) {
+        return match[1].trim().replace(/^["']|["']$/g, '');
+      }
+    }
+  } catch (e) {}
+  return 'jardin2026';
+}
 
 let serverProcess = null;
 
@@ -110,7 +127,7 @@ async function runE2E() {
     // Clic en pestaña "Publicaciones"
     await page.evaluate(() => {
       const btns = Array.from(document.querySelectorAll('nav button'));
-      const pubBtn = btns.find(b => b.innerText.includes('Publicaciones'));
+      const pubBtn = btns.find(b => b.innerText.includes('Publicaciones') && !b.innerText.includes('Admin'));
       if (pubBtn) pubBtn.click();
     });
     await new Promise((r) => setTimeout(r, 500));
@@ -119,6 +136,23 @@ async function runE2E() {
     });
     if (!hasPublicacionesHeading) throw new Error('No cambió a la pestaña Publicaciones');
     console.log('  - Pestaña Publicaciones activada.');
+
+    // Clic en pestaña "Publicaciones de Admin"
+    await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('nav button'));
+      const adminTabBtn = btns.find(b => b.innerText.includes('Publicaciones de Admin'));
+      if (adminTabBtn) adminTabBtn.click();
+    });
+    await new Promise((r) => setTimeout(r, 500));
+    const adminTabState = await page.evaluate(() => {
+      return {
+        hasHeading: document.body.innerText.includes('Publicaciones de Admin'),
+        hasRegularPost: document.body.innerText.includes('5 flores que debes conocer'),
+      };
+    });
+    if (!adminTabState.hasHeading) throw new Error('No cambió a la pestaña Publicaciones de Admin');
+    if (adminTabState.hasRegularPost) throw new Error('Las publicaciones generales aparecieron en Publicaciones de Admin');
+    console.log('  - Pestaña Publicaciones de Admin activada y separada de publicaciones generales.');
 
     // Clic en pestaña "Plantas"
     await page.evaluate(() => {
@@ -215,7 +249,7 @@ async function runE2E() {
     console.log('\n▶ [Prueba 7] Probando sección de publicaciones y filtros de categoría...');
     await page.evaluate(() => {
       const btns = Array.from(document.querySelectorAll('nav button'));
-      const pubBtn = btns.find(b => b.innerText.includes('Publicaciones'));
+      const pubBtn = btns.find(b => b.innerText.includes('Publicaciones') && !b.innerText.includes('Admin'));
       if (pubBtn) pubBtn.click();
     });
     await new Promise((r) => setTimeout(r, 500));
@@ -331,11 +365,153 @@ async function runE2E() {
     }, testPostTitle);
 
     if (!isNewPostVisible) throw new Error('La nueva publicación no apareció en la lista');
-    console.log(`  - Nueva publicación "${testPostTitle}" creada y visible en el blog.`);
-    console.log('  ✅ Formulario de Nueva Publicación verificado correctamente.');
+    console.log(`  - Nueva publicación "${testPostTitle}" creada sin clave y visible en Publicaciones.`);
 
-    // TEST 10: Modal del Cuaderno (Biweekly Studio)
-    console.log('\n▶ [Prueba 10] Probando modal de edición del Cuaderno...');
+    // Comprobar que NO apareció en Publicaciones de Admin
+    await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('nav button'));
+      const adminTabBtn = btns.find(b => b.innerText.includes('Publicaciones de Admin'));
+      if (adminTabBtn) adminTabBtn.click();
+    });
+    await new Promise((r) => setTimeout(r, 400));
+    const regularPostInAdmin = await page.evaluate((title) => {
+      return document.body.innerText.includes(title);
+    }, testPostTitle);
+    if (regularPostInAdmin) throw new Error('La publicación sin Clave Admin no debió ir a Publicaciones de Admin');
+    console.log('  ✅ Publicación sin clave mantenida únicamente en Publicaciones generales.');
+
+    // TEST 10: Clave Admin (clave inválida + clave válida -> Publicaciones de Admin separada sin borrar nada)
+    console.log('\n▶ [Prueba 10] Probando Clave Admin y sección "Publicaciones de Admin"...');
+    await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('nav button'));
+      const pubBtn = btns.find(b => b.innerText.includes('Publicar'));
+      if (pubBtn) pubBtn.click();
+    });
+    await new Promise((r) => setTimeout(r, 500));
+
+    const adminKeyInput = await page.$('#admin-key-input');
+    if (!adminKeyInput) throw new Error('El campo Clave Admin (#admin-key-input) no se encontró en el formulario');
+
+    const adminPostTitle = `Nota Oficial de Admin #${Date.now().toString().slice(-4)}`;
+    await page.type('input[placeholder="Ej: Consejos para cuidar orquídeas en invierno"]', adminPostTitle);
+    await page.type('textarea[placeholder="Escribe tus consejos, dudas o experiencias sobre las plantas..."]', 'Guía oficial escrita por el autor/a del jardín utilizando la Clave Admin.');
+
+    // Intentar con clave incorrecta primero
+    await page.type('#admin-key-input', 'clave-incorrecta');
+    await page.evaluate(() => {
+      const submitBtn = Array.from(document.querySelectorAll('form button')).find(b => b.innerText.includes('Publicar') && b.type === 'submit');
+      if (submitBtn) submitBtn.click();
+    });
+    await new Promise((r) => setTimeout(r, 700));
+
+    const invalidKeyError = await page.evaluate(() => {
+      const alertEl = document.querySelector('[role="alert"]');
+      return alertEl ? alertEl.innerText : '';
+    });
+    if (!invalidKeyError || !invalidKeyError.toLowerCase().includes('incorrecta')) {
+      throw new Error(`No se mostró alerta al ingresar clave admin inválida: "${invalidKeyError}"`);
+    }
+    console.log('  - Verificado: Clave admin inválida bloqueada con mensaje de error claro.');
+
+    // Reemplazar con clave admin válida
+    await page.click('#admin-key-input');
+    await page.keyboard.down('Control');
+    await page.keyboard.press('a');
+    await page.keyboard.up('Control');
+    await page.keyboard.press('Backspace');
+    const clearedVal = await page.$eval('#admin-key-input', (el) => el.value);
+    if (clearedVal !== '') {
+      throw new Error(`No se limpió el campo Clave Admin antes de escribir la clave válida (valor="${clearedVal}")`);
+    }
+    const validAdminKey = loadExpectedAdminKey();
+    await page.type('#admin-key-input', validAdminKey);
+    await new Promise((r) => setTimeout(r, 200));
+
+    const hasAdminDestBadge = await page.evaluate(() => {
+      return document.body.innerText.includes('Destino: Publicaciones de Admin');
+    });
+    if (!hasAdminDestBadge) throw new Error('No se mostró el indicador "Destino: Publicaciones de Admin"');
+
+    await page.evaluate(() => {
+      const submitBtn = Array.from(document.querySelectorAll('form button')).find(b => b.innerText.includes('Publicar') && b.type === 'submit');
+      if (submitBtn) submitBtn.click();
+    });
+    await new Promise((r) => setTimeout(r, 1200));
+
+    // Verificar redirección y aparición en Publicaciones de Admin
+    const adminSectionCheck = await page.evaluate((title) => {
+      const alertEl = document.querySelector('[role="alert"]');
+      const modalOpen = Boolean(document.querySelector('#admin-key-input'));
+      return {
+        hasTitle: document.body.innerText.includes(title),
+        hasAdminHeading: document.body.innerText.includes('Publicaciones de Admin'),
+        hasAdminBadge: document.body.innerText.toUpperCase().includes('AUTOR / ADMIN'),
+        hasRegularPost: document.body.innerText.includes('5 flores que debes conocer'),
+        modalStillOpen: modalOpen,
+        alertText: alertEl ? alertEl.innerText : null,
+      };
+    }, adminPostTitle);
+
+    if (!adminSectionCheck.hasAdminHeading || !adminSectionCheck.hasTitle) {
+      throw new Error(`La publicación con Clave Admin no apareció en la sección Publicaciones de Admin. Debug: ${JSON.stringify(adminSectionCheck)}`);
+    }
+    if (!adminSectionCheck.hasAdminBadge) {
+      throw new Error('No se mostró la insignia "Autor / Admin" en la publicación de admin');
+    }
+    if (adminSectionCheck.hasRegularPost) {
+      throw new Error('Las publicaciones generales no deberían mezclarse dentro de Publicaciones de Admin');
+    }
+    console.log(`  - Publicación "${adminPostTitle}" publicada en "Publicaciones de Admin" con insignia "Autor / Admin".`);
+
+    // Verificar en pestaña "Publicaciones" que NO aparece el post de Admin y que TODO lo anterior sigue intacto (SIN BORRAR NADA)
+    await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('nav button'));
+      const pubBtn = btns.find(b => b.innerText.includes('Publicaciones') && !b.innerText.includes('Admin'));
+      if (pubBtn) pubBtn.click();
+    });
+    await new Promise((r) => setTimeout(r, 500));
+
+    const generalSectionCheck = await page.evaluate((adminTitle, regularTitle) => {
+      return {
+        hasAdminTitle: document.body.innerText.includes(adminTitle),
+        hasRegularTitle: document.body.innerText.includes(regularTitle),
+        hasInitial1: document.body.innerText.includes('5 flores que debes conocer'),
+        hasInitial2: document.body.innerText.includes('Las flores y sus significados'),
+        hasInitial3: document.body.innerText.includes('Flores que son malas para tus mascotas'),
+      };
+    }, adminPostTitle, testPostTitle);
+
+    if (generalSectionCheck.hasAdminTitle) {
+      throw new Error('La publicación de Admin apareció mezclada en Publicaciones generales');
+    }
+    if (!generalSectionCheck.hasRegularTitle || !generalSectionCheck.hasInitial1 || !generalSectionCheck.hasInitial2 || !generalSectionCheck.hasInitial3) {
+      throw new Error(`Se perdieron publicaciones existentes en la sección general Publicaciones. Debug: ${JSON.stringify(generalSectionCheck)}`);
+    }
+    console.log('  - Verificado: Las publicaciones previas e iniciales siguen intactas en "Publicaciones" sin mezclarse.');
+
+    // Verificar ambas secciones separadas en Inicio
+    await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('nav button'));
+      const homeBtn = btns.find(b => b.innerText.includes('Inicio'));
+      if (homeBtn) homeBtn.click();
+    });
+    await new Promise((r) => setTimeout(r, 500));
+
+    const homeSectionsCheck = await page.evaluate((adminTitle) => {
+      return {
+        hasRegularSnapshot: document.body.innerText.includes('Notas y Cuidados'),
+        hasAdminSnapshot: document.body.innerText.includes('Publicaciones de Admin'),
+        hasAdminPostOnHome: document.body.innerText.includes(adminTitle),
+      };
+    }, adminPostTitle);
+
+    if (!homeSectionsCheck.hasRegularSnapshot || !homeSectionsCheck.hasAdminSnapshot || !homeSectionsCheck.hasAdminPostOnHome) {
+      throw new Error('Inicio no muestra ambas secciones separadas con la nueva publicación de Admin');
+    }
+    console.log('  ✅ Inicio muestra ambas secciones separadas y la separación por Clave Admin funciona al 100%.');
+
+    // TEST 11: Modal del Cuaderno (Biweekly Studio)
+    console.log('\n▶ [Prueba 11] Probando modal de edición del Cuaderno...');
     await page.evaluate(() => {
       const notebookBtn = Array.from(document.querySelectorAll('button')).find(b => b.innerText.includes('Cuaderno'));
       if (notebookBtn) notebookBtn.click();
@@ -358,13 +534,13 @@ async function runE2E() {
 
     // Check for critical runtime errors
     if (errors.length > 0) {
-      console.warn('⚠️ Se detectaron errores de página:', errors);
+      throw new Error(`Se detectaron errores fatales de página: ${errors.join(' | ')}`);
     } else {
       console.log('\n✨ Cero errores fatales en consola del navegador.');
     }
 
     console.log(`\n==================================================`);
-    console.log(`🎉 TODAS LAS 10 PRUEBAS E2E COMPLETADAS CON ÉXITO`);
+    console.log(`🎉 TODAS LAS 11 PRUEBAS E2E COMPLETADAS CON ÉXITO`);
     console.log(`==================================================\n`);
 
   } finally {
