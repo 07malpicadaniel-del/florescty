@@ -97,11 +97,16 @@ async function runE2E() {
       throw new Error(`Título no esperado: ${pageTitle}`);
     }
 
-    // Verificar las 3 nuevas publicaciones botánicas cargadas
+    // Verificar publicaciones botánicas cargadas en la página de inicio
     const postTitles = await page.evaluate(() => {
       return Array.from(document.querySelectorAll('h3')).map(h => h.innerText);
     });
-    console.log(`  - Títulos de publicaciones en página:`, postTitles.filter(t => t.includes('flores') || t.includes('significados') || t.includes('mascotas')));
+    console.log(`  - Títulos de publicaciones en página:`, postTitles.filter(t => t.includes('rosas') || t.includes('carnívoras') || t.includes('flores') || t.includes('mascotas')));
+    const hasRosas = postTitles.some(t => t.includes('rosas'));
+    const hasCarnivoras = postTitles.some(t => t.includes('carnívoras'));
+    if (!hasRosas || !hasCarnivoras) {
+      throw new Error(`No se encontraron las nuevas publicaciones (Rosas / Carnívoras) en Inicio: ${JSON.stringify(postTitles)}`);
+    }
     console.log('  ✅ Carga inicial y publicaciones verificadas correctamente.');
 
     // TEST 2: Botón de Alternancia de Modo Obscuro
@@ -147,11 +152,13 @@ async function runE2E() {
     const adminTabState = await page.evaluate(() => {
       return {
         hasHeading: document.body.innerText.includes('Publicaciones de Admin'),
-        hasRegularPost: document.body.innerText.includes('5 flores que debes conocer'),
+        hasMovedAdminPost: document.body.innerText.includes('5 flores que debes conocer'),
+        hasGeneralPost: document.body.innerText.includes('Las rosas y sus significados'),
       };
     });
     if (!adminTabState.hasHeading) throw new Error('No cambió a la pestaña Publicaciones de Admin');
-    if (adminTabState.hasRegularPost) throw new Error('Las publicaciones generales aparecieron en Publicaciones de Admin');
+    if (!adminTabState.hasMovedAdminPost) throw new Error('Las publicaciones movidas a admin no aparecieron en Publicaciones de Admin');
+    if (adminTabState.hasGeneralPost) throw new Error('Las publicaciones generales de rosas aparecieron indebidamente en Publicaciones de Admin');
     console.log('  - Pestaña Publicaciones de Admin activada y separada de publicaciones generales.');
 
     // Clic en pestaña "Plantas"
@@ -282,47 +289,38 @@ async function runE2E() {
     console.log('  - Verificado: El botón de publicación automática no está expuesto de forma independiente (está escondido).');
     console.log('  ✅ Filtros de categoría de publicaciones probados con éxito.');
 
-    // TEST 8: Apertura de Publicación, Like y Comentario
-    console.log('\n▶ [Prueba 8] Probando detalle de publicación, Me gusta y Comentario...');
+    // TEST 8: Apertura de Publicación y Verificación de Retiro de Likes/Comentarios/Vistas
+    console.log('\n▶ [Prueba 8] Probando detalle de publicación y confirmando retiro de likes, vistas y comentarios...');
     await page.evaluate(() => {
       const firstArticle = document.querySelector('article');
       if (firstArticle) firstArticle.click();
     });
     await new Promise((r) => setTimeout(r, 600));
 
-    // Verificar botón Me gusta en modal
-    const likesBefore = await page.evaluate(() => {
-      const heartBtn = Array.from(document.querySelectorAll('.fixed button')).find(b => b.innerText.includes('Me gusta'));
-      return heartBtn ? heartBtn.innerText : '';
+    // Confirmar que NO existen botones de Me gusta, contador de vistas ni formulario de comentarios
+    const modalInspection = await page.evaluate(() => {
+      const modal = document.querySelector('.fixed.inset-0.z-50');
+      if (!modal) return { isOpen: false };
+      const text = modal.innerText;
+      const hasLikeBtn = Array.from(modal.querySelectorAll('button')).some(b => b.innerText.includes('Me gusta'));
+      const hasCommentForm = Boolean(modal.querySelector('textarea'));
+      const hasCommentsHeading = text.includes('Comentarios');
+      const hasShareBtn = Array.from(modal.querySelectorAll('button')).some(b => b.innerText.includes('Compartir'));
+      return {
+        isOpen: true,
+        hasLikeBtn,
+        hasCommentForm,
+        hasCommentsHeading,
+        hasShareBtn,
+      };
     });
-    console.log(`  - Estado inicial Me gusta: "${likesBefore}"`);
 
-    await page.evaluate(() => {
-      const heartBtn = Array.from(document.querySelectorAll('.fixed button')).find(b => b.innerText.includes('Me gusta'));
-      if (heartBtn) heartBtn.click();
-    });
-    await new Promise((r) => setTimeout(r, 400));
-
-    const likesAfter = await page.evaluate(() => {
-      const heartBtn = Array.from(document.querySelectorAll('.fixed button')).find(b => b.innerText.includes('Me gusta'));
-      return heartBtn ? heartBtn.innerText : '';
-    });
-    console.log(`  - Estado posterior Me gusta: "${likesAfter}"`);
-
-    // Añadir comentario
-    await page.type('input[placeholder="Tu nombre (opcional)..."]', 'Cultivador de Prueba');
-    await page.type('textarea[placeholder="Escribe tu comentario o consejo..."]', '¡Excelente publicación y hermosas fotos botánicas!');
-    await page.evaluate(() => {
-      const submitBtn = Array.from(document.querySelectorAll('form button')).find(b => b.innerText.includes('Publicar Comentario'));
-      if (submitBtn) submitBtn.click();
-    });
-    await new Promise((r) => setTimeout(r, 600));
-
-    const hasNewComment = await page.evaluate(() => {
-      return document.body.innerText.includes('¡Excelente publicación y hermosas fotos botánicas!');
-    });
-    if (!hasNewComment) throw new Error('El comentario no se añadió a la publicación');
-    console.log('  - Comentario añadido y visualizado correctamente.');
+    if (!modalInspection.isOpen) throw new Error('El modal de detalle de publicación no se abrió');
+    if (modalInspection.hasLikeBtn) throw new Error('El botón de Me gusta aún aparece en el modal');
+    if (modalInspection.hasCommentForm) throw new Error('El formulario de comentarios aún aparece en el modal');
+    if (modalInspection.hasCommentsHeading) throw new Error('El encabezado de comentarios aún aparece en el modal');
+    if (!modalInspection.hasShareBtn) throw new Error('El botón de compartir artículo no se encontró');
+    console.log('  - Verificado: Likes, vistas y comentarios retirados con éxito del modal.');
 
     // Cerrar modal de publicación
     await page.evaluate(() => {
@@ -330,7 +328,7 @@ async function runE2E() {
       if (closeBtn) closeBtn.click();
     });
     await new Promise((r) => setTimeout(r, 500));
-    console.log('  ✅ Me gusta y comentarios validados al 100%.');
+    console.log('  ✅ Modal de detalle verificado sin likes ni comentarios.');
 
     // TEST 9: Modal "Nueva Publicación" y Envío de Formulario
     console.log('\n▶ [Prueba 9] Probando creación de nueva publicación con formulario...');
@@ -446,7 +444,7 @@ async function runE2E() {
         hasTitle: document.body.innerText.includes(title),
         hasAdminHeading: document.body.innerText.includes('Publicaciones de Admin'),
         hasAdminBadge: document.body.innerText.toUpperCase().includes('AUTOR / ADMIN'),
-        hasRegularPost: document.body.innerText.includes('5 flores que debes conocer'),
+        hasGeneralPost: document.body.innerText.includes('Las rosas y sus significados'),
         modalStillOpen: modalOpen,
         alertText: alertEl ? alertEl.innerText : null,
       };
@@ -458,12 +456,12 @@ async function runE2E() {
     if (!adminSectionCheck.hasAdminBadge) {
       throw new Error('No se mostró la insignia "Autor / Admin" en la publicación de admin');
     }
-    if (adminSectionCheck.hasRegularPost) {
-      throw new Error('Las publicaciones generales no deberían mezclarse dentro de Publicaciones de Admin');
+    if (adminSectionCheck.hasGeneralPost) {
+      throw new Error('Las publicaciones generales de rosas no deberían mezclarse dentro de Publicaciones de Admin');
     }
     console.log(`  - Publicación "${adminPostTitle}" publicada en "Publicaciones de Admin" con insignia "Autor / Admin".`);
 
-    // Verificar en pestaña "Publicaciones" que NO aparece el post de Admin y que TODO lo anterior sigue intacto (SIN BORRAR NADA)
+    // Verificar en pestaña "Publicaciones" que NO aparece el post de Admin y que contiene las nuevas publicaciones y la creada en la prueba
     await page.evaluate(() => {
       const btns = Array.from(document.querySelectorAll('nav button'));
       const pubBtn = btns.find(b => b.innerText.includes('Publicaciones') && !b.innerText.includes('Admin'));
@@ -475,19 +473,39 @@ async function runE2E() {
       return {
         hasAdminTitle: document.body.innerText.includes(adminTitle),
         hasRegularTitle: document.body.innerText.includes(regularTitle),
-        hasInitial1: document.body.innerText.includes('5 flores que debes conocer'),
-        hasInitial2: document.body.innerText.includes('Las flores y sus significados'),
-        hasInitial3: document.body.innerText.includes('Flores que son malas para tus mascotas'),
+        hasRosas: document.body.innerText.includes('Las rosas y sus significados'),
+        hasCarnivoras: document.body.innerText.includes('Plantas carnívoras geniales'),
       };
     }, adminPostTitle, testPostTitle);
 
     if (generalSectionCheck.hasAdminTitle) {
       throw new Error('La publicación de Admin apareció mezclada en Publicaciones generales');
     }
-    if (!generalSectionCheck.hasRegularTitle || !generalSectionCheck.hasInitial1 || !generalSectionCheck.hasInitial2 || !generalSectionCheck.hasInitial3) {
-      throw new Error(`Se perdieron publicaciones existentes en la sección general Publicaciones. Debug: ${JSON.stringify(generalSectionCheck)}`);
+    if (!generalSectionCheck.hasRegularTitle || !generalSectionCheck.hasRosas || !generalSectionCheck.hasCarnivoras) {
+      throw new Error(`Se perdieron publicaciones en la sección general Publicaciones. Debug: ${JSON.stringify(generalSectionCheck)}`);
     }
-    console.log('  - Verificado: Las publicaciones previas e iniciales siguen intactas en "Publicaciones" sin mezclarse.');
+    console.log('  - Verificado: Las nuevas publicaciones de Rosas y Carnívoras están en "Publicaciones" y las de Admin separadas.');
+
+    // Verificar en pestaña "Publicaciones de Admin" que contiene las 3 publicaciones movidas del admin
+    await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('nav button'));
+      const adminTabBtn = btns.find(b => b.innerText.includes('Publicaciones de Admin'));
+      if (adminTabBtn) adminTabBtn.click();
+    });
+    await new Promise((r) => setTimeout(r, 500));
+
+    const adminSectionCheckMoved = await page.evaluate(() => {
+      return {
+        hasInitial1: document.body.innerText.includes('5 flores que debes conocer'),
+        hasInitial2: document.body.innerText.includes('Las flores y sus significados'),
+        hasInitial3: document.body.innerText.includes('Flores que son malas para tus mascotas'),
+      };
+    });
+
+    if (!adminSectionCheckMoved.hasInitial1 || !adminSectionCheckMoved.hasInitial2 || !adminSectionCheckMoved.hasInitial3) {
+      throw new Error(`Las publicaciones anteriores no se encontraron en Publicaciones de Admin. Debug: ${JSON.stringify(adminSectionCheckMoved)}`);
+    }
+    console.log('  - Verificado: Las publicaciones anteriores fueron movidas con éxito a "Publicaciones de Admin".');
 
     // Verificar ambas secciones separadas en Inicio
     await page.evaluate(() => {

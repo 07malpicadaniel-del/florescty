@@ -582,8 +582,8 @@ export default function BiweeklyStudioModal() {
                       <h5 className="font-semibold text-sm text-garden-darkPurple dark:text-white truncate">
                         {p.title}
                       </h5>
-                      <p className="text-xs text-garden-darkPurple/60 dark:text-garden-thistle/60 truncate">
-                        {p.comments.length} comentarios · {p.likes} me gusta
+                      <p className="text-xs text-garden-darkPurple/60 dark:text-garden-thistle/60 truncate font-serif">
+                        {p.createdAt} · {p.category}
                       </p>
                     </div>
 

@@ -51,6 +51,106 @@ export const INITIAL_CONTENT: AppContentState = {
   archivedEditions: [],
   // Publicaciones del blog
   posts: [
+    // --- PUBLICACIONES GENERALES (Nuevas) ---
+    {
+      id: 'post-rosas-significados',
+      title: '🌹 Las rosas y sus significados: el código secreto de cada color',
+      content: `La rosa es la reina indiscutible de los jardines y el emblema floral más admirado de la historia humana. Desde los jardines colgantes de la antigüedad hasta la floriografía victoriana, regalar o cultivar una rosa ha sido una forma de comunicación poética donde cada tonalidad y matiz transmite un sentimiento específico y profundo.
+
+1. Rosa roja: Pasión, respeto reverente y amor incondicional
+La rosa roja clásica encarna la fuerza del amor verdadero, la admiración solemne y la devoción eterna. En el lenguaje botánico tradicional, regalar una sola rosa roja simboliza amor a primera vista, mientras que un ramillete expresa gratitud y lealtad perdurable.
+- Cuidados esenciales: Demanda al menos 6 horas de sol directo para que sus botones alcancen una pigmentación carmesí intensa y aterciopelada.
+
+2. Rosa blanca: Pureza, nuevos comienzos y paz interior
+Con su blancura inmaculada, la rosa blanca simboliza la honestidad, la serenidad y la promesa de un futuro compartido. Es la protagonista predilecta de bodas y ceremonias conmemorativas porque evoca la calma y el respeto mutuo.
+- Cuidados esenciales: Muy sensible al agua de lluvia acumulada sobre sus pétalos delicados; se recomienda regar siempre por goteo directo en el sustrato.
+
+3. Rosa amarilla: Amistad sincera, alegría luminosa y optimismo
+Aunque en el siglo XIX algunos le atribuían celos, hoy la rosa amarilla celebra la amistad pura, el entusiasmo contagioso y la energía vital que reconforta el hogar. Su color cálido como el sol ilumina cualquier estancia y revitaliza los sentidos.
+- Cuidados esenciales: Agradece abono orgánico rico en potasio durante la primavera para estimular floraciones abundantes y continuas.
+
+4. Rosa rosada: Gratitud, dulzura y aprecio sincero
+Las rosas en tonos rosa pastel y fucsia suave transmiten gentileza, elegancia, simpatía y gratitud desinteresada. Son el obsequio ideal para agradecer a quien nos ha brindado apoyo incondicional.
+- Cuidados esenciales: Realiza podas de limpieza cortando las rosas marchitas justo un centímetro por encima de una yema de 5 folíolos orientada hacia el exterior.
+
+5. Rosa naranja y melocotón: Entusiasmo, fascinación y energía viva
+El encuentro entre el fuego del rojo y la calidez del amarillo da vida a las rosas anaranjadas. Simbolizan el deseo de superación, el asombro ante lo extraordinario y la fascinación por un nuevo proyecto o etapa.
+- Cuidados esenciales: Requiere suelos muy bien drenados con arena y compost para evitar que sus raíces se asfixien.
+
+6. Rosa lila o lavanda: Magia, misterio y encanto botánico
+Una de las variedades más raras y fascinantes. Los tonos lavanda y malva representan el misticismo, la gracia etérea y la admiración por personas o momentos verdaderamente únicos e inolvidables.
+- Cuidados esenciales: Prefiere ubicaciones protegidas de vientos fuertes y buena ventilación perimetral para prevenir la aparición de hongos foliares como el oídio.`,
+      author: {
+        name: 'Cultivador Anónimo',
+        avatar: '/logo.png'
+      },
+      category: 'Flores y Cuidados',
+      imageUrl: '/flowers/rosas.jpg',
+      createdAt: 'Guía de Flores',
+      fortnightTag: 'Lenguaje Floral',
+      isAdmin: false,
+      likes: 0,
+      views: 0,
+      pinned: true,
+      plantDetails: {
+        scientificName: 'Rosa spp.',
+        light: 'Pleno sol directo (mínimo 6 horas)',
+        watering: 'Profundo al pie cuando el sustrato superior seque',
+        difficulty: 'Intermedio'
+      },
+      comments: []
+    },
+    {
+      id: 'post-plantas-carnivoras',
+      title: '🌿 Plantas carnívoras geniales: cazadoras fascinantes del reino vegetal',
+      content: `Las plantas carnívoras representan uno de los milagros evolutivos más asombrosos de la botánica. Al adaptarse durante milenios a pantanos y turberas húmedas donde el suelo carece de nitrógeno, fósforo y sales minerales, desarrollaron hojas modificadas capaces de atraer, atrapar y digerir pequeños insectos para nutrirse por sí mismas.
+
+1. Venus atrapamoscas (Dionaea muscipula)
+Es la carnívora más famosa y sorprendente del planeta. Sus hojas terminan en dos lóbulos cóncavos con bordes provistos de espinas entrelazadas. En el interior de cada trampa hay diminutos pelos disparadores: si un insecto roza dos pelos en menos de veinte segundos, la trampa se cierra en apenas una décima de segundo.
+- Luz: Pleno sol directo en exterior o ventana muy soleada; cuanta más luz recibe, más intensos y rojizos se vuelven sus interiores.
+- Mecanismo: Trampa de resorte activo. Nunca provoques el cierre manual con los dedos: cada trampa tiene energía para cerrarse solo 3 o 4 veces antes de secarse.
+
+2. Rocío del sol (Drosera capensis)
+Sus hojas lineales están recubiertas de cientos de tentáculos rojizos terminados en gotas de mucílago cristalino que brillan como gotas de rocío al sol. Cuando un mosquito queda adherido al pegamento dulce, la hoja se curva lentamente envolviendo a la presa para que las enzimas digestivas actúen.
+- Luz: Mucha luz brillante tamizada o sol de mañana.
+- Mecanismo: Trampa adhesiva activa con movimientos de enrollamiento foliar en espiral.
+
+3. Jarros tropicales (Nepenthes alata)
+Originarias de las selvas tropicales húmedas, estas plantas trepadoras producen majestuosos cálices o jarros colgantes provistos de un opérculo sombrilla que impide que el agua de lluvia diluya sus jugos gástricos. Los insectos resbalan por el borde encerado (peristoma) y caen al fondo acuoso donde son digeridos.
+- Luz: Luz ambiental brillante indirecta, nunca sol abrasador del mediodía.
+- Humedad: Requiere humedad ambiental superior al 70%, ideal para cultivar en invernaderos o terrarios interiores.
+
+4. Trompetas de pantano (Sarracenia purpurea)
+Forman espectaculares coronas de tubos verticales y acampanados con venas púrpuras y bordes nectaríferos. El interior del tubo está cubierto de finos pelos microscópicos apuntando hacia abajo, lo que convierte la bajada del insecto en un viaje sin retorno.
+- Luz: Pleno sol durante todo el día; son extremadamente resistentes al frío exterior en invierno.
+- Mecanismo: Trampa de caída pasiva por gravedad.
+
+5. Las tres reglas de oro para su cuidado en casa
+- El agua: Es el secreto número uno. Jamás riegues con agua de la llave o embotellada con minerales; sus raíces se queman de inmediato. Usa exclusivamente agua destilada, desmineralizada, de ósmosis inversa o agua de lluvia limpia.
+- El riego: Emplea el método de la bandeja o plato permanente con 1 a 2 cm de agua en la base de la maceta para imitar el ambiente de pantano.
+- El sustrato y el alimento: Nunca utilices tierra para macetas común ni agregues fertilizantes. El único sustrato seguro es una mezcla estéril de turba rubia de sphagnum puro al 70% con 30% de perlita o arena de cuarzo inerte.`,
+      author: {
+        name: 'Cultivador Anónimo',
+        avatar: '/logo.png'
+      },
+      category: 'Plantas de Casa',
+      imageUrl: '/flowers/carnivoras.jpg',
+      createdAt: 'Guía Botánica',
+      fortnightTag: 'Especies Extraordinarias',
+      isAdmin: false,
+      likes: 0,
+      views: 0,
+      pinned: false,
+      plantDetails: {
+        scientificName: 'Dionaea muscipula, Drosera, Nepenthes, Sarracenia',
+        light: 'Mucho sol directo o máxima luminosidad exterior',
+        watering: 'Método de bandeja permanente con agua destilada pura',
+        difficulty: 'Intermedio'
+      },
+      comments: []
+    },
+
+    // --- PUBLICACIONES DE ADMIN (Movidas desde las actuales) ---
     {
       id: 'post-flores-conocer',
       title: '🌼 5 flores que debes conocer (y cómo cuidarlas en casa)',
@@ -86,15 +186,18 @@ Geometría perfecta de pétalos superpuestos en colores vibrantes, desde lilas p
 - Riego: tres veces por semana en temporada de calor, mojando siempre el pie de la planta sin mojar las flores.
 - Secreto del cultivador: retira sistemáticamente las flores marchitas para estimular la aparición inmediata de nuevos brotes.`,
       author: {
-        name: 'Cultivador Anónimo',
-        avatar: '/logo.png'
+        name: 'Autor del Jardín',
+        role: 'Admin',
+        avatar: '/logo.png',
+        isCurator: true
       },
       category: 'Flores y Cuidados',
       imageUrl: '/flowers/dalia.jpg',
       createdAt: 'Artículo Destacado',
-      fortnightTag: 'Guía de Flores',
-      likes: 84,
-      views: 520,
+      fortnightTag: 'Publicación de Admin',
+      isAdmin: true,
+      likes: 0,
+      views: 0,
       pinned: true,
       plantDetails: {
         scientificName: 'Phalaenopsis, Lavandula, Hydrangea, Gardenia, Dahlia',
@@ -102,15 +205,7 @@ Geometría perfecta de pétalos superpuestos en colores vibrantes, desde lilas p
         watering: 'Moderado a frecuente según la flor',
         difficulty: 'Principiante'
       },
-      comments: [
-        {
-          id: 'c-conocer-1',
-          author: 'Lector del Jardín',
-          avatar: '/logo.png',
-          createdAt: 'Hace un momento',
-          content: 'Hermosa selección. Puse en práctica el riego por inmersión de la orquídea y los botones abrieron radiantes.'
-        }
-      ]
+      comments: []
     },
     {
       id: 'post-flores-significados',
@@ -142,15 +237,18 @@ En el código floral clásico, la gardenia representa el amor secreto, la gracia
 7. Camelia (Camellia japonica)
 Con sus pétalos perfectamente dispuestos, simboliza la admiración constante, la longevidad y el cariño que permanece inalterable a través de las estaciones.`,
       author: {
-        name: 'Cultivador Anónimo',
-        avatar: '/logo.png'
+        name: 'Autor del Jardín',
+        role: 'Admin',
+        avatar: '/logo.png',
+        isCurator: true
       },
       category: 'Diario de Jardín',
       imageUrl: '/flowers/peonia.jpg',
       createdAt: 'Guía Simbólica',
-      fortnightTag: 'Lenguaje Floral',
-      likes: 92,
-      views: 640,
+      fortnightTag: 'Publicación de Admin',
+      isAdmin: true,
+      likes: 0,
+      views: 0,
       pinned: false,
       plantDetails: {
         scientificName: 'Rosa, Orchidaceae, Paeonia, Nelumbo, Lavandula',
@@ -158,15 +256,7 @@ Con sus pétalos perfectamente dispuestos, simboliza la admiración constante, l
         watering: 'Según la especie',
         difficulty: 'Principiante'
       },
-      comments: [
-        {
-          id: 'c-significados-1',
-          author: 'Entusiasta Floral',
-          avatar: '/logo.png',
-          createdAt: 'Hace un momento',
-          content: 'Qué fascinante el simbolismo de la gardenia y la peonía. Ahora elegir flores tiene mucho más sentido.'
-        }
-      ]
+      comments: []
     },
     {
       id: 'post-flores-mascotas',
@@ -195,15 +285,18 @@ Afortunadamente, existen especies espectaculares completamente inocuas para tus 
 4. ¿Qué hacer ante una sospecha de ingestión?
 Retira con suavidad cualquier resto vegetal de la boca de tu mascota. No intentes provocar el vómito sin indicación médica veterinaria. Toma una fotografía clara de la flor o lleva una muestra de la planta de inmediato a la clínica veterinaria para que identifiquen el principio activo y apliquen el tratamiento oportuno.`,
       author: {
-        name: 'Cultivador Anónimo',
-        avatar: '/logo.png'
+        name: 'Autor del Jardín',
+        role: 'Admin',
+        avatar: '/logo.png',
+        isCurator: true
       },
       category: 'Plantas de Casa',
       imageUrl: '/flowers/lirio-paz.jpg',
       createdAt: 'Guía de Salud & Hogar',
-      fortnightTag: 'Hogar y Mascotas',
-      likes: 115,
-      views: 780,
+      fortnightTag: 'Publicación de Admin',
+      isAdmin: true,
+      likes: 0,
+      views: 0,
       pinned: false,
       plantDetails: {
         scientificName: 'Lilium, Nerium, Spathiphyllum vs Phalaenopsis, Saintpaulia',
@@ -211,15 +304,7 @@ Retira con suavidad cualquier resto vegetal de la boca de tu mascota. No intente
         watering: 'Riego según especie segura',
         difficulty: 'Principiante'
       },
-      comments: [
-        {
-          id: 'c-mascotas-1',
-          author: 'Lector del Jardín',
-          avatar: '/logo.png',
-          createdAt: 'Hace un momento',
-          content: 'Un artículo vital. Tenía lirios cortados en un jarrón y no sabía lo peligrosos que son para los gatos. Los cambié por orquídeas.'
-        }
-      ]
+      comments: []
     }
   ],
   // 20 Especies de Flores y Plantas detalladas

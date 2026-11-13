@@ -4,10 +4,7 @@ import React from 'react';
 import { ForumPost } from '../types';
 import { useContent } from '../context/ContentContext';
 import { 
-  Heart, 
-  MessageSquare, 
-  Eye, 
-  Pin, 
+  Pin,
   Sun, 
   Droplet,
   Flower2,
@@ -20,12 +17,7 @@ interface ForumPostCardProps {
 }
 
 export default function ForumPostCard({ post }: ForumPostCardProps) {
-  const { setSelectedPost, likePost } = useContent();
-
-  const handleLike = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    likePost(post.id);
-  };
+  const { setSelectedPost } = useContent();
 
   const isAIGenerated = post.id.startsWith('post-ia-');
   const isAdminPost = Boolean(post.isAdmin);
@@ -166,30 +158,13 @@ export default function ForumPostCard({ post }: ForumPostCardProps) {
 
       {/* Footer / Interaction Bar */}
       <div className="px-5 sm:px-6 py-3 bg-garden-cream/80 dark:bg-garden-darkBg border-t border-garden-thistle/60 dark:border-garden-darkBorder flex items-center justify-between text-xs text-garden-darkPurple/70 dark:text-garden-thistle/70">
-        <div className="flex items-center gap-4">
-          <button
-            type="button"
-            onClick={handleLike}
-            className="cursor-pointer flex items-center gap-1.5 hover:text-garden-amethyst transition-colors group/btn"
-            title="Me gusta"
-          >
-            <Heart className="w-4 h-4 group-hover/btn:scale-110 text-garden-amethyst transition-transform" />
-            <span className="font-semibold">{post.likes}</span>
-          </button>
+        <span className="font-serif italic text-garden-darkPurple/60 dark:text-garden-thistle/60 text-xs">
+          Lectura botánica
+        </span>
 
-          <span className="flex items-center gap-1.5 text-garden-darkPurple/70 dark:text-garden-thistle/70">
-            <MessageSquare className="w-4 h-4 text-garden-amethyst" />
-            <span>{post.comments.length} comentarios</span>
-          </span>
-
-          <span className="flex items-center gap-1.5 text-garden-darkPurple/50 dark:text-garden-thistle/50 hidden sm:flex">
-            <Eye className="w-3.5 h-3.5" />
-            <span>{post.views}</span>
-          </span>
-        </div>
-
-        <span className="text-garden-amethyst font-semibold group-hover:translate-x-0.5 transition-transform font-serif">
-          Leer nota →
+        <span className="text-garden-amethyst font-semibold group-hover:translate-x-0.5 transition-transform font-serif flex items-center gap-1">
+          <span>Leer nota</span>
+          <span>→</span>
         </span>
       </div>
     </article>

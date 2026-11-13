@@ -60,7 +60,7 @@ interface ContentContextType {
   importContentBackup: (jsonData: string) => boolean;
 }
 
-const STORAGE_KEY = 'jardin_secreto_content_v6';
+const STORAGE_KEY = 'jardin_secreto_content_v7';
 const THEME_KEY = 'jardin_secreto_theme_v3';
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);

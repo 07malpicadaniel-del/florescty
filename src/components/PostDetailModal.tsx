@@ -4,9 +4,6 @@ import React, { useState } from 'react';
 import { useContent } from '../context/ContentContext';
 import { 
   X, 
-  Heart, 
-  MessageSquare, 
-  Send, 
   Pin, 
   Trash2, 
   Share2, 
@@ -114,31 +111,13 @@ export default function PostDetailModal() {
   const { 
     selectedPost, 
     setSelectedPost, 
-    likePost, 
-    addComment, 
     deletePost, 
     togglePinPost 
   } = useContent();
 
-  const [commentText, setCommentText] = useState('');
-  const [commentAuthor, setCommentAuthor] = useState('');
   const [copiedLink, setCopiedLink] = useState(false);
 
   if (!selectedPost) return null;
-
-  const handleSubmitComment = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!commentText.trim()) return;
-
-    addComment(
-      selectedPost.id, 
-      commentText, 
-      commentAuthor.trim() || 'Lector del Jardín'
-    );
-
-    setCommentText('');
-    setCommentAuthor('');
-  };
 
   const handleShare = () => {
     if (navigator.clipboard) {
@@ -291,105 +270,18 @@ export default function PostDetailModal() {
 
           {/* Post Footer Actions */}
           <div className="pt-4 border-t border-garden-thistle/60 dark:border-garden-darkBorder flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => likePost(selectedPost.id)}
-                className="cursor-pointer inline-flex items-center gap-2 bg-garden-thistle/40 dark:bg-garden-darkBg hover:bg-garden-thistle text-garden-darkPurple dark:text-garden-thistle px-4 py-2 rounded-xl text-sm font-semibold transition-colors"
-              >
-                <Heart className="w-4 h-4 fill-garden-amethyst text-garden-amethyst" />
-                <span>{selectedPost.likes} Me gusta</span>
-              </button>
+            <button
+              type="button"
+              onClick={handleShare}
+              className="cursor-pointer inline-flex items-center gap-1.5 text-garden-darkPurple/80 dark:text-garden-thistle hover:text-garden-darkPurple dark:hover:text-white px-3.5 py-2 rounded-xl text-xs font-medium border border-garden-thistle dark:border-garden-darkBorder bg-garden-thistle/30 dark:bg-garden-darkBg hover:bg-garden-thistle/50 transition-colors"
+            >
+              <Share2 className="w-3.5 h-3.5 text-garden-amethyst" />
+              <span>{copiedLink ? '¡Enlace copiado!' : 'Compartir artículo'}</span>
+            </button>
 
-              <button
-                type="button"
-                onClick={handleShare}
-                className="cursor-pointer inline-flex items-center gap-1.5 text-garden-darkPurple/70 dark:text-garden-thistle/70 hover:text-garden-darkPurple dark:hover:text-white px-3 py-2 rounded-xl text-xs font-medium border border-garden-thistle dark:border-garden-darkBorder transition-colors"
-              >
-                <Share2 className="w-3.5 h-3.5" />
-                <span>{copiedLink ? '¡Enlace copiado!' : 'Compartir'}</span>
-              </button>
-            </div>
-
-            <span className="text-xs text-garden-darkPurple/60 dark:text-garden-thistle/60 font-serif">
-              {selectedPost.comments.length} comentarios
+            <span className="text-xs text-garden-darkPurple/60 dark:text-garden-thistle/60 font-serif italic">
+              El Jardín Secreto · Blog Botánico
             </span>
-          </div>
-
-          {/* Comments Section */}
-          <div className="pt-6 border-t border-garden-thistle/60 dark:border-garden-darkBorder space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="font-serif text-2xl font-bold text-garden-darkPurple dark:text-white flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-garden-amethyst" />
-                Comentarios
-              </h3>
-            </div>
-
-            {/* Comments List */}
-            <div className="space-y-4">
-              {selectedPost.comments.map((comm) => (
-                <div
-                  key={comm.id}
-                  className="p-4 rounded-2xl border bg-garden-cream/60 dark:bg-garden-darkBg border-garden-thistle/60 dark:border-garden-darkBorder transition-all"
-                >
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div className="flex items-center gap-2.5">
-                      <img
-                        src={comm.avatar || '/logo.png'}
-                        alt={comm.author}
-                        className="w-8 h-8 rounded-full object-cover border border-garden-thistle dark:border-garden-darkBorder"
-                      />
-                      <div>
-                        <span className="font-semibold text-xs text-garden-darkPurple dark:text-garden-thistle">
-                          {comm.author}
-                        </span>
-                        <span className="text-[10px] text-garden-darkPurple/60 dark:text-garden-thistle/60 block">
-                          {comm.createdAt}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-xs sm:text-sm text-garden-darkPurple/90 dark:text-garden-thistle leading-relaxed pl-10 font-serif">
-                    {comm.content}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Add Comment Form */}
-            <form onSubmit={handleSubmitComment} className="bg-garden-cream dark:bg-garden-darkBg p-4 rounded-2xl border border-garden-thistle/80 dark:border-garden-darkBorder space-y-3">
-              <span className="font-medium text-xs text-garden-darkPurple dark:text-garden-thistle block font-serif text-sm">
-                Dejar un comentario:
-              </span>
-
-              <input
-                type="text"
-                placeholder="Tu nombre (opcional)..."
-                value={commentAuthor}
-                onChange={(e) => setCommentAuthor(e.target.value)}
-                className="w-full bg-white dark:bg-garden-darkCard dark:text-white text-garden-darkPurple text-xs px-3 py-2 rounded-xl border border-garden-thistle dark:border-garden-darkBorder focus:outline-none focus:ring-1 focus:ring-garden-amethyst"
-              />
-
-              <textarea
-                rows={3}
-                placeholder="Escribe tu comentario o consejo..."
-                value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
-                className="w-full bg-white dark:bg-garden-darkCard dark:text-white text-garden-darkPurple text-xs sm:text-sm p-3 rounded-xl border border-garden-thistle dark:border-garden-darkBorder focus:outline-none focus:ring-2 focus:ring-garden-amethyst resize-none"
-                required
-              />
-
-              <div className="flex justify-end">
-                <button
-                  type="submit"
-                  disabled={!commentText.trim()}
-                  className="inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly disabled:opacity-50 text-white text-xs font-semibold px-4 py-2 rounded-xl transition-all shadow-sm"
-                >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>Publicar Comentario</span>
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
