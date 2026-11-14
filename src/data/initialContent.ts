@@ -49,9 +49,9 @@ export const INITIAL_CONTENT: AppContentState = {
     }
   },
   archivedEditions: [],
-  // Publicaciones del blog
+  // Publicaciones del blog (todas movidas actualmente a Publicaciones de Admin)
   posts: [
-    // --- PUBLICACIONES GENERALES (Nuevas) ---
+    // --- PUBLICACIONES DE ADMIN ---
     {
       id: 'post-rosas-significados',
       title: '🌹 Las rosas y sus significados: el código secreto de cada color',
@@ -81,14 +81,16 @@ El encuentro entre el fuego del rojo y la calidez del amarillo da vida a las ros
 Una de las variedades más raras y fascinantes. Los tonos lavanda y malva representan el misticismo, la gracia etérea y la admiración por personas o momentos verdaderamente únicos e inolvidables.
 - Cuidados esenciales: Prefiere ubicaciones protegidas de vientos fuertes y buena ventilación perimetral para prevenir la aparición de hongos foliares como el oídio.`,
       author: {
-        name: 'Cultivador Anónimo',
-        avatar: '/logo.png'
+        name: 'Autor del Jardín',
+        role: 'Admin',
+        avatar: '/logo.png',
+        isCurator: true
       },
       category: 'Flores y Cuidados',
       imageUrl: '/flowers/rosas.jpg',
       createdAt: 'Guía de Flores',
-      fortnightTag: 'Lenguaje Floral',
-      isAdmin: false,
+      fortnightTag: 'Publicación de Admin',
+      isAdmin: true,
       likes: 0,
       views: 0,
       pinned: true,
@@ -130,14 +132,16 @@ Forman espectaculares coronas de tubos verticales y acampanados con venas púrpu
 - El riego: Emplea el método de la bandeja o plato permanente con 1 a 2 cm de agua en la base de la maceta para imitar el ambiente de pantano.
 - El sustrato y el alimento: Nunca utilices tierra para macetas común ni agregues fertilizantes. El único sustrato seguro es una mezcla estéril de turba rubia de sphagnum puro al 70% con 30% de perlita o arena de cuarzo inerte.`,
       author: {
-        name: 'Cultivador Anónimo',
-        avatar: '/logo.png'
+        name: 'Autor del Jardín',
+        role: 'Admin',
+        avatar: '/logo.png',
+        isCurator: true
       },
       category: 'Plantas de Casa',
       imageUrl: '/flowers/carnivoras.jpg',
       createdAt: 'Guía Botánica',
-      fortnightTag: 'Especies Extraordinarias',
-      isAdmin: false,
+      fortnightTag: 'Publicación de Admin',
+      isAdmin: true,
       likes: 0,
       views: 0,
       pinned: false,

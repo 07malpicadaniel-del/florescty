@@ -136,11 +136,15 @@ async function runE2E() {
       if (pubBtn) pubBtn.click();
     });
     await new Promise((r) => setTimeout(r, 500));
-    let hasPublicacionesHeading = await page.evaluate(() => {
-      return document.body.innerText.includes('Publicaciones del Jardín');
+    let generalTabState = await page.evaluate(() => {
+      return {
+        hasHeading: document.body.innerText.includes('Publicaciones del Jardín'),
+        hasMovedRosas: document.body.innerText.includes('Las rosas y sus significados'),
+      };
     });
-    if (!hasPublicacionesHeading) throw new Error('No cambió a la pestaña Publicaciones');
-    console.log('  - Pestaña Publicaciones activada.');
+    if (!generalTabState.hasHeading) throw new Error('No cambió a la pestaña Publicaciones');
+    if (generalTabState.hasMovedRosas) throw new Error('Las publicaciones movidas a Admin aparecieron indebidamente en Publicaciones generales');
+    console.log('  - Pestaña Publicaciones activada (sin mezcla de publicaciones de Admin).');
 
     // Clic en pestaña "Publicaciones de Admin"
     await page.evaluate(() => {
@@ -152,14 +156,16 @@ async function runE2E() {
     const adminTabState = await page.evaluate(() => {
       return {
         hasHeading: document.body.innerText.includes('Publicaciones de Admin'),
+        hasRosas: document.body.innerText.includes('Las rosas y sus significados'),
+        hasCarnivoras: document.body.innerText.includes('Plantas carnívoras geniales'),
         hasMovedAdminPost: document.body.innerText.includes('5 flores que debes conocer'),
-        hasGeneralPost: document.body.innerText.includes('Las rosas y sus significados'),
       };
     });
     if (!adminTabState.hasHeading) throw new Error('No cambió a la pestaña Publicaciones de Admin');
-    if (!adminTabState.hasMovedAdminPost) throw new Error('Las publicaciones movidas a admin no aparecieron en Publicaciones de Admin');
-    if (adminTabState.hasGeneralPost) throw new Error('Las publicaciones generales de rosas aparecieron indebidamente en Publicaciones de Admin');
-    console.log('  - Pestaña Publicaciones de Admin activada y separada de publicaciones generales.');
+    if (!adminTabState.hasRosas || !adminTabState.hasCarnivoras || !adminTabState.hasMovedAdminPost) {
+      throw new Error(`Faltan publicaciones movidas a Admin en Publicaciones de Admin. Debug: ${JSON.stringify(adminTabState)}`);
+    }
+    console.log('  - Pestaña Publicaciones de Admin activada con las 5 publicaciones actuales del Admin.');
 
     // Clic en pestaña "Plantas"
     await page.evaluate(() => {
@@ -291,6 +297,12 @@ async function runE2E() {
 
     // TEST 8: Apertura de Publicación y Verificación de Retiro de Likes/Comentarios/Vistas
     console.log('\n▶ [Prueba 8] Probando detalle de publicación y confirmando retiro de likes, vistas y comentarios...');
+    await page.evaluate(() => {
+      const btns = Array.from(document.querySelectorAll('nav button'));
+      const adminTabBtn = btns.find(b => b.innerText.includes('Publicaciones de Admin'));
+      if (adminTabBtn) adminTabBtn.click();
+    });
+    await new Promise((r) => setTimeout(r, 400));
     await page.evaluate(() => {
       const firstArticle = document.querySelector('article');
       if (firstArticle) firstArticle.click();
@@ -444,7 +456,7 @@ async function runE2E() {
         hasTitle: document.body.innerText.includes(title),
         hasAdminHeading: document.body.innerText.includes('Publicaciones de Admin'),
         hasAdminBadge: document.body.innerText.toUpperCase().includes('AUTOR / ADMIN'),
-        hasGeneralPost: document.body.innerText.includes('Las rosas y sus significados'),
+        hasMovedRosas: document.body.innerText.includes('Las rosas y sus significados'),
         modalStillOpen: modalOpen,
         alertText: alertEl ? alertEl.innerText : null,
       };
@@ -456,12 +468,12 @@ async function runE2E() {
     if (!adminSectionCheck.hasAdminBadge) {
       throw new Error('No se mostró la insignia "Autor / Admin" en la publicación de admin');
     }
-    if (adminSectionCheck.hasGeneralPost) {
-      throw new Error('Las publicaciones generales de rosas no deberían mezclarse dentro de Publicaciones de Admin');
+    if (!adminSectionCheck.hasMovedRosas) {
+      throw new Error('Las publicaciones actuales de rosas no están en Publicaciones de Admin');
     }
     console.log(`  - Publicación "${adminPostTitle}" publicada en "Publicaciones de Admin" con insignia "Autor / Admin".`);
 
-    // Verificar en pestaña "Publicaciones" que NO aparece el post de Admin y que contiene las nuevas publicaciones y la creada en la prueba
+    // Verificar en pestaña "Publicaciones" que NO aparece ningún post de Admin y que sí contiene la publicación creada en Prueba 9
     await page.evaluate(() => {
       const btns = Array.from(document.querySelectorAll('nav button'));
       const pubBtn = btns.find(b => b.innerText.includes('Publicaciones') && !b.innerText.includes('Admin'));
@@ -473,20 +485,20 @@ async function runE2E() {
       return {
         hasAdminTitle: document.body.innerText.includes(adminTitle),
         hasRegularTitle: document.body.innerText.includes(regularTitle),
-        hasRosas: document.body.innerText.includes('Las rosas y sus significados'),
-        hasCarnivoras: document.body.innerText.includes('Plantas carnívoras geniales'),
+        hasMovedRosas: document.body.innerText.includes('Las rosas y sus significados'),
+        hasMovedCarnivoras: document.body.innerText.includes('Plantas carnívoras geniales'),
       };
     }, adminPostTitle, testPostTitle);
 
-    if (generalSectionCheck.hasAdminTitle) {
-      throw new Error('La publicación de Admin apareció mezclada en Publicaciones generales');
+    if (generalSectionCheck.hasAdminTitle || generalSectionCheck.hasMovedRosas || generalSectionCheck.hasMovedCarnivoras) {
+      throw new Error(`Publicaciones de Admin aparecieron mezcladas en Publicaciones generales. Debug: ${JSON.stringify(generalSectionCheck)}`);
     }
-    if (!generalSectionCheck.hasRegularTitle || !generalSectionCheck.hasRosas || !generalSectionCheck.hasCarnivoras) {
-      throw new Error(`Se perdieron publicaciones en la sección general Publicaciones. Debug: ${JSON.stringify(generalSectionCheck)}`);
+    if (!generalSectionCheck.hasRegularTitle) {
+      throw new Error(`No apareció la publicación general "${testPostTitle}" en la sección Publicaciones. Debug: ${JSON.stringify(generalSectionCheck)}`);
     }
-    console.log('  - Verificado: Las nuevas publicaciones de Rosas y Carnívoras están en "Publicaciones" y las de Admin separadas.');
+    console.log('  - Verificado: Las publicaciones generales están limpias y separadas de las publicaciones del Admin.');
 
-    // Verificar en pestaña "Publicaciones de Admin" que contiene las 3 publicaciones movidas del admin
+    // Verificar en pestaña "Publicaciones de Admin" que contiene todas las 5 publicaciones actuales movidas del admin
     await page.evaluate(() => {
       const btns = Array.from(document.querySelectorAll('nav button'));
       const adminTabBtn = btns.find(b => b.innerText.includes('Publicaciones de Admin'));
@@ -496,16 +508,24 @@ async function runE2E() {
 
     const adminSectionCheckMoved = await page.evaluate(() => {
       return {
+        hasRosas: document.body.innerText.includes('Las rosas y sus significados'),
+        hasCarnivoras: document.body.innerText.includes('Plantas carnívoras geniales'),
         hasInitial1: document.body.innerText.includes('5 flores que debes conocer'),
         hasInitial2: document.body.innerText.includes('Las flores y sus significados'),
         hasInitial3: document.body.innerText.includes('Flores que son malas para tus mascotas'),
       };
     });
 
-    if (!adminSectionCheckMoved.hasInitial1 || !adminSectionCheckMoved.hasInitial2 || !adminSectionCheckMoved.hasInitial3) {
-      throw new Error(`Las publicaciones anteriores no se encontraron en Publicaciones de Admin. Debug: ${JSON.stringify(adminSectionCheckMoved)}`);
+    if (
+      !adminSectionCheckMoved.hasRosas ||
+      !adminSectionCheckMoved.hasCarnivoras ||
+      !adminSectionCheckMoved.hasInitial1 ||
+      !adminSectionCheckMoved.hasInitial2 ||
+      !adminSectionCheckMoved.hasInitial3
+    ) {
+      throw new Error(`No se encontraron las 5 publicaciones actuales movidas a Publicaciones de Admin. Debug: ${JSON.stringify(adminSectionCheckMoved)}`);
     }
-    console.log('  - Verificado: Las publicaciones anteriores fueron movidas con éxito a "Publicaciones de Admin".');
+    console.log('  - Verificado: Las 5 publicaciones actuales fueron movidas con éxito a "Publicaciones de Admin".');
 
     // Verificar ambas secciones separadas en Inicio
     await page.evaluate(() => {

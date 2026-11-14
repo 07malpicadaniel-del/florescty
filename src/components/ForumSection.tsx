@@ -326,6 +326,26 @@ export default function ForumSection({ mode = 'community' }: ForumSectionProps) 
               <span>Crear Publicación de Admin</span>
             </button>
           </div>
+        ) : !isAdminMode && sectionPosts.length === 0 ? (
+          <div className="text-center py-16 px-4 bg-white dark:bg-garden-darkCard rounded-3xl border border-dashed border-garden-thistle dark:border-garden-darkBorder">
+            <div className="w-14 h-14 bg-garden-thistle/30 dark:bg-garden-darkBg rounded-full flex items-center justify-center mx-auto mb-4 text-garden-amethyst">
+              <Sprout className="w-7 h-7" />
+            </div>
+            <h3 className="font-serif text-2xl font-bold text-garden-darkPurple dark:text-white mb-2">
+              Aún no hay publicaciones generales
+            </h3>
+            <p className="text-garden-darkPurple/75 dark:text-garden-thistle/75 text-sm max-w-md mx-auto mb-6 font-serif">
+              Las publicaciones actuales están reunidas en <strong>Publicaciones de Admin</strong>. Crea una nueva nota aquí dejando vacía la Clave Admin.
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsNewPostModalOpen(true)}
+              className="cursor-pointer inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-colors shadow-sm"
+            >
+              <PlusCircle className="w-4 h-4" />
+              <span>Crear Primera Publicación</span>
+            </button>
+          </div>
         ) : (
           <div className="text-center py-16 px-4 bg-white dark:bg-garden-darkCard rounded-3xl border border-dashed border-garden-thistle dark:border-garden-darkBorder">
             <div className="w-14 h-14 bg-garden-thistle/30 dark:bg-garden-darkBg rounded-full flex items-center justify-center mx-auto mb-4 text-garden-amethyst">

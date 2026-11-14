@@ -60,7 +60,7 @@ interface ContentContextType {
   importContentBackup: (jsonData: string) => boolean;
 }
 
-const STORAGE_KEY = 'jardin_secreto_content_v7';
+const STORAGE_KEY = 'jardin_secreto_content_v8';
 const THEME_KEY = 'jardin_secreto_theme_v3';
 
 const ContentContext = createContext<ContentContextType | undefined>(undefined);
@@ -93,6 +93,8 @@ export function ContentProvider({ children }: { children: React.ReactNode }) {
       // Check current or prior localStorage keys
       const saved = 
         localStorage.getItem(STORAGE_KEY) || 
+        localStorage.getItem('jardin_secreto_content_v7') ||
+        localStorage.getItem('jardin_secreto_content_v6') ||
         localStorage.getItem('jardin_secreto_content_v5') ||
         localStorage.getItem('jardin_secreto_content_v4');
 

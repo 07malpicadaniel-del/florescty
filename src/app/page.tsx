@@ -35,7 +35,7 @@ export default function HomePage() {
   } = useContent();
 
   const latestRegularPosts = content.posts.filter((post) => !post.isAdmin).slice(0, 3);
-  const latestAdminPosts = content.posts.filter((post) => Boolean(post.isAdmin)).slice(0, 3);
+  const latestAdminPosts = content.posts.filter((post) => Boolean(post.isAdmin)).slice(0, 6);
   const featuredPlants = content.plantsEncyclopedia.slice(0, 3);
 
   return (
@@ -100,11 +100,32 @@ export default function HomePage() {
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {latestRegularPosts.map((post) => (
-                  <ForumPostCard key={post.id} post={post} />
-                ))}
-              </div>
+              {latestRegularPosts.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {latestRegularPosts.map((post) => (
+                    <ForumPostCard key={post.id} post={post} />
+                  ))}
+                </div>
+              ) : (
+                <div className="bg-white/80 dark:bg-garden-darkCard rounded-3xl border border-dashed border-garden-thistle dark:border-garden-darkBorder p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-soft">
+                  <div className="space-y-1">
+                    <h4 className="font-serif text-lg font-bold text-garden-darkPurple dark:text-white">
+                      Aún no hay publicaciones generales
+                    </h4>
+                    <p className="text-xs sm:text-sm text-garden-darkPurple/75 dark:text-garden-thistle/80 font-serif max-w-2xl">
+                      Las publicaciones actuales se encuentran en <strong>Publicaciones de Admin</strong>. Puedes crear una publicación general aquí dejando la Clave Admin vacía.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsNewPostModalOpen(true)}
+                    className="cursor-pointer shrink-0 inline-flex items-center gap-2 bg-garden-olive hover:bg-garden-calPoly text-white text-xs sm:text-sm font-medium px-4 py-2.5 rounded-xl shadow-sm transition-colors"
+                  >
+                    <PlusCircle className="w-4 h-4" />
+                    <span>Nueva Publicación</span>
+                  </button>
+                </div>
+              )}
             </section>
 
             {/* Home: Publicaciones de Admin Snapshot (Separated Author Section) */}
